@@ -7,7 +7,7 @@ queue_rules:
 pull_request_rules:
   - name: put bug fix to queue on approval with high priority
     conditions:
-      - "#approved-reviews-by>=2"
+      - "#approved-reviews-by>=1"
       - check-success=stonedb-build
       - label=A-bug
       
