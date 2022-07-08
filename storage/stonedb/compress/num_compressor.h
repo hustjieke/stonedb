@@ -43,7 +43,7 @@ class NumCompressorBase {
   static const uint NFILTERS = 7;
   FILE *dump;
 
-  // statistics
+  // statistics gry test
   struct Stat {
     clock_t tc, td;  // times of compression and decomp.
     void Clear() { std::memset(this, 0, sizeof(Stat)); }
