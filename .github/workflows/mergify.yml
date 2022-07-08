@@ -1,0 +1,26 @@
+queue_rules:
+  - name: shared_queue
+    conditions:
+      - "#approved-reviews-by>=2"
+      - check-success=stonedb-build
+
+pull_request_rules:
+  - name: put bug fix to queue on approval with high priority
+    conditions:
+      - "#approved-reviews-by>=2"
+      - check-success=stonedb-build
+      - label=A-bug
+      
+    actions:
+      queue:
+        name: shared_queue
+
+  - name: put other pr to queue
+    conditions:
+      - "#approved-reviews-by>=2"
+      - check-success=stonedb-build
+      - label!=A-bug
+
+    actions:
+      queue:
+        name: shared_queue
