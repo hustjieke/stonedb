@@ -47,6 +47,7 @@ class IncAlloc {
 
   uint firstsize;  // size of the first block to allocate
 
+  // gry
   // frags[s] - list of pointers to free'd fragments of size 's';
   // free'd fragments can be reused by alloc()
   static const uint MAXFRAGSIZE = 6144;
