@@ -1,7 +1,7 @@
 queue_rules:
   - name: shared_queue
     conditions:
-      - "#approved-reviews-by>=2"
+      - "#approved-reviews-by>=1"
       - check-success=stonedb-build
 
 pull_request_rules:
@@ -17,7 +17,7 @@ pull_request_rules:
 
   - name: put other pr to queue
     conditions:
-      - "#approved-reviews-by>=2"
+      - "#approved-reviews-by>=1"
       - check-success=stonedb-build
       - label!=A-bug
 
@@ -29,7 +29,7 @@ pull_request_rules:
   - name: ping author on conflicts
     conditions:
       - conflict
-      - "#approved-reviews-by >= 2"
+      - "#approved-reviews-by >= 1"
     actions:
       comment:
         message: |
