@@ -38,10 +38,6 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install cmake make perl bison libaio-dev \
-          openssl libssl-dev libncurses5-dev libreadline-dev \
-          autoconf automake libtool \
-          libreadline-dev libpam0g-dev zlib1g-dev libcurl-ocaml-dev \
-          autotools-dev libicu-dev libboost-all-dev \
           libgflags-dev libsnappy-dev libbz2-dev liblz4-dev libzstd-dev libjemalloc-dev -y
           
       - name: install libs
