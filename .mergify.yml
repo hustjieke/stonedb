@@ -1,0 +1,49 @@
+queue_rules:
+  - name: shared_queue
+    conditions:
+      - "#approved-reviews-by>=2"
+      - check-success=stonedb-build
+
+pull_request_rules:
+  - name: put bug fix to queue on approval with high priority
+    conditions:
+      - "#approved-reviews-by>=2"
+      - check-success=stonedb-build
+      - label=A-bug
+      
+    actions:
+      queue:
+        name: shared_queue
+
+  - name: put other pr to queue
+    conditions:
+      - "#approved-reviews-by>=2"
+      - check-success=stonedb-build
+      - label!=A-bug
+
+    actions:
+      queue:
+        name: shared_queue
+        
+# if there is a conflict in a approved PR, ping the author.
+  - name: ping author on conflicts
+    conditions:
+      - conflict
+      - "#approved-reviews-by >= 2"
+    actions:
+      comment:
+        message: |
+          This pull request has merge conflicts that must be resolved before it can be merged. @{{author}} please update it 🙏. 
+
+          Try `@mergify update` or update manually.
+
+  - name: Welcome new contributor
+    conditions:
+      - author!=Mergify
+    actions:
+      comment:
+        message: |
+          Thanks for the contribution!
+          I have applied any labels matching special text in your PR Changelog.
+
+          Please review the labels and make any necessary changes. 
