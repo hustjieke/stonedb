@@ -79,6 +79,7 @@ bool ha_my_tianmu_set_statement_allowed(THD *thd, LEX *lex) {
   return true;
 }
 
+// TODO(gry): 这里要加上注释，函数的方法，作用是什么，在哪里调用。
 QueryRouteTo ha_my_tianmu_query(THD *thd, LEX *lex, Query_result *&result_output, ulong setup_tables_done_option,
                                 int &res, int &is_optimize_after_tianmu, int &tianmu_free_join, int with_insert) {
   QueryRouteTo ret = QueryRouteTo::kToTianmu;
