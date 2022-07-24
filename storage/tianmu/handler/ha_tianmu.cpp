@@ -792,6 +792,7 @@ int ha_tianmu::open(const char *name, [[maybe_unused]] int mode, [[maybe_unused]
     thr_lock_data_init(&share_->thr_lock, &lock_, nullptr);
     share_->thr_lock.check_status = tianmu_check_status;
     // have primary key, use table index
+    // gry:  为什么是 !=, 而不是小于?
     if (table->s->primary_key != MAX_INDEXES)
       ha_tianmu_engine_->AddTableIndex(name, table, ha_thd());
     ha_tianmu_engine_->AddMemTable(table, share_);

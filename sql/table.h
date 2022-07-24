@@ -659,6 +659,7 @@ struct TABLE_SHARE
   uint stored_fields;                   /* Number of stored fields 
                                            (i.e. without generated-only ones) */
   uint rec_buff_length;                 /* Size of table->record[] buffer */
+  // gry:索引的个数，比如，1个主键+2个unique+2个普通key，keys = 5
   uint keys;                            /* Number of keys defined for the table*/
   uint key_parts;                       /* Number of key parts of all keys
                                            defined for the table
@@ -675,6 +676,7 @@ struct TABLE_SHARE
   uint db_record_offset;		/* if HA_REC_IN_SEQ */
   uint rowid_field_offset;		/* Field_nr +1 to rowid field */
   /* Primary key index number, used in TABLE::key_info[] */
+  // gry: 如果没有主键， primary_key=MAX_INDEXES=64
   uint primary_key;                     
   uint next_number_index;               /* autoincrement key number */
   uint next_number_key_offset;          /* autoinc keypart offset in a key */
