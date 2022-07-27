@@ -17,7 +17,7 @@ CREATE TABLE t_test(
   score INT NOT NULL,
   copy_id INT NOT NULL,
   PRIMARY KEY (`id`)
-) engine=STONEDB;
+) engine=Tianmu;
 ```
 
 2. Execute the following SQL statement to create the stored procedure:

@@ -1,5 +1,5 @@
 use test;
-create table timetest (val timestamp) ENGINE=STONEDB;
+create table timetest (val timestamp) ENGINE=Tianmu;
 insert into timetest values ('2010-02-22 18:35:23');
 select val not between '2010-02-22 18:35:23' and '2015-11-23 08:02:45' from (select * from timetest) as A;
 val not between '2010-02-22 18:35:23' and '2015-11-23 08:02:45'

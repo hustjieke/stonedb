@@ -346,12 +346,12 @@ TODO list:
 #include <m_ctype.h>
 #include <my_dir.h>
 #include <hash.h>
-//STONEDB UPGRADE BEGIN
-//#ifdef WITH_MYISAMMRG_STORAGE_ENGINE
+// Tianmu UPGRADE BEGIN
+// #ifdef WITH_MYISAMMRG_STORAGE_ENGINE
 #include "../storage/myisammrg/ha_myisammrg.h"
 #include "../storage/myisammrg/myrg_def.h"
-//#endif
-//END
+// #endif
+// END
 #include "probes_mysql.h"
 #include "transaction.h"
 

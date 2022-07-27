@@ -394,13 +394,13 @@ public:
   {
     init_aggregator();
   }
-  //STONEDB UPGRADE
+  // Tianmu UPGRADE
   Item_sum() :next(NULL), quick_group(1), arg_count(0), forced_const(FALSE)
   {
 	  mark_as_sum_func();
 	  init_aggregator();
   }
-  //END
+  // END
 
   Item_sum(Item *a) :next(NULL), quick_group(1), arg_count(1), args(tmp_args),
    forced_const(FALSE)
@@ -718,9 +718,9 @@ public:
   Item_sum_num(const POS &pos, PT_item_list *list) 
     :Item_sum(pos, list), is_evaluated(FALSE)
   {}
-  //STONEDB UPGRADE
+  // Tianmu UPGRADE
   Item_sum_num() :Item_sum(),is_evaluated(FALSE) {}
-  //END
+  // END
 
   Item_sum_num(THD *thd, Item_sum_num *item) 
     :Item_sum(thd, item),is_evaluated(item->is_evaluated) {}

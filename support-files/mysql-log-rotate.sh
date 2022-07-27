@@ -19,7 +19,7 @@
 # ATTENTION: The /root/.my.cnf file should be readable
 # _ONLY_ by root !
 
-@prefix@/log/stonedb.log {
+@prefix@/log/Tianmu.log {
         # create 600 mysql mysql
         notifempty
         daily
@@ -37,7 +37,7 @@
 	fi
     endscript
 }
-#STONEDB UPGRADE BEGIN
+#Tianmu UPGRADE BEGIN
 @prefix@/log/query.log {
         notifempty
         daily

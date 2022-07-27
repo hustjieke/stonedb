@@ -1,5 +1,5 @@
 use test;
-create table tt(val int) ENGINE=STONEDB;
+create table tt(val int) ENGINE=Tianmu;
 insert into tt values (12);
 select * from tt where null in (null);
 select * from tt where null not in (null);

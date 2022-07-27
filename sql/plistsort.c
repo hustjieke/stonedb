@@ -107,9 +107,9 @@ recursion_point:
 return_point0:
   sp->list1= sorted_list;
   {
-    //STONEDB UPGRADE BEGIN
+    // Tianmu UPGRADE BEGIN
     register struct LS_STRUCT_NAME *sp0= sp++;
-    //END
+    // END
     list= list_end;
     sp->list_len= sp0->list_len;
     sp->return_point= 1;
@@ -117,11 +117,11 @@ return_point0:
   goto recursion_point;
 return_point1:
   {
-    //STONEDB UPGRADE BEGIN
+    // Tianmu UPGRADE BEGIN
     register LS_LIST_ITEM **hook= &sorted_list;
     register LS_LIST_ITEM *list1= sp->list1;
     register LS_LIST_ITEM *list2= sorted_list;
-    //END
+    // END
     if (LS_COMPARE_FUNC_CALL(list1, list2))
     {
       LS_LIST_ITEM *tmp_e= list2;

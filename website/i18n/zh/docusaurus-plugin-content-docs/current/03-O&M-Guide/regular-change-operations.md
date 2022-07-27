@@ -15,7 +15,7 @@ CREATE TABLE t_name(
   col2 VARCHAR(10) NOT NULL,
   ......
   PRIMARY KEY (`id`)
-) engine=STONEDB;
+) engine=Tianmu;
 ```
 2）创建一张与t_name结构相同的表t_other
 使用 Create table like 语句

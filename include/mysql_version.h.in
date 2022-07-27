@@ -9,7 +9,7 @@
 #define _mysql_version_h
 
 #define PROTOCOL_VERSION            @PROTOCOL_VERSION@
-#define MYSQL_SERVER_VERSION		"@VERSION@-StoneDB"
+#define MYSQL_SERVER_VERSION		"@VERSION@-"
 #define MYSQL_BASE_VERSION		"stonedb-@MYSQL_BASE_VERSION@"
 #define MYSQL_SERVER_SUFFIX_DEF    "@MYSQL_SERVER_SUFFIX@"
 #define FRM_VER                     @DOT_FRM_VERSION@

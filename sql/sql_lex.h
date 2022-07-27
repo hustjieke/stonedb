@@ -147,7 +147,7 @@ enum keytype {
 
 enum enum_ha_read_modes { RFIRST, RNEXT, RPREV, RLAST, RKEY, RNEXT_SAME };
 
-enum enum_filetype { FILETYPE_CSV, FILETYPE_XML,FILETYPE_MEM };//STONEDB UPGRADE
+enum enum_filetype { FILETYPE_CSV, FILETYPE_XML,FILETYPE_MEM };// Tianmu UPGRADE
 
 enum fk_match_opt { FK_MATCH_UNDEF, FK_MATCH_FULL,
                     FK_MATCH_PARTIAL, FK_MATCH_SIMPLE};
@@ -533,8 +533,8 @@ class st_select_lex_unit: public Sql_alloc
   SELECT_LEX *master;
   /// The first query block in this query expression.
   SELECT_LEX *slave;
-  ulonglong found_rows_for_union;//STONEDB UPGRADE
-  bool saved_error;  //STONEDB UPGRADE
+  ulonglong found_rows_for_union; // Tianmu UPGRADE
+  bool saved_error; // Tianmu UPGRADE
 private:
   /**
     Marker for subqueries in WHERE, HAVING, ORDER BY, GROUP BY and
@@ -655,10 +655,10 @@ public:
   bool prepare(THD *thd, Query_result *result, ulonglong added_options,
                ulonglong removed_options);
   bool optimize(THD *thd);
-  //STONEDB UPGRADE END
-  int optimize_for_stonedb();
-  int optimize_after_stonedb();
-  //END
+  // Tianmu UPGRADE END
+  int optimize_for_tianmu();
+  int optimize_after_tianmu();
+  // END
   bool execute(THD *thd);
   bool explain(THD *ethd);
   bool cleanup(bool full);

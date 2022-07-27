@@ -66,7 +66,7 @@ const char *globerrs[GLOBERRS]=
   "Can't change permissions of the file '%s' (Errcode: %d - %s)",
   "Can't seek in file '%s' (Errcode: %d - %s)",
   "Memory capacity exceeded (capacity %llu bytes)"
-  "Unsupport statement for stonedb,only support drop last column"
+  "Unsupport statement for Tianmu,only support drop last column"
 };
 
 

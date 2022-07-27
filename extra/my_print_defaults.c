@@ -38,7 +38,7 @@
 #include <welcome_copyright_notice.h> /* ORACLE_WELCOME_COPYRIGHT_NOTICE */
 
 
-const char *config_file="stonedb";		/* Default config file */
+const char *config_file="Tianmu";		/* Default config file */
 static char *my_login_path;
 static my_bool *show_passwords;
 uint verbose= 0, opt_defaults_file_used= 0;

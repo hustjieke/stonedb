@@ -497,7 +497,7 @@ ulong binlog_cache_use= 0, binlog_cache_disk_use= 0;
 ulong binlog_stmt_cache_use= 0, binlog_stmt_cache_disk_use= 0;
 ulong max_connections, max_connect_errors;
 ulong rpl_stop_slave_timeout= LONG_TIMEOUT;
-ulong stonedb_group_concat_max_len = 1024;
+ulong tianmu_group_concat_max_len = 1024;
 my_bool log_bin_use_v1_row_events= 0;
 bool thread_cache_size_specified= false;
 bool host_cache_size_specified= false;
@@ -525,7 +525,7 @@ ulong current_pid;
 uint sync_binlog_period= 0, sync_relaylog_period= 0,
      sync_relayloginfo_period= 0, sync_masterinfo_period= 0,
      opt_mts_checkpoint_period, opt_mts_checkpoint_group;
-#if defined(STONEDB)
+#if defined(TIANMU)
 double expire_logs_days = 0;
 #else
 ulong expire_logs_days = 0;
@@ -863,13 +863,13 @@ static char shutdown_event_name[40];
 static   NTService  Service;        ///< Service object for WinNT
 #endif /* EMBEDDED_LIBRARY */
 #endif /* _WIN32 */
-//STONEDB UPGRADE BEGIN
+// Tianmu UPGRADE BEGIN
 #ifndef _WIN32
 #if !defined(EMBEDDED_LIBRARY)
 static mysql_mutex_t LOCK_handler_count;
 #endif
 #endif
-//END
+// END
 #ifndef EMBEDDED_LIBRARY
 bool mysqld_embedded=0;
 #else
@@ -928,7 +928,7 @@ static void delete_pid_file(myf flags);
 /****************************************************************************
 ** Code to end mysqld
 ****************************************************************************/
-//STONEDB UPGRADE BEGIN
+// Tianmu UPGRADE BEGIN
 static std::set<CALLBACK_KILLTHREAD> _threadcb;
 
 int registeClose(CALLBACK_KILLTHREAD cb){
@@ -952,7 +952,7 @@ int closebycallback(){
     _threadcb.clear();
     return 0;
 }
-//END
+// END
 /**
   This class implements callback function used by close_connections()
   to set KILL_CONNECTION flag on all thds in thd list.
@@ -1528,7 +1528,7 @@ static void set_ports()
 
 #if MYSQL_PORT_DEFAULT == 0
     struct  servent *serv_ptr;
-    /* TODO: should we create a stonedb entry in /etc/services? */
+    /* TODO: should we create a tianmu entry in /etc/services? */
     if ((serv_ptr= getservbyname("mysql", "tcp")))
       mysqld_port= ntohs((u_short) serv_ptr->s_port); /* purecov: inspected */
 #endif
@@ -2813,7 +2813,7 @@ int init_common_variables()
     be MyISAM)
   */
 
-  default_storage_engine= const_cast<char *>("stonedb");
+  default_storage_engine= const_cast<char *>("Tianmu");
 
   default_tmp_storage_engine= const_cast<char *>("InnoDB");
 
@@ -4348,7 +4348,7 @@ a file name for --log-bin-index option", opt_binlog_index_name);
 #endif
     locked_in_memory=0;
 
-//STONEDB UPGRADE BEGIN
+// Tianmu UPGRADE BEGIN
 #ifdef PR_SET_DUMPABLE
   if (test_flags & TEST_CORE_ON_SIGNAL)
   {
@@ -4965,8 +4965,8 @@ int mysqld_main(int argc, char **argv)
 
 #ifdef HAVE_REPLICATION
 
-//STONEDB UPGRADE
-#if defined(STONEDB)
+// Tianmu UPGRADE
+#if defined(TIANMU)
     if (opt_bin_log && (expire_logs_days >= 0.1))
 #else
     if (opt_bin_log && expire_logs_days)
@@ -5751,13 +5751,13 @@ struct my_option my_long_early_options[]=
    "Port number to use for connection.",
    &opt_keyring_migration_port, &opt_keyring_migration_port,
    0, GET_ULONG, REQUIRED_ARG, 0, 0, 0, 0, 0, 0},
-//STONEDB UPGRADE BEGIN
-#if defined(STONEDB)
-  {"stonedb-data-dir", OPT_STONEDB_DATA_DIRECTORY,
-   "Specifies a directory to add to the stonedb data storage.",
+// Tianmu UPGRADE BEGIN
+#if defined(TIANMU)
+  {"tianmu-data-dir", OPT_TIANMU_DATA_DIRECTORY,
+   "Specifies a directory to add to the Tianmu data storage.",
    0, 0, 0, GET_STR, REQUIRED_ARG, 0, 0, 0, 0, 0, 0},
 #endif
-//END
+// END
   { 0, 0, 0, 0, 0, 0, GET_NO_ARG, NO_ARG, 0, 0, 0, 0, 0, 0 }
 
 };
@@ -7041,7 +7041,7 @@ static void print_version(void)
   printf("%s  Ver %s for %s on %s (%s)\n",my_progname,
    server_version,SYSTEM_TYPE,MACHINE_TYPE, MYSQL_COMPILATION_COMMENT);
 }
-//STONEDB UPGRADE BEGIN
+// Tianmu UPGRADE BEGIN
 static void print_build_info(void)
 {
   printf("build information as follow: \n");
@@ -7051,7 +7051,7 @@ static void print_build_info(void)
   printf("\tLast commit time: %s\n", STONEDB_COMMIT_TIME);
   printf("\tBuild time: %s\n", STONEDB_BUILD_TIME);
 }
-//END
+// END
 
 /** Compares two options' names, treats - and _ the same */
 static bool operator<(const my_option &a, const my_option &b)
@@ -7408,9 +7408,9 @@ mysqld_get_one_option(int optid,
 #ifndef EMBEDDED_LIBRARY
   case 'V':
     print_version();
-    //STONEDB UPGRADE BEGIN
+    //  UPGRADE BEGIN
     print_build_info();
-    //END
+    // END
     exit(MYSQLD_SUCCESS_EXIT);
 #endif /*EMBEDDED_LIBRARY*/
   case 'W':
@@ -7753,14 +7753,14 @@ pfs_error:
   case OPT_SHOW_OLD_TEMPORALS:
     push_deprecated_warn_no_replacement(NULL, "show_old_temporals");
     break;
-//STONEDB UPGRADE BEGIN
-#if defined(STONEDB)
-  case OPT_STONEDB_DATA_DIRECTORY:
-    extern int stonedb_push_data_dir(const char*);
-    if (stonedb_push_data_dir(argument))
+// Tianmu UPGRADE BEGIN
+#if defined(TIANMU)
+  case OPT_TIANMU_DATA_DIRECTORY:
+    extern int tianmu_push_data_dir(const char*);
+    if (tianmu_push_data_dir(argument))
     {
       sql_print_error("Can't start server: "
-                      "cannot process --stonedb-data-dir=%.*s",
+                      "cannot process --Tianmu-data-dir=%.*s",
                       FN_REFLEN, argument);
       return 1;
     }

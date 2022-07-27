@@ -19,7 +19,7 @@ CREATE TABLE t_name(
   col2 VARCHAR(10) NOT NULL,
   ......
   PRIMARY KEY (`id`)
-) engine=STONEDB;
+) engine=;
 ```
 
 2. Execute a `CREATE TABLE... LIKE `statement to create another table that uses the same schema as the table created in the step 1. 

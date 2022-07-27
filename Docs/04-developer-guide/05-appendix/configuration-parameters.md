@@ -55,12 +55,12 @@ mysql> show variables like 'default_storage_engine';
 +------------------------+---------+
 | Variable_name          | Value   |
 +------------------------+---------+
-| default_storage_engine | STONEDB |
+| default_storage_engine | Tianmu |
 +------------------------+---------+
 1 row in set (0.00 sec)
 ```
 
-The default storage engine of the database is modified from **MyISAM** to **STONEDB** at a global level.
+The default storage engine of the database is modified from **MyISAM** to **Tianmu** at a global level.
 
 Code example of restarting the StoneDB instance:
 

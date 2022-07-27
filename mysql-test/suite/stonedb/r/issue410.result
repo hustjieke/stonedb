@@ -1,5 +1,5 @@
 use test;
-create table tlike (val varchar(255)) ENGINE=STONEDB;
+create table tlike (val varchar(255)) ENGINE=Tianmu;
 insert into tlike values ('abcde');
 select * from tlike where val like NULL;
 val

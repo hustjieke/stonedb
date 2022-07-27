@@ -44,7 +44,7 @@ column_type_test	CREATE TABLE `column_type_test` (
   `c_blob` blob COMMENT 'blob',
   `c_text` text COMMENT 'text',
   `c_longblob` longblob COMMENT 'longblob'
-) ENGINE=STONEDB DEFAULT CHARSET=utf8
+) ENGINE=Tianmu DEFAULT CHARSET=utf8
 load data infile '../../std_data/stonedb/bigdata4load' into table column_type_test fields terminated by '|';
 select count(*) from column_type_test;
 count(*)

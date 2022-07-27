@@ -32,7 +32,7 @@ CREATE TABLE t_user(
   score INT NOT NULL,
   copy_id INT NOT NULL,
   PRIMARY KEY (`id`)
-) engine=STONEDB;
+) engine=Tianmu;
 ```
 ### 4) 创建存储过程
 执行以下 SQL 语句创建存储过程
@@ -98,7 +98,7 @@ Query OK, 1 row affected (9 min 21.14 sec)
 +--------------+---------------+------------+-------------+--------------+------------+---------+
 | table_schema | table_name    | table_rows | data_length | index_length | total_size | engine  |
 +--------------+---------------+------------+-------------+--------------+------------+---------+
-| test         | t_user        |   10000000 | 119.99M     | 0.00M        | 119.99M    | STONEDB |
+| test         | t_user        |   10000000 | 119.99M     | 0.00M        | 119.99M    | Tianmu |
 | test         | t_user_innodb |    9995867 | 454.91M     | 0.00M        | 454.91M    | InnoDB  |
 +--------------+---------------+------------+-------------+--------------+------------+---------+
 ```

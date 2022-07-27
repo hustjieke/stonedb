@@ -18,7 +18,7 @@ CREATE TABLE t_test(
   score INT NOT NULL,
   copy_id INT NOT NULL,
   PRIMARY KEY (`id`)
-) engine=STONEDB;
+) engine=Tianmu;
 ```
 
 ## INSERT

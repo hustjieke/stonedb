@@ -584,11 +584,11 @@ typedef char		my_bool; /* Small bool */
 /* Macros for converting *constants* to the right type */
 #define MYF(v)		(myf) (v)
 
-//STONEDB UPGRADE
+// Tianmu UPGRADE
 #ifndef USING_X
 #define reg1 register
 #endif
-//END
+// END
 /* Some helper macros */
 #define YESNO(X) ((X) ? "yes" : "no")
 

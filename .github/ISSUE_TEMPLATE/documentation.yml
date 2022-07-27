@@ -16,7 +16,7 @@ body:
 
         We seldom close documentation pull requests unmerged. If your documentation request is:
 
-        - Relevant to a significant proportion of StoneDB users;
+        - Relevant to a significant proportion of  users;
         - Not documented elsewhere (or, if it is documented, the mention is in very undiscoverable places).
 
   - type: checkboxes

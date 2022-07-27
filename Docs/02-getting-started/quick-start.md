@@ -43,7 +43,7 @@ CREATE TABLE t_user(
   score INT NOT NULL,
   copy_id INT NOT NULL,
   PRIMARY KEY (`id`)
-) engine=STONEDB;
+) engine=Tianmu;
 ```
 
 ### 4. Create a stored procedure
@@ -116,7 +116,7 @@ Compress the inserted data.
 +--------------+---------------+------------+-------------+--------------+------------+---------+
 | table_schema | table_name    | table_rows | data_length | index_length | total_size | engine  |
 +--------------+---------------+------------+-------------+--------------+------------+---------+
-| test         | t_user        |   10000000 | 119.99M     | 0.00M        | 119.99M    | STONEDB |
+| test         | t_user        |   10000000 | 119.99M     | 0.00M        | 119.99M    | Tianmu |
 | test         | t_user_innodb |    9995867 | 454.91M     | 0.00M        | 454.91M    | InnoDB  |
 +--------------+---------------+------------+-------------+--------------+------------+---------+
 ```

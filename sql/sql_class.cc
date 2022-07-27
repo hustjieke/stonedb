@@ -1251,9 +1251,9 @@ THD::THD(bool enable_plugins)
 
   timer= NULL;
   timer_cache= NULL;
-  //STONEDB UPGRADE BEGIN
+  // Tianmu UPGRADE BEGIN
   //rplContextPtr = NULL;
-  //END
+  // END
   m_token_array= NULL;
   if (max_digest_length > 0)
   {
