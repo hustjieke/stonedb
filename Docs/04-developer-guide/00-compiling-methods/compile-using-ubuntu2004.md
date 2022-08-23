@@ -15,6 +15,8 @@ Ensure that the tools and third-party libraries used in your environment meet th
 - marisa 0.77
 - RocksDB 6.12.6
 - Boost 1.66
+- gtest
+
 ## Procedure
 ### Step 1. Install the dependencies
 
@@ -103,7 +105,7 @@ The installation directory of marisa in the example is** /usr/local/stonedb-mari
 
 ![marisa](.../../../../images/compile-stonedb-on-ubuntu2004/marisa_dir.png)
 
-1. Install RocksDB.
+4. Install RocksDB.
 ```shell
 wget https://github.com/facebook/rocksdb/archive/refs/tags/v6.12.6.tar.gz 
 tar -zxvf v6.12.6.tar.gz
@@ -132,7 +134,7 @@ The installation directory of RocksDB in the example is **/usr/local/stonedb-gcc
 
 ![rocksdb](../../images/compile-stonedb-on-ubuntu2004/rocks_dir.png)
 
-1. Install Boost.
+5. Install Boost.
 ```shell
 wget https://sourceforge.net/projects/boost/files/boost/1.66.0/boost_1_66_0.tar.gz
 tar -zxvf boost_1_66_0.tar.gz
@@ -143,6 +145,25 @@ cd boost_1_66_0
 The installation directory of Boost in the example is **/usr/local/stonedb-boost**. You can change it based on your actual conditions. In this step, the following directories and files are generated in **/usr/local/stonedb-boost/lib**.
 
 ![boost](../../images/compile-stonedb-on-ubuntu2004/boost_dir.png)
+
+6. Install gtest.
+```
+$ sudo git clone https://github.com/google/googletest.git -b release-1.12.0
+$ cd googletest
+$ sudo mkdir build
+$ cd build
+$ sudo cmake .. -DBUILD_GMOCK=OFF
+$ sudo make
+$ sudo make install    # Install in /usr/local/ by default
+```
+
+Install in /usr/local/ by default.
+```
+$ ls /usr/local/include/
+gtest
+$ ls /usr/local/lib/
+cmake  libgtest.a  libgtest_main.a  pkgconfig  python3.8
+```
 
 :::info
 During the compilation, the occurrences of keywords **warning** and** failed** are normal, unless **error** is displayed and the CLI is automatically closed.
@@ -236,7 +257,7 @@ Differences between **reinstall.sh** and **install.sh**:
 ```shell
 /stonedb56/install/bin/mysql -uroot -p -S /stonedb56/install/tmp/mysql.sock
 Enter password: 
-Welcome to the MySQL monitor.  Commands end with ; or \g.
+Welcome to the MySQL monitor. Commands end with ; or \g.
 Your MySQL connection id is 2
 Server version: 5.6.24-StoneDB-debug build-
 
