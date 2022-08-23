@@ -98,6 +98,8 @@ jobs:
 
       - name: run gtest
         run: |
+          ls
+          pwd
           cd storage/tianmu/unittest/
           sudo ./testgmock
 
