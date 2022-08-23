@@ -57,7 +57,6 @@ jobs:
           sudo cp -r stonedb-boost /usr/local/stonedb-boost
           sudo cp -r stonedb-gcc-rocksdb /usr/local/stonedb-gcc-rocksdb
           sudo cp -r stonedb-marisa /usr/local/stonedb-marisa
-          cd ..
 
       - name: install gtest
         run: |
@@ -68,7 +67,6 @@ jobs:
           sudo cmake .. -DBUILD_GMOCK=OFF # Generate native build scripts for GoogleTest.
           sudo make
           sudo make install    # Install in /usr/local/ by default
-          cd ../..
 
       - name: compile stonedb
         run: |
@@ -100,7 +98,7 @@ jobs:
         run: |
           ls
           pwd
-          cd storage/tianmu/unittest/
+          cd build/storage/tianmu/unittest/
           sudo ./testgmock
 
       - name: mtr test
