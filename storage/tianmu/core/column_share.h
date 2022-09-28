@@ -33,13 +33,13 @@ class TableShare;
 
 struct COL_META {
   uint32_t magic;
-  uint32_t ver;             // file version
-  uint8_t pss;              // pack size shift
-  common::ColumnType type;  // type
-  common::PackFmt fmt;      // data format: LZ4, snappy, lookup, raw, etc
-  uint8_t flag;
-  uint32_t precision;
-  uint32_t scale;
+  uint32_t ver;         // file version
+  uint8_t pss;          // pack size shift  gry: 由table_share 的 pss 传入，可以搜初始化 COL_META 的地方。
+  common::CT type;      // type
+  common::PackFmt fmt;  // data format: LZ4, snappy, lookup, raw, etc
+  uint8_t flag;  // gry(TODO) isnull flag??
+  uint32_t precision;  // gry: decimal 用
+  uint32_t scale;  // gry: decimal 用
 };
 
 struct alignas(128) COL_VER_HDR_V3 {

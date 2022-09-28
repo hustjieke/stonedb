@@ -1066,6 +1066,7 @@ QueryRouteTo Query::Compile(CompiledQuery *compiled_query, SELECT_LEX *selects_l
     Item *cond_to_reinsert = nullptr;
     List<Item> *list_to_reinsert = nullptr;
 
+    // gry: TODO tmp_table_id;
     TabID tmp_table;
     try {
       // partial optimization of LOJ conditions, JOIN::optimize(part=3)

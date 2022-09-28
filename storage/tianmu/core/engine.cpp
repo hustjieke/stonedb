@@ -1578,6 +1578,7 @@ bool Engine::IsTIANMURoute(THD *thd, TABLE_LIST *table_list, SELECT_LEX *selects
     return false;
 
   bool has_TIANMUTable = false;
+  // gry: 这里我看明白了，TABLE_LIST，有可能来自不同的存储引擎 plugin，所有要判断是不是 tianmu 表。
   for (TABLE_LIST *tl = table_list; tl; tl = tl->next_global) {  // SZN:we go through tables
     if (!tl->is_view_or_derived() && !tl->is_view()) {
       // In this list we have all views, derived tables and their
@@ -1589,9 +1590,11 @@ bool Engine::IsTIANMURoute(THD *thd, TABLE_LIST *table_list, SELECT_LEX *selects
         has_TIANMUTable = true;
     }
   }
+  // gry:确认一下，这里返回还需要到 innodb 执行么？还是直接返回？
   if (!has_TIANMUTable)  // No Tianmu table is involved. Return to MySQL.
     return false;
 
+  // gry: 这往后我感觉是跟 dump 相关的功能？如果是，就要拆分代码逻辑，耦合了。
   // then we check the parameter of file format.
   // if it is MYSQL_format AND we write to a file, it is a MYSQL route.
   int is_dump;
@@ -1626,6 +1629,7 @@ bool Engine::IsTIANMURoute(THD *thd, TABLE_LIST *table_list, SELECT_LEX *selects
   return true;
 }
 
+// gry:我觉得这个没有弄的太明白，判断单例是否 rcbase_hton?
 bool Engine::IsTianmuTable(TABLE *table) {
   return table && table->s->db_type() == tianmu_hton;  // table->db_type is always nullptr
 }

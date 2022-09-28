@@ -41,16 +41,20 @@ class ColumnShare;
 
 class PackInt final : public Pack {
  public:
+  // gry:PackCoordinate 全局唯一表示 pack
   PackInt(DPN *dpn, PackCoordinate pc, ColumnShare *s);
   ~PackInt();
 
   // overrides
   std::unique_ptr<Pack> Clone(const PackCoordinate &pc) const override;
+  // gry: 
   void LoadDataFromFile(system::Stream *fcurfile) override;
+  // gry: 真实写，确定一下是否 flush 操作
   void Save() override;
   void UpdateValue(size_t locationInPack, const Value &v) override;
   void DeleteByRow(size_t locationInPack) override;
 
+  // gry: 写数据,  把vc写到 pack
   void LoadValues(const loader::ValueCache *vc, const std::optional<common::double_int_t> &null_value);
   int64_t GetValInt(int locationInPack) const override { return data_[locationInPack]; }
   double GetValDouble(int locationInPack) const override {

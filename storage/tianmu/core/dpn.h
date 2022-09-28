@@ -34,6 +34,7 @@ constexpr uint64_t max_ref_counter = 1UL << 63;
 // Data Pack Node. Same layout on disk and in memory
 struct DPN final {
  public:
+  // gry: c++ 新特性，设置标志位
   uint8_t used : 1;    // occupied or not
   uint8_t local : 1;   // owned by a write transaction, thus to-be-commit
   uint8_t synced : 1;  // if the pack data in memory is up to date with the
@@ -55,6 +56,7 @@ struct DPN final {
 
   common::TX_ID xmin;  // creation trx id
   common::TX_ID xmax;  // delete trx id
+  // gry: decimal 这里也要添加统计值
   union {
     int64_t min_i;
     double min_d;
@@ -75,6 +77,7 @@ struct DPN final {
   // a tagged pointer, 16 bits as ref count.
   // Only read-only dpn uses it for ref counting; local dpn is managed only by
   // one write session
+  // gry: 保存 pack 真实的指针, pack 还是 dpn ptr?
   std::atomic_ulong tagged_ptr;
 
  public:
@@ -86,8 +89,10 @@ struct DPN final {
     when there are deleted records in the pack,
     the package must be stored persistently.
   */
+  // gry(TODO): 单词意思是琐碎的，但是这里的含义？
   bool Trivial() const { return (Uniform() || NullOnly()) && numOfDeleted == 0; }
   bool NotTrivial() const { return !Trivial(); }
+  // gry: 统一的，均匀，这里意思是所有值都一致
   bool Uniform() const {
     return numOfNulls == 0 && min_i == max_i;
   }  // for packN, all records are the same and not null
@@ -97,6 +102,7 @@ struct DPN final {
 
   bool IncRef() {
     auto v = tagged_ptr.load();
+    // gry: TODO 这里提取出来的不是指针嘛？是数字？ loading_flag 名称要更明确写，load 到哪？内存？还是从外部文件 load 到 数据库？
     while (v != 0 && v != loading_flag)
       if (tagged_ptr.compare_exchange_weak(v, v + tag_one))
         return true;
@@ -110,6 +116,7 @@ struct DPN final {
     std::memcpy(this, &dpn, sizeof(DPN));
     return *this;
   }
+  // gry(TODO): 为什么不内联呢？
   void reset() { std::memset(this, 0, sizeof(DPN)); }
 };
 

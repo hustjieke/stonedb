@@ -70,6 +70,7 @@ class TraceableObject {
   TraceableObject(const TraceableObject &to);
   virtual ~TraceableObject();
 
+  // gry: 用来获取内存申请对象的种类
   virtual TO_TYPE TraceableType() const = 0;
 
   void Lock();

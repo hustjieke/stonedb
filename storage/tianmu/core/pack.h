@@ -34,14 +34,15 @@ class Value;
 
 // table of modes:
 //  0 - trivial data: all values are derivable from the statistics, or nulls
-//  only,
-//      the pack physically doesn't exist, only statistics
+//  only, the pack physically doesn't exist, only statistics
 //  1 - unloaded (on disc)
 //  2 - loaded to memory
 //  3 - no data yet, empty pack
 
 class Pack : public mm::TraceableObject {
  public:
+  // gry: 1. defaulted 函数特性仅用于类的特殊成员函数，且该特殊成员函数没有默认参数
+  // gry: 2. 减轻程序员的编程工作量 2.函数执行效率
   virtual ~Pack() = default;
 
   mm::TO_TYPE TraceableType() const override { return mm::TO_TYPE::TO_PACK; }
@@ -100,6 +101,7 @@ class Pack : public mm::TraceableObject {
       for (uint i = 0; i < dpn_->numOfNulls; i++) SetNull(i);
     }
   }
+  // gry: 卧槽，这里的 m_coord 竟然是 traceble 的，太尼玛骚了 ...
   PackCoordinate GetPackCoordinate() const { return m_coord.co.pack; }
   void SetDPN(DPN *new_dpn) { dpn_ = new_dpn; }
 
@@ -146,8 +148,11 @@ class Pack : public mm::TraceableObject {
   void ResetModeDeletesCompressed() { dpn_->delete_compressed = 0; }
 
  protected:
+  // gry: 相当于每个 session table --> tableshare 的关系
+  // gry: rc_attr 也是常驻, 存了一些列数据索引, 给查询用
   ColumnShare *col_share_ = nullptr;
   size_t bitmap_size_;
+  // gry(TODO): 虽然论文里面提的是数据包节点，但是我认为叫 pack metadata 更合适, 跟我们 2.0 一样.
   DPN *dpn_ = nullptr;
 
   /*

@@ -66,7 +66,7 @@ class CompiledQuery final {
     TabID t3;
     AttrID a1, a2;
     CondID c1, c2, c3;
-    CQTerm e1, e2, e3;
+    CQTerm e1, e2, e3;  // gry:mysql item 转换过来的
     common::Operator op;  // predicate: common::Operator::O_EQ, common::Operator::O_LESS etc.
     common::ExtraOperation ex_op;
     TMParameter tmpar;  // Table Mode Parameter

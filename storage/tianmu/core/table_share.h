@@ -35,7 +35,7 @@ struct TABLE_META {
   uint64_t magic = common::FILE_MAGIC;
   uint32_t ver = common::TABLE_DATA_VERSION;
   uint32_t id;
-  uint32_t pss = 16;
+  uint32_t pss = 16;  // gry: 2 的 16 次方, 65536
 };
 
 class TableShare final {

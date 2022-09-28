@@ -84,18 +84,25 @@ QueryRouteTo Engine::HandleSelect(THD *thd, LEX *lex, Query_result *&result, ulo
   int in_case_of_failure_can_go_to_mysql;
 
   is_optimize_after_tianmu = FALSE;
+  // gry: do the cleanup ??
   tianmu_free_join = 0;
 
+  // gry: select + union
   SELECT_LEX_UNIT *unit = nullptr;
+  // gry: lex + ast
   SELECT_LEX *select_lex = nullptr;
+  // gry: 结果集输出
   Query_result_export *se = nullptr;
 
+  // gry: 这个系统变量的意义是什么？如果没有 pushdown 会发生什么?给 thd 里面的优化变量赋值,mysql肯定有解释!
+  // variables.optimizer_switch: /* A bitmap for switching optimizations on/off */
   if (tianmu_sysvar_pushdown)
     thd->variables.optimizer_switch |= OPTIMIZER_SWITCH_ENGINE_CONDITION_PUSHDOWN;
   if (!IsTIANMURoute(thd, lex->query_tables, lex->select_lex, in_case_of_failure_can_go_to_mysql, with_insert)) {
     return QueryRouteTo::kToMySQL;
   }
 
+  // gry: TODO 这个锁表，会阻塞写么？还是共享锁?
   if (lock_tables(thd, thd->lex->query_tables, thd->lex->table_count, 0)) {
     TIANMU_LOG(LogCtl_Level::ERROR, "Failed to lock tables for query '%s'", thd->query().str);
     return QueryRouteTo::kToTianmu;
@@ -104,6 +111,8 @@ QueryRouteTo Engine::HandleSelect(THD *thd, LEX *lex, Query_result *&result, ulo
     Only register query in cache if it tables were locked above.
     Tables must be locked before storing the query in the query cache.
   */
+  // gry: 这个cache 在 MySQL 中的作用是什么呢?
+  // gry: key: sql, value: 结果集？缓存命中低？
   query_cache.store_query(thd, thd->lex->query_tables);
 
   tianmu_stat.select++;
@@ -113,6 +122,7 @@ QueryRouteTo Engine::HandleSelect(THD *thd, LEX *lex, Query_result *&result, ulo
   // one of TIANMU formats
   QueryRouteTo route = QueryRouteTo::kToTianmu;
   SELECT_LEX *save_current_select = lex->current_select();
+  // gry: select ast? derived table:  e.g.: from 后面的 expression 生成的表，比如 subquery.
   List<st_select_lex_unit> derived_optimized;  // collection to remember derived
                                                // tables that are optimized
   if (thd->fill_derived_tables() && lex->derived_tables) {
@@ -165,6 +175,7 @@ QueryRouteTo Engine::HandleSelect(THD *thd, LEX *lex, Query_result *&result, ulo
   }
 
   se = dynamic_cast<Query_result_export *>(result);
+  // gry: 发送数据到 client
   if (se != nullptr)
     result = new exporter::select_tianmu_export(se);
   // prepare, optimize and execute the main query
@@ -227,6 +238,7 @@ QueryRouteTo Engine::HandleSelect(THD *thd, LEX *lex, Query_result *&result, ulo
     // every PS/SP execution new, we will not need reset this flag if
     // setup_tables_done_option changed for next rexecution
 
+    // gry: 走 MySQL 优化，第一次优化，后面物化之前再优化一次。
     int err;
     err = optimize_select(thd,
                           ulong(select_lex->active_options() | thd->variables.option_bits | setup_tables_done_option),
@@ -359,6 +371,8 @@ QueryRouteTo Engine::Execute(THD *thd, LEX *lex, Query_result *result_output, SE
   if (unit_for_union != nullptr)
     last_distinct = unit_for_union->union_distinct;
 
+  // gry: select into outfile/dumpfile... 
+  // gry: 处理 select...into...逻辑
   int is_dumpfile = 0;
   const char *export_file_name = GetFilename(selects_list, is_dumpfile);
   if (is_dumpfile) {
@@ -427,12 +441,16 @@ QueryRouteTo Engine::Execute(THD *thd, LEX *lex, Query_result *result_output, SE
   }
 
   Query query(current_txn_);
+  // gry:or storing execution plan of a query (sequence of primitive operations) and output data definition
+  // gry: ast--->step, 循环 step--->init temptable--->物化
   CompiledQuery cqu;
 
+  // gry: ??
   current_txn_->ResetDisplay();  // switch display on
   query.SetRoughQuery(selects_list->active_options() & SELECT_ROUGHLY);
 
   try {
+    // gry: 1
     if (QueryRouteTo::kToMySQL == query.Compile(&cqu, selects_list, last_distinct)) {
       push_warning(thd, Sql_condition::SL_NOTE, ER_UNKNOWN_ERROR,
                    "Query syntax not implemented in Tianmu, executed by MySQL engine.");
@@ -474,6 +492,7 @@ QueryRouteTo Engine::Execute(THD *thd, LEX *lex, Query_result *result_output, SE
         sender.reset(new ResultSender(selects_list->master_unit()->thd, result_output, selects_list->item_list));
     }
 
+    // gry:cq step ---> temptable
     TempTable *result = query.Preexecute(cqu, sender.get());
     ASSERT(result != nullptr, "Query execution returned no result object");
     if (query.IsRoughQuery())

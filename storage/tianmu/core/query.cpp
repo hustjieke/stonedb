@@ -568,6 +568,7 @@ void Query::GetPrecisionScale(Item *item, int &precision, int &scale, bool max_s
   }
 }
 
+// gry: 代码很规整 from  少辉
 TempTable *Query::Preexecute(CompiledQuery &qu, ResultSender *sender, [[maybe_unused]] bool display_now) {
   if (TIANMU_LOGCHECK(LogCtl_Level::DEBUG)) {
     qu.Print(this);
@@ -586,9 +587,9 @@ TempTable *Query::Preexecute(CompiledQuery &qu, ResultSender *sender, [[maybe_un
     std::shared_ptr<JustATable> t1_ptr, t2_ptr, t3_ptr;
 
     if (step.t1.n != common::NULL_VALUE_32) {
-      if (step.t1.n >= 0)
+      if (step.t1.n >= 0)// gry: tabid >=0, 真实的物理表
         t1_ptr = Table(step.t1.n);  // normal table
-      else {
+      else {// gry: tabid < 0,  有可能是空的，因为没有初始化 
         t1_ptr = ta[-step.t1.n - 1];  // TempTable
       }
     }
@@ -688,6 +689,7 @@ TempTable *Query::Preexecute(CompiledQuery &qu, ResultSender *sender, [[maybe_un
                                       no_dims, desc.like_esc);
                 }
               } else {
+                // gry: descriptor: 条件，比如 a>b. 条件里面的一个组成部分
                 conds[step.c1.n]->AddDescriptor(desc);
               }
             }

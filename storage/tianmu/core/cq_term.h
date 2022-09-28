@@ -90,6 +90,7 @@ enum class CondType {
  * note that all values may be safely copied (pointers are managed outside the
  class)
  */
+// gry: CQ, compile query Term(词, 元素)
 struct CQTerm {
   common::ColumnType type;  // type of constant
   vcolumn::VirtualColumn *vc;

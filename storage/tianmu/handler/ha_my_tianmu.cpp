@@ -108,6 +108,7 @@ Either restructure the query with supported syntax, or enable the MySQL core::Qu
   return ret;
 }
 
+// gry: 加载数据
 int tianmu_load_impl(THD *thd, sql_exchange *ex, TABLE_LIST *table_list, void *arg, char *errmsg, int len,
                      int &errcode) {
   common::TianmuError tianmu_error;
