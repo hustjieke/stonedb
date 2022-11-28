@@ -1779,7 +1779,7 @@ public:
        ;
 */
 
-struct TABLE_LIST
+struct TABLE_LIST // gry: 逻辑上表对象的结构, 有好几种表类型, 看注释.物理表由 TABLE 描述
 {
   TABLE_LIST() { memset(this, 0, sizeof(*this)); }
 
@@ -2282,13 +2282,13 @@ struct TABLE_LIST
   TABLE_LIST *next_local;
   /* link in a global list of all queries tables */
   TABLE_LIST *next_global, **prev_global;
-  const char *db, *table_name, *alias;
+  const char *db, *table_name, *alias; // gry:5.6不是常量, 表的基本属性信息，如所属数据库名，别名，名称
   /*
     Target tablespace name: When creating or altering tables, this
     member points to the tablespace_name in the HA_CREATE_INFO struct.
   */
   LEX_CSTRING target_tablespace_name;
-  char *schema_table_name;
+  char *schema_table_name; // gry: 模式名
   char *option;                /* Used by cache index  */
 
   /** Table level optimizer hints for this table.  */
@@ -2310,8 +2310,8 @@ private:
      It may be modified only by permanent transformations (permanent = done
      once for all executions of a prepared statement).
   */
-  Item		*m_join_cond;
-  Item          *m_sj_cond;               ///< Synthesized semijoin condition
+  Item		*m_join_cond; // gry: 外连接条件, 看注释
+  Item          *m_sj_cond;  // gry: 半连接条件             ///< Synthesized semijoin condition
 public:
   /*
     (Valid only for semi-join nests) Bitmap of tables that are within the
@@ -2319,7 +2319,7 @@ public:
     tables that were pulled out of the semi-join nest remain listed as
     nest's children).
   */
-  table_map     sj_inner_tables;
+  table_map     sj_inner_tables; // gry: 半连接表对象，看注释
 
   /*
     During parsing - left operand of NATURAL/USING join where 'this' is
@@ -2391,7 +2391,7 @@ public:
   bool schema_table_reformed;
   Temp_table_param *schema_table_param;
   /* link to select_lex where this table was used */
-  st_select_lex	*select_lex;
+  st_select_lex	*select_lex; // gry:指向语法树（查询树）
 
 private:
   LEX *view;                    /* link on VIEW lex for merging */
@@ -2413,26 +2413,26 @@ public:
     - in case of the view it is the list of all (not only underlying
     tables but also used in subquery ones) tables of the view.
   */
-  List<TABLE_LIST> *view_tables;
+  List<TABLE_LIST> *view_tables; // gry:视图相关信息
   /* most upper view this table belongs to */
-  TABLE_LIST	*belong_to_view;
+  TABLE_LIST	*belong_to_view; // gry:视图相关信息
   /*
     The view directly referencing this table
     (non-zero only for merged underlying tables of a view).
   */
-  TABLE_LIST	*referencing_view;
+  TABLE_LIST	*referencing_view; // gry:视图相关信息
   /* Ptr to parent MERGE table list item. See top comment in ha_myisammrg.cc */
   TABLE_LIST    *parent_l;
   /*
     Security  context (non-zero only for tables which belong
     to view with SQL SECURITY DEFINER)
   */
-  Security_context *security_ctx;
+  Security_context *security_ctx; // gry: 安全、权限相关的信息
   /*
     This view security context (non-zero only for views with
     SQL SECURITY DEFINER)
   */
-  Security_context *view_sctx;
+  Security_context *view_sctx; // gry: 安全、权限相关的信息
   /*
     List of all base tables local to a subquery including all view
     tables. Unlike 'next_local', this in this list views are *not*
@@ -2479,7 +2479,7 @@ public:
   ulonglong     engine_data;
   /* call back function for asking handler about caching in query cache */
   qc_engine_callback callback_func;
-  thr_lock_type lock_type;
+  thr_lock_type lock_type; // 表对象上的锁信息
   uint		outer_join;		/* Which join type */
   uint		shared;			/* Used in multi-upd */
   size_t        db_length;
@@ -2497,7 +2497,7 @@ public:
   struct st_nested_join *nested_join;   /* if the element is a nested join  */
   TABLE_LIST *embedding;             /* nested join containing the table */
   List<TABLE_LIST> *join_list;/* join list the table belongs to   */
-  bool		cacheable_table;	/* stop PS caching */
+  bool		cacheable_table;	/* stop PS caching */ // gry:是否被缓存
   /* used in multi-upd/views privilege check */
   bool		table_in_first_from_clause;
   /**
@@ -2623,7 +2623,7 @@ private:
   Item          *m_join_cond_optim;
 public:
 
-  COND_EQUAL    *cond_equal;            ///< Used with outer join
+  COND_EQUAL    *cond_equal; // gry:外连接条件           ///< Used with outer join
   /// true <=> this table is a const one and was optimized away.
   bool optimized_away;
   /**
@@ -2855,7 +2855,7 @@ typedef struct st_nested_join
     Lists of trivially-correlated expressions from the outer and inner tables
     of the semi-join, respectively.
   */
-  List<Item>        sj_outer_exprs, sj_inner_exprs;
+  List<Item>        sj_outer_exprs, sj_inner_exprs; // gry: 半连接条件
   Semijoin_mat_optimize sjm;
 } NESTED_JOIN;
 

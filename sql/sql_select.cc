@@ -101,6 +101,7 @@ uint find_shortest_key(TABLE *table, const key_map *usable_keys);
     without multi-level ORDER BY/LIMIT separately.
     Such queries are executed with a more direct code path.
 */
+// gry(TODO):第一层, _bh 要调整, free_join_from_bh 和 optimize_after_bh 没什么作用?在 tianmu ha_my_tianmu_query() 里面用，参考 5.6 代码
 bool handle_query(THD *thd, LEX *lex, Query_result *result, ulonglong added_options, 
 	                ulonglong removed_options, int is_optimize_after_tianmu, int free_join_from_tianmu)
 {
@@ -144,6 +145,8 @@ bool handle_query(THD *thd, LEX *lex, Query_result *result, ulonglong added_opti
   else
   {
 	res = FALSE;
+	// gry(TODO): 要修改, 这里走的是 mysql 查询逻辑，如果 tianmu return kToMySQL，optimize_after_bh 应该设置了 true
+	// 什么样的语句会走到这里呢？
 	if (is_optimize_after_tianmu)
 		res = lex->unit->optimize_after_tianmu();   // optimization after Tianmu
 	if (!res)

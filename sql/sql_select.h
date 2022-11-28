@@ -555,6 +555,8 @@ class Filesort;
   - a join between the result of the set of previous plan nodes and
     this plan node.
 */
+// gry: 连接表, 5.6 代码分析上说是介于关系（TABLE_LIST)和连接类(JOIN类)之间的一个过渡对象。存放了关系的
+// gry: 一些信息，也存放了连接操作需要的一些信息，所以称为连接表。5.7 数据结构相比5.6改变很大
 class JOIN_TAB : public Sql_alloc, public QEP_shared_owner
 {
 public:
@@ -608,7 +610,7 @@ public:
 
 private:
 
-  Key_use       *m_keyuse;        /**< pointer to first used key               */
+  Key_use       *m_keyuse; // gry:指向第一个可使用的索引 /**< pointer to first used key*/
 
   /**
      Pointer to the associated join condition:
@@ -659,13 +661,13 @@ public:
     Number of records that will be scanned (yes scanned, not returned) by the
     best 'independent' access method, i.e. table scan or QUICK_*_SELECT)
   */
-  ha_rows       found_records;
+  ha_rows       found_records; // gry: 被扫描的记录行数，不是返回的结果行数
   /*
     Cost of accessing the table using "ALL" or range/index_merge access
     method (but not 'index' for some reason), i.e. this matches method which
     E(#records) is in found_records.
   */
-  ha_rows       read_time;
+  ha_rows       read_time; // gry:使用 "ALL" or range/index_merge 访问表的花费。
   /**
     The set of tables that this table depends on. Used for outer join and
     straight join dependencies.
@@ -683,14 +685,14 @@ public:
     Join buffering strategy.
     After optimization it contains chosen join buffering strategy (if any).
   */
-  uint          m_use_join_cache;
+  uint          m_use_join_cache; // gry:两表连接时使用的缓存算法等
 
   /* SemiJoinDuplicateElimination variables: */
   /*
     Embedding SJ-nest (may be not the direct parent), or NULL if none.
     This variable holds the result of table pullout.
   */
-  TABLE_LIST    *emb_sj_nest;
+  TABLE_LIST    *emb_sj_nest; // gry:半连接相关的变量
 
   /* NestedOuterJoins: Bitmap of nested joins this table is part of */
   nested_join_map embedding_map;

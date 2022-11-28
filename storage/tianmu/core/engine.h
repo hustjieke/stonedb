@@ -109,6 +109,7 @@ class Engine final {
   Transaction *CreateTx(THD *thd);
   Transaction *GetTx(THD *thd);
   void ClearTx(THD *thd);
+  // gry(TODO): 改成 HandleQuery, 5.6 才是 handle_select(...)
   QueryRouteTo HandleSelect(THD *thd, LEX *lex, Query_result *&result_output, ulong setup_tables_done_option, int &res,
                             int &is_optimize_after_tianmu, int &tianmu_free_join, int with_insert = false);
   system::ResourceManager *getResourceManager() const { return m_resourceManager; }

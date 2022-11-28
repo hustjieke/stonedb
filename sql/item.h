@@ -750,6 +750,8 @@ typedef Item* (Item::*Item_transformer) (uchar *arg);
 typedef void (*Cond_traverser) (const Item *item, void *arg);
 
 
+//gry:约束条件(where/join...on.../having子句中的谓词表达式，分为两种，一种是限制条件，用来过滤
+//gry:单表元组，另一种是连接条件，满足连接条件的元组才会连接，连接条件一般包含两个或两个以上关系变量)
 class Item : public Parse_tree_node
 {
   typedef Parse_tree_node super;

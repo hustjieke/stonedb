@@ -734,7 +734,8 @@ typedef Bounds_checked_array<Item*> Ref_ptr_array;
   a query consisting of a SELECT keyword, followed by a table list,
   optionally followed by a WHERE clause, a GROUP BY, etc.
 */
-class st_select_lex: public Sql_alloc
+// gry: 类的实例保存了一条 sql 语句被分解后的各个子句的内容, 注意: 5.6 继承 st_selectt_lex_node 父类
+class st_select_lex: public Sql_alloc // gry: 查询树(语法分析器的结果)
 {
 public:
   /// @returns a slice of ref_pointer_array
@@ -884,10 +885,12 @@ private:
     items and use a copy created by SELECT_LEX::get_optimizable_conditions().
     Same is true for 'having_cond'.
   */
+  // gry: where 子句, 在 SELECT_LEX::prepare() 之后被冻结，后续任何变化通过 THD::change_item_tree()
+  // gry: 除非他们只修改 AND/OR items 并且只用 copy created by SELECT_LEX::get_optimizable_conditions().
   Item *m_where_cond;
 
   /// Condition to be evaluated on grouped rows after grouping.
-  Item *m_having_cond;
+  Item *m_having_cond; // gry: having 子句
 
 public:
 
@@ -899,6 +902,7 @@ public:
      - COND_FALSE if the condition is impossible
      - COND_OK otherwise
   */
+  // gry: 枚举值
   Item::cond_result cond_value;
   Item::cond_result having_value;
 
@@ -907,7 +911,7 @@ public:
   /// Indicates whether this query block contains the WITH ROLLUP clause
   enum olap_type olap;
   /// List of tables in FROM clause - use TABLE_LIST::next_local to traverse
-  SQL_I_List<TABLE_LIST>  table_list;
+  SQL_I_List<TABLE_LIST>  table_list; // gry: From 子句中的表对象
 
   /**
     GROUP BY clause.
@@ -915,8 +919,8 @@ public:
     so for prepared statements, we keep a copy of the ORDER.next pointers in
     group_list_ptrs, and re-establish the original list before each execution.
   */
-  SQL_I_List<ORDER>       group_list;
-  Group_list_ptrs        *group_list_ptrs;
+  SQL_I_List<ORDER>       group_list; // gry: group by 子句, 可能在remove_const()优化后发生变化
+  Group_list_ptrs        *group_list_ptrs; // gry: group by list 指针
 
   /**
     List of columns and expressions:
@@ -941,22 +945,22 @@ public:
     After optimization it is pointer to corresponding JOIN. This member
     should be changed only when THD::LOCK_query_plan mutex is taken.
   */
-  JOIN *join;
+  JOIN *join; // gry: 连接相关之连接树
   /// join list of the top level
-  List<TABLE_LIST> top_join_list;
+  List<TABLE_LIST> top_join_list; // gry: 连接相关之顶层的连接链表
   /// list for the currently parsed join
-  List<TABLE_LIST> *join_list;
+  List<TABLE_LIST> *join_list; // gry: 连接相关之当前被分析的连接链表
   /// table embedding the above list
   TABLE_LIST *embedding;
   /// List of semi-join nests generated for this query block
-  List<TABLE_LIST> sj_nests;
+  List<TABLE_LIST> sj_nests; // gry: 连接相关之半连接嵌套链表
   /**
     Points to first leaf table of query block. After setup_tables() is done,
     this is a list of base tables and derived tables. After derived tables
     processing is done, this is a list of base tables only.
     Use TABLE_LIST::next_leaf to traverse the list.
   */
-  TABLE_LIST *leaf_tables;
+  TABLE_LIST *leaf_tables; // gry: 连接相关之基本表，从 sql 语句中分解出的基表, 见英文注释
   /// Number of leaf tables in this query block.
   uint leaf_table_count;
   /// Number of derived tables and views in this query block.
@@ -994,13 +998,13 @@ public:
     so for prepared statements, we keep a copy of the ORDER.next pointers in
     order_list_ptrs, and re-establish the original list before each execution.
   */
-  SQL_I_List<ORDER> order_list;
+  SQL_I_List<ORDER> order_list; // gry: order by 子句, 注释同 where
   Group_list_ptrs *order_list_ptrs;
 
   /// LIMIT clause, NULL if no limit is given
-  Item *select_limit;
+  Item *select_limit;  // gry: limit 子句
   /// LIMIT ... OFFSET clause, NULL if no offset is given
-  Item *offset_limit;
+  Item *offset_limit; // gry: limit ... offset 子句
 
   /// The complete ref pointer array, with 5 slices (see class JOIN too)
   Ref_ptr_array ref_pointer_array;
@@ -1198,7 +1202,7 @@ public:
   void add_group_to_list(ORDER *order);
   bool add_ftfunc_to_list(Item_func_match *func);
   void add_order_to_list(ORDER *order);
-  TABLE_LIST* add_table_to_list(THD *thd, Table_ident *table,
+  TABLE_LIST* add_table_to_list(THD *thd, Table_ident *table, // gry:查询树的一些方法
 				LEX_STRING *alias,
 				ulong table_options,
 				thr_lock_type flags= TL_UNLOCK,
@@ -1209,9 +1213,9 @@ public:
   TABLE_LIST* get_table_list() const { return table_list.first; }
   bool init_nested_join(THD *thd);
   TABLE_LIST *end_nested_join(THD *thd);
-  TABLE_LIST *nest_last_join(THD *thd);
+  TABLE_LIST *nest_last_join(THD *thd); // gry:查询树的一些方法
   void add_joined_table(TABLE_LIST *table);
-  TABLE_LIST *convert_right_join();
+  TABLE_LIST *convert_right_join(); // gry:查询树的一些方法
   List<Item>* get_item_list() { return &item_list; }
 
   // Check privileges for views that are merged into query block
@@ -1295,7 +1299,7 @@ public:
    Add a index hint to the tagged list of hints. The type and clause of the
    hint will be the current ones (set by set_index_hint()) 
   */
-  bool add_index_hint (THD *thd, char *str, uint length);
+  bool add_index_hint (THD *thd, char *str, uint length); // gry:查询树的一些方法
 
   /* make a list to hold index hints */
   void alloc_index_hints (THD *thd);

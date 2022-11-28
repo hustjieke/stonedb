@@ -249,10 +249,10 @@ typedef struct st_user_var_events
 } BINLOG_USER_VAR_EVENT;
 
 
-class Key_part_spec :public Sql_alloc {
+class Key_part_spec :public Sql_alloc { // gry:索引的列信息
 public:
-  LEX_STRING field_name;
-  uint length;
+  LEX_STRING field_name; //gry: 列名
+  uint length; // gry: 列长度
   Key_part_spec(const LEX_STRING &name, uint len)
     : field_name(name), length(len)
   {}
@@ -274,11 +274,11 @@ public:
 };
 
 
-class Key :public Sql_alloc {
+class Key :public Sql_alloc { // gry:索引类 Key 定义
 public:
-  keytype type;
-  KEY_CREATE_INFO key_create_info;
-  List<Key_part_spec> columns;
+  keytype type; //gry:通过枚举定义了 mysql 支持的索引类型，依次为主键索引、唯一索引、多重索引、全文索引、空间索引、外键索引。
+  KEY_CREATE_INFO key_create_info; // gry: 索引元信息，如索引算法、名称、长度等。st_key_create_information = KEY_CREATE_INFO
+  List<Key_part_spec> columns; // gry: 索引列信息: 名称，长度等。
   LEX_STRING name;
   bool generated;
 

@@ -121,6 +121,7 @@ QueryRouteTo Engine::HandleSelect(THD *thd, LEX *lex, Query_result *&result, ulo
   // query and we know that if the result goes to the file, the TIANMU_DATAFORMAT is
   // one of TIANMU formats
   QueryRouteTo route = QueryRouteTo::kToTianmu;
+  // gry: 保存当前优化的 sql, 可以查看 lex 里面的 "save_current_select" 相关注释
   SELECT_LEX *save_current_select = lex->current_select();
   // gry: select ast? derived table:  e.g.: from 后面的 expression 生成的表，比如 subquery.
   List<st_select_lex_unit> derived_optimized;  // collection to remember derived
@@ -218,6 +219,7 @@ QueryRouteTo Engine::HandleSelect(THD *thd, LEX *lex, Query_result *&result, ulo
               }
             }
           } catch (ReturnMeToMySQLWithError &) {
+            // gry(TODO): catch 之后没有输出任何错误日志？？
             route = QueryRouteTo::kToTianmu;
             res = TRUE;
           }
@@ -230,7 +232,7 @@ QueryRouteTo Engine::HandleSelect(THD *thd, LEX *lex, Query_result *&result, ulo
     }
   } else {
     unit->set_limit(unit->global_parameters());  // the fragment of original
-                                                 // handle_select(...)
+                                                 // handle_select(...) // gry(TODO), 5.6 接口, 5.7 是 handle_query(...)
     //(until the first part of optimization)
     // used for non-union select
 
@@ -472,6 +474,7 @@ QueryRouteTo Engine::Execute(THD *thd, LEX *lex, Query_result *result_output, SE
     if (lex->sql_command == SQLCOM_INSERT_SELECT &&
         Engine::IsTianmuTable(((Query_tables_list *)lex)->query_tables->table)) {
       std::string table_path = Engine::GetTablePath(((Query_tables_list *)lex)->query_tables->table);
+      // gry(TODO): rct--->tianmu_tbl
       rct = current_txn_->GetTableByPathIfExists(table_path);
     }
     if ((unit_for_union != nullptr) && (lex->sql_command != SQLCOM_CREATE_TABLE)) {  //  for exclude CTAS

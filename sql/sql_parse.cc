@@ -5203,13 +5203,14 @@ static bool execute_sqlcom_select(THD *thd, TABLE_LIST *all_tables)
       }
       //res= handle_query(thd, lex, result, 0, 0, 0, 0);
 	 
-	  int tianmu_res, free_join_from_tianmu, is_optimize_after_tianmu;
-	  if (Tianmu::handler::QueryRouteTo::kToMySQL ==
-		  Tianmu::handler::ha_my_tianmu_query(thd, lex, result, (ulong)0, tianmu_res, is_optimize_after_tianmu, free_join_from_tianmu)) {
-		  res = handle_query(thd, lex, result, (ulonglong)0, (ulonglong)0, is_optimize_after_tianmu, free_join_from_tianmu);
-	  }
-	  else
-		  res = tianmu_res;
+      int tianmu_res, free_join_from_tianmu, is_optimize_after_tianmu;
+      if (Tianmu::handler::QueryRouteTo::kToMySQL ==
+        // gry(TODO): 确定一下里面的逻辑是不是复用 handle_query(...).
+        Tianmu::handler::ha_my_tianmu_query(thd, lex, result, (ulong)0, tianmu_res, is_optimize_after_tianmu, free_join_from_tianmu)) {
+        res = handle_query(thd, lex, result, (ulonglong)0, (ulonglong)0, is_optimize_after_tianmu, free_join_from_tianmu);
+      }
+      else
+        res = tianmu_res;
 	  
       delete analyse_result;
       if (save_result != lex->result)

@@ -64,6 +64,8 @@ enum class OptimizePhase // for Tianmu to indicate which optimization phase.
   Done_Optimization = 4
 };
 
+// gry:查询相关的连接对象,连接操作对应的查询语句的连接关系内容，是优化和执行的基本单位，也是
+// gry:优化结果(查询执行计划)的存储对象。
 class JOIN :public Sql_alloc
 {
   JOIN(const JOIN &rhs);                        /**< not implemented */
@@ -176,20 +178,21 @@ public:
   }
 
   /// Query block that is optimized and executed using this JOIN
-  SELECT_LEX *const select_lex;
+  SELECT_LEX *const select_lex; // gry:语法分析后得到的查询树(see above)
   /// Query expression referring this query block
-  SELECT_LEX_UNIT *const unit;
+  SELECT_LEX_UNIT *const unit; // gry:进行集合操作的查询语句
   /// Thread handler
   THD *const thd;
   //TIANMU UPGRADE
-  List<TABLE_LIST> *join_list;
+  List<TABLE_LIST> *join_list; //gry(TODO):这个是 5.6 带过来的，还是5.7也有？5.6 里面是用与连接次序相反的顺序表达的连接次序，值
+  // gry:源自JOIN.prepare阶段语法分析的结果。 join_list=&select_lex->top_join_list.
   ulonglong  select_options;
   /**
     Optimal query execution plan. Initialized with a tentative plan in
     JOIN::make_join_plan() and later replaced with the optimal plan in
     get_best_combination().
   */
-  JOIN_TAB *join_tab;
+  JOIN_TAB *join_tab; // gry:存放连接中的所有连接关系对象，存放顺序见get_best_combination函数分析。见注释
   /// Array of QEP_TABs
   QEP_TAB *qep_tab;
 
@@ -200,6 +203,7 @@ public:
     The optimizer reorders best_ref.
   */
   JOIN_TAB **best_ref;
+  // gry:位图，标识表在连接(JOIN)中的位置
   JOIN_TAB **map2table;    ///< mapping between table indexes and JOIN_TABs
   /*
     The table which has an index that allows to produce the requried ordering.
@@ -230,10 +234,10 @@ public:
      4. possible holes in array
      5. semi-joined tables used with materialization strategy
   */
-  uint     tables;         ///< Total number of tables in query block
-  uint     primary_tables; ///< Number of primary input tables in query block
-  uint     const_tables;   ///< Number of primary tables deemed constant
-  uint     tmp_tables;     ///< Number of temporary tables used by query
+  uint     tables;         ///< Total number of tables in query block(gry:基表的个数)
+  uint     primary_tables; ///< Number of primary input tables in query block(gry:主要表的个数，包括物化的临时表)
+  uint     const_tables;   ///< Number of primary tables deemed constant(gry:mysql特有的概念常量表的个数)
+  uint     tmp_tables;     ///< Number of temporary tables used by query（gry:临时表的个数)
   uint     send_group_parts;
   /**
     Indicates that grouping will be performed on the result set during
@@ -277,12 +281,13 @@ public:
 
     @note This is a scratch array, not used after get_best_combination().
   */
-  POSITION *best_positions;
+  POSITION *best_positions; //gry:最后优化的结果，最终最优的查询执行计划，多表连接，每个表在什么位置（即以什么顺序和其他表
+  // gry: 连接，会有个最优次序(代价花费最少),存放在best_positions数组中
 
 /******* Join optimization state members start *******/
   
   /* Current join optimization state */
-  POSITION *positions;  
+  POSITION *positions;//gry:当前路径，在求解best_positions过程中，某一刻的路径
 
   /* We also maintain a stack of join optimization states in * join->positions[] */
 /******* Join optimization state members end *******/
@@ -294,7 +299,7 @@ public:
     after optimization phase - cost of picked join order (not taking into
     account the changes made by test_if_skip_sort_order()).
   */
-  double   best_read;
+  double   best_read; // gry:最优查询路径对应的最小花费
   /**
     The estimated row count of the plan with best read time (see above).
   */
@@ -307,7 +312,7 @@ public:
   /** second copy of sumfuncs (for queries with 2 temporary tables */
   Item_sum  **sum_funcs2, ***sum_funcs_end2;
   Temp_table_param tmp_table_param;
-  MYSQL_LOCK *lock;
+  MYSQL_LOCK *lock; // gry: 锁信息
   
   ROLLUP rollup;                  ///< Used with rollup
   bool implicit_grouping;         ///< True if aggregated but no GROUP BY
@@ -353,9 +358,9 @@ public:
   bool need_tmp;
 
   // Used and updated by JOIN::make_join_plan() and optimize_keyuse()
-  Key_use_array keyuse_array;
+  Key_use_array keyuse_array; // gry:索引
 
-  List<Item> &all_fields; ///< to store all expressions used in query
+  List<Item> &all_fields; ///< to store all expressions used in query // gry:查询语句中的所有表达式
   ///Above list changed to use temporary table
   List<Item> tmp_all_fields1, tmp_all_fields2, tmp_all_fields3;
   ///Part, shared with list above, emulate following list
@@ -448,7 +453,7 @@ public:
   /**
     ORDER BY and GROUP BY lists, to transform with prepare,optimize and exec
   */
-  ORDER_with_src order, group_list;
+  ORDER_with_src order, group_list; // gry: order by, group by 子句,to transform with prepare,optimize and exec
 
   /**
     Buffer to gather GROUP BY, ORDER BY and DISTINCT QEP details for EXPLAIN
@@ -479,7 +484,7 @@ public:
     Printed by EXPLAIN EXTENDED.
     Initialized by SELECT_LEX::get_optimizable_conditions().
   */
-  Item       *where_cond;
+  Item       *where_cond; // gry: where 子句
   /**
     Optimized HAVING clause item tree (valid for one single execution).
     Used in JOIN execution, as last "row filtering" step. With one exception:
@@ -489,7 +494,7 @@ public:
     EXTENDED can still print it.
     Initialized by SELECT_LEX::get_optimizable_conditions().
   */
-  Item       *having_cond;
+  Item       *having_cond; // gry: having 子句
   Item       *having_for_explain;    ///< Saved optimized HAVING for EXPLAIN
   /**
     Pointer set to select_lex->get_table_list() at the start of
@@ -497,7 +502,7 @@ public:
     tables away.
   */
   TABLE_LIST *tables_list;
-  COND_EQUAL *cond_equal;
+  COND_EQUAL *cond_equal; // gry:条件子句
   /*
     Join tab to return to. Points to an element of join->join_tab array, or to
     join->join_tab[-1].
@@ -536,8 +541,8 @@ public:
   bool allow_outer_refs;
 
   /* Temporary tables used to weed-out semi-join duplicates */
-  List<TABLE> sj_tmp_tables;
-  List<Semijoin_mat_exec> sjm_exec_list;
+  List<TABLE> sj_tmp_tables;  // gry:半连接相关 
+  List<Semijoin_mat_exec> sjm_exec_list; //gry:半连接相关
   /* end of allocation caching storage */
 
   /** TRUE <=> ref_pointer_array is set to items3. */
@@ -565,7 +570,7 @@ public:
   */
   bool plan_is_single_table() { return primary_tables - const_tables == 1; }
   
-  int optimize(OptimizePhase phase = OptimizePhase::Beginning);
+  int optimize(OptimizePhase phase = OptimizePhase::Beginning);//TIANMU UPGRADE // 5.6 有prepare和optimize，这个是不是为了移植而增加的？prepare没有的
 
   void reset();
   void exec();

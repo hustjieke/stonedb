@@ -1571,9 +1571,9 @@ public:
 };
 
 
-typedef struct st_key_create_information
+typedef struct st_key_create_information // gry:索引元信息
 {
-  enum ha_key_alg algorithm;
+  enum ha_key_alg algorithm; // gry: 索引算法类别
   ulong block_size;
   LEX_STRING parser_name;
   LEX_STRING comment;
