@@ -43,7 +43,7 @@ struct TabID {
   TabID() : n(common::NULL_VALUE_32) {}
   explicit TabID(int _n) : n(_n) {}
   bool IsNullID() const { return (n == common::NULL_VALUE_32); }
-  bool operator==(const TabID &other) const { return (n == other.n) && (!IsNullID()); }
+  bool operator==(const TabID &other) const { return (n == other.n) && (!IsNullID()); } // gry(TODO): 改成 rhs 是不是更好些?
   bool operator<(const TabID &other) const { return (n < other.n) && (!IsNullID()); }
   bool operator!=(const TabID &other) const { return !(operator==(other)); }
 };

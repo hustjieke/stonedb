@@ -34,9 +34,9 @@ namespace system {
   handle exception appropriately.
 */
 
-class TianmuFile : public Stream {
+class TianmuFile : public Stream { // gry: 封装一组读取文件的操作 for low level file I/O.
  private:
-  int fd_;
+  int fd_; // gry: file descriptor
 
  public:
   TianmuFile() { fd_ = -1; }

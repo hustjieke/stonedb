@@ -994,7 +994,7 @@ enum index_hint_type
 /* Bitmap of table's fields */
 typedef Bitmap<MAX_FIELDS> Field_map;
 
-struct TABLE
+struct TABLE /* gry: The current open table */
 {
   TABLE() { memset(this, 0, sizeof(*this)); }
   /*
@@ -1003,7 +1003,7 @@ struct TABLE
     Otherwise memset() will start overwriting the vtable pointer.
   */
 
-  TABLE_SHARE	*s;
+  TABLE_SHARE	*s; /* gry: The table definition */
   handler	*file;
   TABLE *next, *prev;
 
@@ -2379,7 +2379,7 @@ private:
      
      @note Inside views, a subquery in the @c FROM clause is not allowed.
   */
-  st_select_lex_unit *derived;		/* SELECT_LEX_UNIT of derived table */
+  st_select_lex_unit *derived;		/* SELECT_LEX_UNIT of derived table */ // gry: this field is set to non-null for derived tables and views.
 
 public:
   ST_SCHEMA_TABLE *schema_table;        /* Information_schema table */

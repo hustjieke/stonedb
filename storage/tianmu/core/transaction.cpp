@@ -113,7 +113,7 @@ void Transaction::ResumeDisplay() { display_lock_--; }
 
 void Transaction::ResetDisplay() {
   display_lock_ = 0;
-  ConfigureRCControl();
+  ConfigureRCControl(); // gry(TODO): RC-->Tianmu
 }
 }  // namespace core
 }  // namespace Tianmu

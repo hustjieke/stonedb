@@ -734,7 +734,7 @@ typedef Bounds_checked_array<Item*> Ref_ptr_array;
   a query consisting of a SELECT keyword, followed by a table list,
   optionally followed by a WHERE clause, a GROUP BY, etc.
 */
-// gry: 类的实例保存了一条 sql 语句被分解后的各个子句的内容, 注意: 5.6 继承 st_selectt_lex_node 父类
+// gry: 类的实例保存了一条 sql 语句被分解后的各个子句的内容, 注意: 5.6 继承 st_select_lex_node 父类
 class st_select_lex: public Sql_alloc // gry: 查询树(语法分析器的结果)
 {
 public:

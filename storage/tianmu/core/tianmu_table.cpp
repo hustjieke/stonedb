@@ -52,40 +52,40 @@ uint32_t TianmuTable::GetTableId(const fs::path &dir) {
 
 void TianmuTable::CreateNew(const std::shared_ptr<TableOption> &opt) {
   uint32_t tid = ha_tianmu_engine_->GetNextTableId();
-  auto &path(opt->path);
+  auto &path(opt->path); // path 是当前路径跟随 mysql_data_home_ptr 路径
   uint32_t no_attrs = opt->atis.size();
   uint64_t auto_inc_value = opt->create_info->auto_increment_value;
-  fs::create_directory(path);
+  fs::create_directory(path); // gry: e.g. "./test/tx.tianmu", 当前路径跟随 mysql_data_home_ptr 路径
 
   TABLE_META meta{common::FILE_MAGIC, common::TABLE_DATA_VERSION, tid, opt->pss};
 
   system::TianmuFile ftbl;
-  ftbl.OpenCreateEmpty(path / common::TABLE_DESC_FILE);
+  ftbl.OpenCreateEmpty(path / common::TABLE_DESC_FILE); // gry: e.g.: t2.tianmu/TABLE_DESC, meta 信息写到这个文件里面
   ftbl.WriteExact(&meta, sizeof(meta));
   ftbl.Flush();
   ftbl.Close();
 
   auto zero = common::TABLE_VERSION_PREFIX + common::TX_ID(0).ToString();
-  std::ofstream ofs(path / zero);
+  std::ofstream ofs(path / zero); // gry: V.0000000000000000, 第一次版本号, 后面更新的时候根据事务id更新(忘了事务id增长机制了...)
   common::TX_ID zid(0);
   for (size_t idx = 0; idx < no_attrs; idx++) {
-    ofs.write(reinterpret_cast<char *>(&zid), sizeof(zid));
+    ofs.write(reinterpret_cast<char *>(&zid), sizeof(zid)); // gry: 根据列数写版本号?
   }
   ofs.flush();
 
-  fs::create_symlink(zero, path / common::TABLE_VERSION_FILE);
+  fs::create_symlink(zero, path / common::TABLE_VERSION_FILE);  // gry:创建软连接（VERSION -> V.0000000000000000）
 
   auto column_path = path / common::COLUMN_DIR;
-  fs::create_directories(column_path);
+  fs::create_directories(column_path);  // gry: 创建 columns 目录
 
   for (size_t idx = 0; idx < no_attrs; idx++) {
-    auto dir = Engine::GetNextDataDir();
-    dir /= std::to_string(tid) + "." + std::to_string(idx);
+    auto dir = Engine::GetNextDataDir(); // gry: e.g. "/github/stonedb/build/install/data/tianmu_data"
+    dir /= std::to_string(tid) + "." + std::to_string(idx); // gry: table_id + 列索引号，从 0 开始
     if (system::DoesFileExist(dir)) {
       throw common::DatabaseException("Directory " + dir.string() + " already exists!");
     }
-    fs::create_directory(dir);
-    auto lnk = column_path / std::to_string(idx);
+    fs::create_directory(dir); // gry: 创建 tianmu_data/tid.colidx
+    auto lnk = column_path / std::to_string(idx); // gry 创建软链接： "./test/tx.tianmu/columns/colidx" -->tianmu_data/tid.colidx
     fs::create_symlink(dir, lnk);
 
     TianmuAttr::Create(lnk, opt->atis[idx], opt->pss, 0, auto_inc_value);

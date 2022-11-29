@@ -966,14 +966,14 @@ QueryRouteTo Query::Compile(CompiledQuery *compiled_query, SELECT_LEX *selects_l
   bool union_all = (last_distinct == nullptr);
   TabID prev_result;
 
-  SQL_I_List<ORDER> *global_order = nullptr;
+  SQL_I_List<ORDER> *global_order = nullptr; // gry: 这个放 JOIN 里面是 order by 子句，不知道这里代表什么
   int col_count = 0;
   int64_t global_limit_value = -1;
   int64_t global_offset_value = -1;
 
   // local copy of current cq, to be restored on exit
-  CompiledQuery *saved_cq = cq;
-  cq = compiled_query;
+  CompiledQuery *saved_cq = cq; // gry: 在 exit 的时候 restored
+  cq = compiled_query; // gry: 赋值入参
 
   if ((selects_list->join) &&
       (selects_list != selects_list->join->unit->global_parameters())) {  // only in case of unions this is set
@@ -982,8 +982,8 @@ QueryRouteTo Query::Compile(CompiledQuery *compiled_query, SELECT_LEX *selects_l
   }
 
   for (SELECT_LEX *sl = selects_list; sl; sl = sl->next_select()) {
-    int64_t limit_value = -1;
-    int64_t offset_value = -1;
+    int64_t limit_value = -1; // gry: 什么意思
+    int64_t offset_value = -1; // gry: 什么意思
     /*
       Increase the identification of whether to create a JOIN object,
       which is used to release the JOIN object later.
@@ -995,7 +995,7 @@ QueryRouteTo Query::Compile(CompiledQuery *compiled_query, SELECT_LEX *selects_l
       JOIN *join = new JOIN(sl->master_unit()->thd, sl);
 
       if (!join) {
-        sl->cleanup(0);
+        sl->cleanup(0); //gry(TODO):改成 false
         return QueryRouteTo::kToTianmu;
       }
       ifNewJoinForTianmu = true;
@@ -1008,7 +1008,7 @@ QueryRouteTo Query::Compile(CompiledQuery *compiled_query, SELECT_LEX *selects_l
     SetLimit(sl, sl == selects_list ? 0 : sl->join->unit->global_parameters(), offset_value, limit_value);
     List<Item> *fields = &sl->fields_list;
 
-    Item *conds = (ifNewJoinForTianmu || !sl->join->where_cond) ? sl->where_cond() : sl->join->where_cond;
+    Item *conds = (ifNewJoinForTianmu || !sl->join->where_cond) ? sl->where_cond() : sl->join->where_cond;//gry:奇怪,where_cond为null，却返回where_cond(),都where子句
 
     ORDER *order = sl->order_list.first;
 
@@ -1020,7 +1020,7 @@ QueryRouteTo Query::Compile(CompiledQuery *compiled_query, SELECT_LEX *selects_l
     ORDER *group = sl->group_list.first;
     Item *having = sl->having_cond();
     List<TABLE_LIST> *join_list = sl->join_list;
-    bool zero_result = sl->join->zero_result_cause != nullptr;
+    bool zero_result = sl->join->zero_result_cause != nullptr; //gry(TODO):要有括号
 
     // The exists subquery determines whether a value exists during the query optimization phase
     // result is not set to zero only when a matching value is found in the query optimization phase
@@ -1080,17 +1080,17 @@ QueryRouteTo Query::Compile(CompiledQuery *compiled_query, SELECT_LEX *selects_l
                                           list_to_reinsert, left_expr_for_subselect))
           throw CompilationError();
 
-      if (having && !group)  // we cannot handle the case of a having without a group by
+      if (having && !group)  // we cannot handle the case of a having without a group by //gry:这个是成对的？
         throw CompilationError();
 
       TABLE_LIST *tables = sl->leaf_tables ? sl->leaf_tables : (TABLE_LIST *)sl->table_list.first;
       for (TABLE_LIST *table_ptr = tables; table_ptr; table_ptr = table_ptr->next_leaf) {
-        if (!table_ptr->is_view_or_derived()) {
+        if (!table_ptr->is_view_or_derived()) { // gry:如果不是 view 或者 derived
           if (!Engine::IsTianmuTable(table_ptr->table))
             throw CompilationError();
-          std::string path = TablePath(table_ptr);
+          std::string path = TablePath(table_ptr); // gry:e.g. "./test.t1"
           if (path2num.find(path) == path2num.end()) {
-            path2num[path] = NumOfTabs();
+            path2num[path] = NumOfTabs(); // Tianmu 表数量？
             AddTable(m_conn->GetTableByPath(path));
             TIANMU_LOG(LogCtl_Level::DEBUG, "add query table: %s", path.c_str());
           }

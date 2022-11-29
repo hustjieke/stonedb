@@ -48,7 +48,7 @@ struct TableOption {
   fs::path path;
   std::string name;
   int id;
-  uint8_t pss;
+  uint8_t pss; // gry: pack size shift
   HA_CREATE_INFO *create_info;
 };
 

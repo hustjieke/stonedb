@@ -31,11 +31,11 @@ namespace Tianmu {
 namespace core {
 class TianmuTable;
 
-struct TABLE_META {
+struct TABLE_META { // gry: 内存对齐，实际写盘占用 24 个字节
   uint64_t magic = common::FILE_MAGIC;
   uint32_t ver = common::TABLE_DATA_VERSION;
   uint32_t id;
-  uint32_t pss = 16;  // gry: 2 的 16 次方, 65536
+  uint32_t pss = 16;  // gry: 2 的 16 次方, 65536, 这个 pack size shift, 也就是意思是 pack 的大小?? soga, 值从 TableOption 里面取
 };
 
 class TableShare final {

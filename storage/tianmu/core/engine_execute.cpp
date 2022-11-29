@@ -89,7 +89,7 @@ QueryRouteTo Engine::HandleSelect(THD *thd, LEX *lex, Query_result *&result, ulo
 
   // gry: select + union
   SELECT_LEX_UNIT *unit = nullptr;
-  // gry: lex + ast
+  // gry: lex + ast, 语法分析树
   SELECT_LEX *select_lex = nullptr;
   // gry: 结果集输出
   Query_result_export *se = nullptr;
@@ -102,7 +102,7 @@ QueryRouteTo Engine::HandleSelect(THD *thd, LEX *lex, Query_result *&result, ulo
     return QueryRouteTo::kToMySQL;
   }
 
-  // gry: TODO 这个锁表，会阻塞写么？还是共享锁?
+  // gry: TODO 这个锁表，会阻塞写么？还是共享锁? sql 层函数
   if (lock_tables(thd, thd->lex->query_tables, thd->lex->table_count, 0)) {
     TIANMU_LOG(LogCtl_Level::ERROR, "Failed to lock tables for query '%s'", thd->query().str);
     return QueryRouteTo::kToTianmu;
@@ -112,7 +112,7 @@ QueryRouteTo Engine::HandleSelect(THD *thd, LEX *lex, Query_result *&result, ulo
     Tables must be locked before storing the query in the query cache.
   */
   // gry: 这个cache 在 MySQL 中的作用是什么呢?
-  // gry: key: sql, value: 结果集？缓存命中低？
+  // gry: key: sql, value: 结果集？缓存命中低？ 8.0 貌似干掉了
   query_cache.store_query(thd, thd->lex->query_tables);
 
   tianmu_stat.select++;
@@ -123,7 +123,7 @@ QueryRouteTo Engine::HandleSelect(THD *thd, LEX *lex, Query_result *&result, ulo
   QueryRouteTo route = QueryRouteTo::kToTianmu;
   // gry: 保存当前优化的 sql, 可以查看 lex 里面的 "save_current_select" 相关注释
   SELECT_LEX *save_current_select = lex->current_select();
-  // gry: select ast? derived table:  e.g.: from 后面的 expression 生成的表，比如 subquery.
+  // gry: select ast? derived table:  e.g.: from 后面的 expression 生成的表，比如 subquery. 保存优化后的派生表.
   List<st_select_lex_unit> derived_optimized;  // collection to remember derived
                                                // tables that are optimized
   if (thd->fill_derived_tables() && lex->derived_tables) {
@@ -177,7 +177,7 @@ QueryRouteTo Engine::HandleSelect(THD *thd, LEX *lex, Query_result *&result, ulo
 
   se = dynamic_cast<Query_result_export *>(result);
   // gry: 发送数据到 client
-  if (se != nullptr)
+  if (se != nullptr) // gry(TODO): 什么情况下不会等于 nullptr?
     result = new exporter::select_tianmu_export(se);
   // prepare, optimize and execute the main query
   select_lex = lex->select_lex;
@@ -231,6 +231,7 @@ QueryRouteTo Engine::HandleSelect(THD *thd, LEX *lex, Query_result *&result, ulo
       is_optimize_after_tianmu = FALSE;
     }
   } else {
+    // gry(TODO): 既然不是 union, 那 unit 放这里有什么意义
     unit->set_limit(unit->global_parameters());  // the fragment of original
                                                  // handle_select(...) // gry(TODO), 5.6 接口, 5.7 是 handle_query(...)
     //(until the first part of optimization)
@@ -242,11 +243,11 @@ QueryRouteTo Engine::HandleSelect(THD *thd, LEX *lex, Query_result *&result, ulo
 
     // gry: 走 MySQL 优化，第一次优化，后面物化之前再优化一次。
     int err;
-    err = optimize_select(thd,
+    err = optimize_select(thd, // gry(TODO): 感觉不应该叫这个名字，包含 sql 层 prepare 和 optimize 两个函数
                           ulong(select_lex->active_options() | thd->variables.option_bits | setup_tables_done_option),
                           result, select_lex, is_optimize_after_tianmu, tianmu_free_join);
 
-    // RCBase query engine entry point
+    // RCBase query engine entry point gry(TODO): 修改所有 RCBase 的地方
     if (!err) {
       try {
         route = Execute(thd, lex, result);
@@ -269,7 +270,7 @@ QueryRouteTo Engine::HandleSelect(THD *thd, LEX *lex, Query_result *&result, ulo
     if (tianmu_free_join) {  // there was a join created in an upper function
       // so an upper function will do the cleanup
       if (err || route == QueryRouteTo::kToTianmu) {
-        thd->proc_info = "end";
+        thd->proc_info = "end"; // gry: "init" 在 optimize_select() 里面，设计的不是很友好
         err |= (int)select_lex->cleanup(0);
         is_optimize_after_tianmu = FALSE;
         tianmu_free_join = 0;
@@ -281,7 +282,7 @@ QueryRouteTo Engine::HandleSelect(THD *thd, LEX *lex, Query_result *&result, ulo
   if (select_lex->join && Query::IsLOJ(select_lex->join_list))
     is_optimize_after_tianmu = TRUE;  // optimize partially (phase=Doneoptimization), since part of LOJ
                                       // optimization was already done
-  res |= (int)thd->is_error();        // the ending of original handle_select(...) */
+  res |= (int)thd->is_error();  // the ending of original handle_select(...) */ // gry(TODO): handle_query()
   if (unlikely(res)) {
     // If we had a another error reported earlier then this will be ignored //
     result->send_error(ER_UNKNOWN_ERROR, ER(ER_UNKNOWN_ERROR));
@@ -353,11 +354,11 @@ int optimize_select(THD *thd, ulong select_options, Query_result *result, SELECT
     if (result->prepare(select_lex->fields_list, select_lex->master_unit()) || result->prepare2()) {
       return TRUE;
     }
-    if (!(join = new JOIN(thd, select_lex)))
+    if (!(join = new JOIN(thd, select_lex))) // gry: 经过 prepare 优化后，再给 JOIN 传进去 thd 和 select_lex 语法树，再次优化
       return TRUE; /* purecov: inspected */
     select_lex->set_join(join);
   }
-  join->best_rowcount = 2;
+  join->best_rowcount = 2;  // gry(TODO): 这个设置为 2 的缘由是什么?
   is_optimize_after_tianmu = TRUE;
   if ((err = join->optimize(OptimizePhase::Before_LOJ_Transform)))
     return err;
@@ -368,29 +369,28 @@ QueryRouteTo handle_exceptions(THD *, Transaction *, bool with_error = false);
 
 QueryRouteTo Engine::Execute(THD *thd, LEX *lex, Query_result *result_output, SELECT_LEX_UNIT *unit_for_union) {
   DEBUG_ASSERT(thd->lex == lex);
-  SELECT_LEX *selects_list = lex->select_lex;
+  SELECT_LEX *selects_list = lex->select_lex; // gry: 在上层被优化过了, 为什么变量名叫 selects_list??跟之前的 select_lex 不一样?
   SELECT_LEX *last_distinct = nullptr;
-  if (unit_for_union != nullptr)
+  if (unit_for_union != nullptr) // gry: 处理 union
     last_distinct = unit_for_union->union_distinct;
 
-  // gry: select into outfile/dumpfile... 
-  // gry: 处理 select...into...逻辑
-  int is_dumpfile = 0;
+  // gry: select into outfile/dumpfile...处理 select...into...逻辑
+  int is_dumpfile = 0; // gry(TODO): 改成 bool 值
   const char *export_file_name = GetFilename(selects_list, is_dumpfile);
   if (is_dumpfile) {
     push_warning(thd, Sql_condition::SL_NOTE, ER_UNKNOWN_ERROR,
                  "Dumpfile not implemented in Tianmu, executed by MySQL engine.");
     return QueryRouteTo::kToMySQL;
-  }
+  }  // gry(TODO): 我觉得应该抽出去一个函数, 不然代码太长了, checkIsDumpfile() 这样
 
-  auto join_exec = ([&selects_list, &result_output] {
+  auto join_exec = ([&selects_list, &result_output] { // gry: 定义函数
     selects_list->set_query_result(result_output);
     ASSERT(selects_list->join);
-    selects_list->join->exec();
+    selects_list->join->exec(); // gry: 这里是生成计划?
     return QueryRouteTo::kToTianmu;
   });
 
-  // has sp fields but no from ...
+  // has sp fields but no from ... // gry: 类似 select 1+1; 这种吧
   if ((!selects_list->table_list.elements) && (selects_list->fields_list.elements)) {
     List_iterator_fast<Item> li(selects_list->fields_list);
     for (Item *item = li++; item; item = li++) {
@@ -438,7 +438,7 @@ QueryRouteTo Engine::Execute(THD *thd, LEX *lex, Query_result *result_output, SE
     }
   }
 
-  if (exec_direct) {
+  if (exec_direct) { // gry: 接着上面的一段函数，是不是也可以拆成一个函数？看上面的 1，2 注释
     return join_exec();
   }
 
@@ -449,7 +449,7 @@ QueryRouteTo Engine::Execute(THD *thd, LEX *lex, Query_result *result_output, SE
 
   // gry: ??
   current_txn_->ResetDisplay();  // switch display on
-  query.SetRoughQuery(selects_list->active_options() & SELECT_ROUGHLY);
+  query.SetRoughQuery(selects_list->active_options() & SELECT_ROUGHLY); // gry:需要开启?
 
   try {
     // gry: 1
@@ -505,7 +505,7 @@ QueryRouteTo Engine::Execute(THD *thd, LEX *lex, Query_result *result_output, SE
 
     sender->Finalize(result);
 
-    if (rct) {
+    if (rct) { // gry(TODO): rct--->tianmu_tbl
       // in this case if this is an insert to TianmuTable from select based on the
       // same table TianmuTable object for this table can't be deleted in TempTable
       // destructor It will be deleted in RefreshTables method that will be

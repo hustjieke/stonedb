@@ -52,8 +52,8 @@ constexpr const char *COL_VERSION_DIR = "v";
 constexpr uint32_t COL_FILE_VERSION = 3;
 constexpr uint32_t MAX_COLUMNS_PER_TABLE = 4000;
 
-constexpr uint8_t MAX_PSS = 16;
-constexpr uint8_t DFT_PSS = 16;
+constexpr uint8_t MAX_PSS = 16; // gry: 用于 TableOption-->has_pack() 判断
+constexpr uint8_t DFT_PSS = 16; // gry: pack size shift
 constexpr size_t MAX_CMPR_SIZE = 0x007D000000;
 
 using PACK_INDEX = uint32_t;

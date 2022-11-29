@@ -48,7 +48,7 @@ class Query final {
 
  public:
   Query() = delete;
-  Query(Transaction *conn_info) : m_conn(conn_info) {}
+  Query(Transaction *conn_info) : m_conn(conn_info) {} // gry: 这个叫 conn_info 的没看懂
   ~Query();
 
   void AddTable(std::shared_ptr<TianmuTable> tab) { t.push_back(tab); }

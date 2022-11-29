@@ -57,7 +57,7 @@ namespace {
 // It should be immutable after RCEngine initialization
 std::vector<fs::path> tianmu_data_dirs;
 std::mutex v_mtx;
-const char *TIANMU_DATA_DIR = "tianmu_data";
+const char *TIANMU_DATA_DIR = "tianmu_data"; // gry(TODO): 这里的几个变量应该挪动位置
 }  // namespace
 
 static void signal_handler([[maybe_unused]] int sig, siginfo_t *si, [[maybe_unused]] void *uc) {
@@ -81,9 +81,9 @@ static int setup_sig_handler() {
 fs::path Engine::GetNextDataDir() {
   std::scoped_lock guard(v_mtx);
 
-  if (tianmu_data_dirs.empty()) {
+  if (tianmu_data_dirs.empty()) { // gry: 第一次创建表数据等
     // fall back to use MySQL data directory
-    auto p = ha_tianmu_engine_->tianmu_data_dir / TIANMU_DATA_DIR;
+    auto p = ha_tianmu_engine_->tianmu_data_dir / TIANMU_DATA_DIR; // gry: mysql_home_data_ptr/tianmu_data
     if (!fs::is_directory(p))
       fs::create_directory(p);
     return p;
@@ -121,6 +121,7 @@ fs::path Engine::GetNextDataDir() {
   return tianmu_data_dirs[idx++ % sz];
 }
 
+// gry: 没太看懂, 为什么从 table comment 里面提取 pack 信息。
 static int has_pack(const LEX_STRING &comment) {
   int ret = common::DFT_PSS;
   std::string str(comment.str, comment.length);
@@ -145,6 +146,7 @@ static int has_pack(const LEX_STRING &comment) {
   return ret;
 }
 
+// gry: 同 has_pack(), 没太看懂, 为什么从 table comment 里面提取信息。
 static std::string has_mem_name(const LEX_STRING &comment) {
   std::string name = "";
   std::string str(comment.str, comment.length);
@@ -549,7 +551,7 @@ uint32_t Engine::GetNextTableId() {
   static std::mutex seq_mtx;
 
   std::scoped_lock lk(seq_mtx);
-  fs::path p = tianmu_data_dir / "tianmu.tid";
+  fs::path p = tianmu_data_dir / "tianmu.tid"; // gry: 在data目录下，真的有, table id 竟然落地, 之前一直以为在内存
   if (!fs::exists(p)) {
     TIANMU_LOG(LogCtl_Level::INFO, "Creating table id file");
     std::ofstream seq_file(p.string());
@@ -577,6 +579,7 @@ uint32_t Engine::GetNextTableId() {
   return seq;
 }
 
+// gry: 这个应该叫 GenerateTableOption 更合适
 std::shared_ptr<TableOption> Engine::GetTableOption(const std::string &table, TABLE *form,
                                                     HA_CREATE_INFO *create_info) {
   auto opt = std::make_shared<TableOption>();
