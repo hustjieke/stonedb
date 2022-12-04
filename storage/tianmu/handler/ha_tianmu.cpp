@@ -1327,7 +1327,7 @@ ha_rows ha_tianmu::records_in_range([[maybe_unused]] uint inx, [[maybe_unused]] 
 
  Called from handle.cc by ha_create_table().
  */
-// gry: create_info 没有用到
+// gry(TODO): create_info 没有用到, table_arg --->form
 int ha_tianmu::create(const char *name, TABLE *table_arg, [[maybe_unused]] HA_CREATE_INFO *create_info) {
   DBUG_ENTER(__PRETTY_FUNCTION__);
   try {

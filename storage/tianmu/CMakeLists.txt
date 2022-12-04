@@ -33,6 +33,13 @@ SET(LINK_LIBS boost_system
               snappy
               bz2
               lz4
+	      sql
+	      rpl
+	      master
+	      slave
+	      binlog
+	      z
+	      dl
               zstd
               marisa
               rocksdb
