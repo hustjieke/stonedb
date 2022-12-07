@@ -403,9 +403,9 @@ void Engine::EncodeRecord(const std::string &table_path, int table_id, Field **f
   //     fileds...
   char *ptr = buf.get();
   *(int32_t *)ptr = table_id;  // table id
-  ptr += sizeof(int32_t);
+  ptr += sizeof(int32_t); // gry: 往前移动 4 个字节
   int32_t path_len = table_path.size();
-  std::memcpy(ptr, table_path.c_str(), path_len);
+  std::memcpy(ptr, table_path.c_str(), path_len); // table_path: ./test/t1
   ptr += path_len;
   *ptr++ = 0;  // end with NUL
 
@@ -416,15 +416,15 @@ void Engine::EncodeRecord(const std::string &table_path, int table_id, Field **f
     Field *f = field[i];
 
     size_t length;
-    if (f->flags & BLOB_FLAG)
-      length = dynamic_cast<Field_blob *>(f)->get_length();
+    if (f->flags & BLOB_FLAG) /* Field is a blob */
+      length = dynamic_cast<Field_blob *>(f)->get_length(); // gry: Field 只是个父类
     else
       length = f->row_pack_length();
 
-    length += 8;
+    length += 8; // gry: 要预留 8 个字节？
 
     size_t used = ptr - buf.get();
-    if (size - used < length) {
+    if (size - used < length) { // gry: 应该是处理不足的情况
       while (size - used < length) {
         size *= 2;
         if (size > utils::MappedCircularBuffer::MAX_BUF_SIZE)
@@ -438,7 +438,7 @@ void Engine::EncodeRecord(const std::string &table_path, int table_id, Field **f
       ptr = buf.get() + used;
     }
 
-    if (f->is_null()) {
+    if (f->is_null()) { // gry: 如果是 null 值，设置 bit set
       null_mask.set(i);
       continue;
     }
@@ -464,12 +464,12 @@ void Engine::EncodeRecord(const std::string &table_path, int table_id, Field **f
       } break;
       case MYSQL_TYPE_BIT: { // gry(TODO): 确认下是不是可以一样处理 bit
          int64_t v = f->val_int();
-        if (v > common::TIANMU_BIGINT_MAX)
+        if (v > common::TIANMU_BIGINT_MAX) // gry: 如果写入 64 位 bit，这里就会丢失数据吧?
           v = common::TIANMU_BIGINT_MAX;
         else if (v < 0)
           TIANMU_LOG(LogCtl_Level::INFO, "bit type data should never less than 0.");
-        *(int64_t *)ptr = v;
-        ptr += sizeof(int64_t);
+        *(int64_t *)ptr = v; // gry: int64 值存储 ptr
+        ptr += sizeof(int64_t); // 后移 8 字节
       } break;     
       case MYSQL_TYPE_DECIMAL:
       case MYSQL_TYPE_FLOAT:
@@ -546,7 +546,7 @@ void Engine::EncodeRecord(const std::string &table_path, int table_id, Field **f
     ASSERT(ptr <= buf.get() + size, "Buffer overflow");
   }
 
-  std::memcpy(buf.get() + null_offset, null_mask.data(), null_mask.data_size());
+  std::memcpy(buf.get() + null_offset, null_mask.data(), null_mask.data_size()); // gry: 一条数据由两个部分组成
   size = ptr - buf.get();
 }
 
@@ -1453,7 +1453,7 @@ void Engine::InsertDelayed(const std::string &table_path, int table_id, TABLE *t
 }
 
 void Engine::InsertMemRow(const std::string &table_path, std::shared_ptr<TableShare> &share, TABLE *table) {
-  my_bitmap_map *org_bitmap = dbug_tmp_use_all_columns(table, table->read_set);
+  my_bitmap_map *org_bitmap = dbug_tmp_use_all_columns(table, table->read_set); // gry(TODO): 这个是干什么用的?
   std::shared_ptr<void> defer(nullptr,
                               [table, org_bitmap](...) { dbug_tmp_restore_column_map(table->read_set, org_bitmap); });
 
@@ -1475,7 +1475,7 @@ int Engine::InsertRow(const std::string &table_path, [[maybe_unused]] Transactio
       } else {
         InsertDelayed(table_path, share->TabID(), table);
       }
-      tianmu_stat.delayinsert++;
+      tianmu_stat.delayinsert++; // gry: 保存 delay insert 数值，后台线程根据这个有做什么处理么?
     } else {
       current_txn_->SetLoadSource(common::LoadSource::LS_Direct);
       auto rct = current_txn_->GetTableByPath(table_path);
