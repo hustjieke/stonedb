@@ -33,7 +33,7 @@ class Transaction;
 class PhysicalColumn;
 class Filter;
 
-class JustATable : public std::enable_shared_from_this<JustATable> {
+class JustATable : public std::enable_shared_from_this<JustATable> { // gry(TODO): 这是什么用法
  public:
   static unsigned PackIndex(int64_t obj, uint32_t power) {
     return (obj == common::NULL_VALUE_64 ? 0xFFFFFFFF : (unsigned)(obj >> power));

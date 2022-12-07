@@ -23,6 +23,7 @@
 
 namespace Tianmu {
 namespace core {
+// gry: tianmu item 转 mysql Field
 bool Engine::ConvertToField(Field *field, types::TianmuDataType &tianmu_item, std::vector<uchar> *blob_buf) {
   if (tianmu_item.IsNull()) {
     std::memset(field->ptr, 0, 2);
@@ -108,7 +109,7 @@ bool Engine::ConvertToField(Field *field, types::TianmuDataType &tianmu_item, st
             case MYSQL_TYPE_INT24:
               int3store((char *)field->ptr, (int)(int64_t)((types::TianmuNum &)(tianmu_item)));
               break;
-            case MYSQL_TYPE_LONG:
+            case MYSQL_TYPE_LONG: // gry: 32 位系统是 4 字节解释吧，所以 int 转换
               *reinterpret_cast<int *>(field->ptr) = (int)(int64_t)((types::TianmuNum &)(tianmu_item));
               break;
             case MYSQL_TYPE_LONGLONG:
@@ -122,6 +123,10 @@ bool Engine::ConvertToField(Field *field, types::TianmuDataType &tianmu_item, st
               // little-endian bytes order and will get wrong value when used Field_bit::val_int() to get bit value back
               // params: "true" is unsigned flag, but it's not used in bit field->store() function.
               field->store((int64_t)((types::TianmuNum &)(tianmu_item)), true);
+              break;
+            case MYSQL_TYPE_BIT: // mysql bit(1~64), here is (1~63, 1 precision lose)
+            // TODO(gry): 这里要参考 decimal 做法，转换到 mysql 的 bit 类型出去
+              *(int64_t *)field->ptr = (int64_t)((types::TianmuNum &)(rcitem));
               break;
             case MYSQL_TYPE_FLOAT:
               *reinterpret_cast<float *>(field->ptr) = (float)((types::TianmuNum &)(tianmu_item));
@@ -284,6 +289,7 @@ bool Engine::ConvertToField(Field *field, types::TianmuDataType &tianmu_item, st
 #define DIG_BASE 1000000000
 #define ROUND_UP(X) (((X) + DIG_PER_DEC1 - 1) / DIG_PER_DEC1)
 
+// gry: mysql decimal 转 TianmuDataType
 int Engine::Convert(int &is_null, my_decimal *value, types::TianmuDataType &tianmu_item, int output_scale) {
   if (tianmu_item.IsNull())
     is_null = 1;
@@ -361,6 +367,7 @@ int Engine::Convert(int &is_null, my_decimal *value, types::TianmuDataType &tian
   return 1;
 }
 
+// gry: mysql int64_t 转 TianmuDataType
 int Engine::Convert(int &is_null, int64_t &value, types::TianmuDataType &tianmu_item, enum_field_types f_type,
                     bool unsigned_flag) {
   if (tianmu_item.IsNull())
@@ -423,6 +430,7 @@ int Engine::Convert(int &is_null, int64_t &value, types::TianmuDataType &tianmu_
   return 0;
 }
 
+// gry: double 转 TianmuDataType
 int Engine::Convert(int &is_null, double &value, types::TianmuDataType &tianmu_item) {
   if (tianmu_item.IsNull())
     is_null = 1;
@@ -441,6 +449,7 @@ int Engine::Convert(int &is_null, double &value, types::TianmuDataType &tianmu_i
   return 0;
 }
 
+// gry: string 转 TianmuDataType
 int Engine::Convert(int &is_null, String *value, types::TianmuDataType &tianmu_item, enum_field_types f_type) {
   if (tianmu_item.IsNull())
     is_null = 1;
@@ -497,13 +506,14 @@ int Engine::Convert(int &is_null, String *value, types::TianmuDataType &tianmu_i
   return 0;
 }
 
+// gry: 判断是否可以转换
 bool Engine::AreConvertible(types::TianmuDataType &tianmu_item, enum_field_types my_type,
                             [[maybe_unused]] uint length) {
   /*if(tianmu_item->Type() == Engine::GetCorrespondingType(my_type, length) ||
    tianmu_item->IsNull()) return true;*/
   common::ColumnType tianmu_type = tianmu_item.Type();
   switch (my_type) {
-    case MYSQL_TYPE_LONGLONG:
+    case MYSQL_TYPE_LONGLONG: // gry(TODO): 这里要支持转 bit 么？
       if (tianmu_type == common::ColumnType::INT || tianmu_type == common::ColumnType::MEDIUMINT ||
           tianmu_type == common::ColumnType::BIGINT ||
           (tianmu_type == common::ColumnType::NUM && dynamic_cast<types::TianmuNum &>(tianmu_item).Scale() == 0))
@@ -554,6 +564,7 @@ bool Engine::AreConvertible(types::TianmuDataType &tianmu_item, enum_field_types
   return false;
 }
 
+// gry: 获得和 MySQL 一致的 tianmu 侧定义的类型, 入参在 binary log 文件定义
 common::ColumnType Engine::GetCorrespondingType(const enum_field_types &eft) {
   switch (eft) {
     case MYSQL_TYPE_YEAR:
@@ -591,11 +602,14 @@ common::ColumnType Engine::GetCorrespondingType(const enum_field_types &eft) {
     case MYSQL_TYPE_VAR_STRING:
     case MYSQL_TYPE_BLOB:
       return common::ColumnType::VARCHAR;
+    case MYSQL_TYPE_BIT:
+      return common::ColumnType::BIT;
     default:
       return common::ColumnType::UNK;
   }
 }
 
+// gry: 从 MySQL Field 获取 tianmu 列类型，获取一致的类型, 重载的函数，这个设计真让人容易疑惑
 common::ColumnType Engine::GetCorrespondingType(const Field &field) {
   common::ColumnType typ = GetCorrespondingType(field.type());
   if (!ATI::IsStringType(typ))
@@ -645,6 +659,7 @@ common::ColumnType Engine::GetCorrespondingType(const Field &field) {
   return common::ColumnType::UNK;
 }
 
+// gry: 从 MySQL Field 信息同步到 tianmu 列属性 attr，获取一致的属性，行和列还是不能混用，不然 field 可以直接用了
 AttributeTypeInfo Engine::GetCorrespondingATI(Field &field) {
   common::ColumnType at = GetCorrespondingType(field);
 

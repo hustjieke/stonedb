@@ -39,7 +39,7 @@ constexpr const char *COL_FILTER_DIR = "filters";
 constexpr const char *COL_FILTER_BLOOM_DIR = "bloom";
 constexpr const char *COL_FILTER_CMAP_DIR = "cmap";
 constexpr const char *COL_FILTER_HIST_DIR = "hist";
-constexpr const char *COL_KN_FILE = "KN";
+constexpr const char *COL_KN_FILE = "KN"; // gry: 这个还没见生成过
 constexpr const char *COL_META_FILE = "META";
 constexpr const char *COL_DN_FILE = "DN";
 /*

@@ -750,7 +750,7 @@ void TianmuAttr::EvaluatePack_BetweenString(MIUpdatingIterator &mit, int dim, De
   bool use_trie = false;
   uint16_t trie_id;
   if (v1 == v2 && p->IsTrie()) {
-    use_trie = p->Lookup(v1, trie_id);
+    use_trie = p->IsLookup(v1, trie_id);
     if (!use_trie) {
       mit.ResetCurrentPack();
       mit.NextPackrow();
@@ -808,7 +808,7 @@ void TianmuAttr::EvaluatePack_BetweenString_UTF(MIUpdatingIterator &mit, int dim
   bool use_trie = false;
   uint16_t trie_id;
   if (v1 == v2 && p->IsTrie()) {
-    use_trie = p->Lookup(v1, trie_id);
+    use_trie = p->IsLookup(v1, trie_id);
     if (!use_trie) {
       mit.ResetCurrentPack();
       mit.NextPackrow();

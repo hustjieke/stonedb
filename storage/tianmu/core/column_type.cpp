@@ -24,7 +24,7 @@
 namespace Tianmu {
 namespace core {
 ColumnType::ColumnType(const DataType &dt) {
-  if (dt.IsFixed()) {
+  if (dt.IsFixed()) { // gry(TODO): 确定一下precision10 对 bit 类型的影响
     ColumnType ct(dt.attrtype, false, common::PackFmt::DEFAULT, QuickMath::precision10(dt.fixmax), dt.fixscale);
     ct.SetUnsigned(dt.unsigned_flag_);
     std::swap(ct, *this);

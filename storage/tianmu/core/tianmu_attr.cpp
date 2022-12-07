@@ -69,9 +69,9 @@ TianmuAttr::TianmuAttr(Transaction *tx, common::TX_ID xid, int a_num, int t_num,
 
 void TianmuAttr::Create(const fs::path &dir, const AttributeTypeInfo &ati, uint8_t pss, size_t no_rows,
                         uint64_t auto_inc_value) {
-  uint32_t no_pack = common::rows2packs(no_rows, pss);
+  uint32_t no_pack = common::rows2packs(no_rows, pss); // gry: 这个是 rows 变为 packs 的数量
 
-  // write meta data(immutable)
+  // write meta data(immutable)  // gry: 列元数据 META 开始
   COL_META meta{
       common::COL_FILE_MAGIC,    // file magic
       common::COL_FILE_VERSION,  // version
@@ -83,12 +83,12 @@ void TianmuAttr::Create(const fs::path &dir, const AttributeTypeInfo &ati, uint8
       ati.Scale(),               // scale
   };
 
-  system::TianmuFile fmeta;
+  system::TianmuFile fmeta; // gry: 写列 META 文件
   fmeta.OpenCreateEmpty(dir / common::COL_META_FILE);
   fmeta.WriteExact(&meta, sizeof(meta));
   fmeta.Flush();
 
-  COL_VER_HDR hdr{
+  COL_VER_HDR hdr{ // gry: 写列对应版本的元数据开始
       no_rows,  // no_obj
       no_rows,  // no_nulls
       no_pack,  // no of packs
@@ -103,7 +103,7 @@ void TianmuAttr::Create(const fs::path &dir, const AttributeTypeInfo &ati, uint8
       0,        // compressed size
   };
 
-  if (ati.Lookup()) {
+  if (ati.IsLookup()) { // gry: 针对字符串处理，只有在 lookup fmt 时候才会创建 dict，我说怎么没见过
     hdr.dict_ver = 1;  // starting with 1 because 0 means n/a
 
     fs::create_directory(dir / common::COL_DICT_DIR);
@@ -121,16 +121,17 @@ void TianmuAttr::Create(const fs::path &dir, const AttributeTypeInfo &ati, uint8
   // create version directory
   fs::create_directory(dir / common::COL_VERSION_DIR);
 
-  system::TianmuFile fattr;
+  system::TianmuFile fattr; // gry: 写列(如1.0)目录下的"v"下创建具体的事务id名文件，初创文件名是0，里面保存COL_VER_HDR
   fattr.OpenCreateEmpty(dir / common::COL_VERSION_DIR / common::TX_ID(0).ToString());
   fattr.WriteExact(&hdr, sizeof(hdr));
 
   // write index
-  for (common::PACK_INDEX i = 0; i < no_pack; i++) fattr.WriteExact(&i, sizeof(i));
+  for (common::PACK_INDEX i = 0; i < no_pack; i++) // 我知道了，create 有可能带数据，create ... select ...
+    fattr.WriteExact(&i, sizeof(i));
   fattr.Flush();
 
   if (no_rows > 0) {
-    // all DPNs are null-only
+    // all DPNs are null-only // gry: 为什么?上面场景?
     DPN dpn;
     dpn.reset();
     dpn.used = 1;
@@ -140,8 +141,9 @@ void TianmuAttr::Create(const fs::path &dir, const AttributeTypeInfo &ati, uint8
     dpn.dataAddress = DPN_INVALID_ADDR;
 
     system::TianmuFile fdn;
-    fdn.OpenCreateEmpty(dir / common::COL_DN_FILE);
-    for (common::PACK_INDEX i = 0; i < no_pack - 1; i++) fdn.WriteExact(&dpn, sizeof(dpn));
+    fdn.OpenCreateEmpty(dir / common::COL_DN_FILE); // gry: 创建 Data Node 数据文件
+    for (common::PACK_INDEX i = 0; i < no_pack - 1; i++) // gry: 难道每一个 dpn 都写进去？
+      fdn.WriteExact(&dpn, sizeof(dpn)); // gry: 写入 dpn 元数据，一个 data pack 一个 dpn
 
     // the last one
     auto left = no_rows % (1 << pss);

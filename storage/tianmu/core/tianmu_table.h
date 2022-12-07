@@ -44,7 +44,7 @@ struct AttrInfo {
 };
 
 struct TableOption {
-  std::vector<AttributeTypeInfo> atis;
+  std::vector<AttributeTypeInfo> atis; // gry: 包含所有列信息的容器
   fs::path path;
   std::string name;
   int id;

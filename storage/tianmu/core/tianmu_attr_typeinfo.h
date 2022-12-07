@@ -39,11 +39,15 @@ class ATI {
   static bool IsIntegerType(common::ColumnType attr_type) {
     return IsInteger32Type(attr_type) || attr_type == common::ColumnType::BIGINT;
   }
+  
+  // TODO(gry): bit 怎么处理？固定还是不固定？定点数，不包含整型吧? bit 跟 decimal 一样，包含在 NUM 里面处理
+  // Fixed-point & interger, 
   static bool IsFixedNumericType(common::ColumnType attr_type) {
     return IsInteger32Type(attr_type) || attr_type == common::ColumnType::BIGINT ||
            attr_type == common::ColumnType::NUM || attr_type == common::ColumnType::BIT;
   }
 
+  // Floating-point
   static bool IsRealType(common::ColumnType attr_type) {
     return attr_type == common::ColumnType::FLOAT || attr_type == common::ColumnType::REAL;
   }
@@ -102,7 +106,7 @@ class AttributeTypeInfo {
     flag_[static_cast<int>(enumATI::AUTO_INC)] = auto_inc;
 
     // lookup only applies to string type
-    if (attrt != common::ColumnType::STRING && attrt != common::ColumnType::VARCHAR && Lookup())
+    if (attrt != common::ColumnType::STRING && attrt != common::ColumnType::VARCHAR && IsLookup())
       fmt = common::PackFmt::DEFAULT;
   }
   common::ColumnType Type() const { return attrt_; }
@@ -136,7 +140,7 @@ class AttributeTypeInfo {
   std::string field_name_;
   bool unsigned_flag_ = false;
 
-  std::bitset<std::numeric_limits<unsigned char>::digits> flag_;
+  std::bitset<std::numeric_limits<unsigned char>::digits> flag_; // not null, bloom filter, auto inc.
 };
 }  // namespace core
 }  // namespace Tianmu

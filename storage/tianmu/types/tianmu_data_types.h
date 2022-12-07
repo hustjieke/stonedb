@@ -168,6 +168,7 @@ class TianmuDataType {
   static bool ToDecimal(const TianmuDataType &in, int scale, TianmuNum &out);
   static bool ToInt(const TianmuDataType &in, TianmuNum &out);
   static bool ToReal(const TianmuDataType &in, TianmuNum &out);
+  // gry(TODO): 要不要 to bit? 然后为什么没有 to string? 
 
   static bool AreComperable(const TianmuDataType &tianmu_dt1, const TianmuDataType &tianmu_dt2);
   static bool compare(const TianmuDataType &tianmu_dt1, const TianmuDataType &tianmu_dt2, common::Operator op,
