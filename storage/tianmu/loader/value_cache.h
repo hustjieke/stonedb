@@ -27,7 +27,7 @@
 namespace Tianmu {
 namespace loader {
 
-class ValueCache final {
+class ValueCache final { // gry(TODO): 好好研究下 loader ValueCache 这个设计
  public:
   ValueCache(size_t, size_t);
   ValueCache(const ValueCache &) = delete;
@@ -46,8 +46,8 @@ class ValueCache final {
       null_cnt_++;
     size_ += expected_size_;
     DEBUG_ASSERT(size_ <= capacity_);
-    expected_size_ = 0;
-    expected_null_ = false;
+    expected_size_ = 0; // gry: rest 操作
+    expected_null_ = false; // gry: reset 操作
   }
 
   void Rollback() {

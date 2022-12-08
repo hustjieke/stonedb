@@ -599,7 +599,7 @@ void TianmuTable::LoadDataInfile(system::IOParameters &iop) {
   }
 }
 
-void TianmuTable::Field2VC(Field *f, loader::ValueCache &vc, size_t col) {
+void TianmuTable::Field2VC(Field *f, loader::ValueCache &vc, size_t col) { // gry: to value cache(VC)
   if (f->is_null()) {
     vc.ExpectedNull(true);
     return;
@@ -738,7 +738,7 @@ int TianmuTable::Insert(TABLE *table) {
   for (uint i = 0; i < NumOfAttrs(); i++) {
     vcs.emplace_back(1, 128);
     Field2VC(table->field[i], vcs[i], i);
-    vcs[i].Commit();
+    vcs[i].Commit(); // gry: for 循环 commit，如果循环中断电了呢？事务一致性能否保证？这个只是 commit 到内存
   }
 
   std::shared_ptr<index::TianmuTableIndex> tab = ha_tianmu_engine_->GetTableIndex(share->Path());

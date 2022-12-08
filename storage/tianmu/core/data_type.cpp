@@ -59,7 +59,7 @@ DataType::DataType(common::ColumnType atype, int prec, int scale, DTCollation co
       fixmax = unsigned_flag ? UINT_MAX8 : MAX(TIANMU_TINYINT_MAX, -TIANMU_TINYINT_MIN);
       break;
     // TODO(gry) bit 也要处理类似精度问题 DEBUG_ASSERT((prec > 0) && (prec <= 19) && (fixscale >= 0));
-    // 后面还要考虑 uint64_t 的问题
+    // 后面还要考虑 uint64_t 的问题, 改为 union {int64_t, uint64_t}
     case common::ColumnType::BIT:
       valtype = ValueType::VT_FIXED;
       fixmax = MAX(common::TIANMU_BIGINT_MAX,

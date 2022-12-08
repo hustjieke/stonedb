@@ -26,7 +26,7 @@
 
 namespace Tianmu {
 namespace core {
-constexpr uint64_t tag_one = (1L << 48);
+constexpr uint64_t tag_one = (1L << 48); // gry: 这个是什么？
 constexpr uint64_t tag_mask = 0x0000FFFFFFFFFFFF;
 constexpr uint64_t loading_flag = -1;
 constexpr uint64_t max_ref_counter = 1UL << 63;
@@ -77,8 +77,8 @@ struct DPN final {
   // a tagged pointer, 16 bits as ref count.
   // Only read-only dpn uses it for ref counting; local dpn is managed only by
   // one write session
-  // gry: 保存 pack 真实的指针, pack 还是 dpn ptr?
-  std::atomic_ulong tagged_ptr;
+  // gry: 保存 pack 真实的指针 ptr
+  std::atomic_ulong tagged_ptr; // gry: 类似 go 里面的原子操作
 
  public:
   bool CAS(uint64_t &expected, uint64_t desired) { return tagged_ptr.compare_exchange_weak(expected, desired); }

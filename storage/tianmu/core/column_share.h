@@ -42,7 +42,7 @@ struct COL_META {
   uint32_t scale;  // gry: decimal 用
 };
 
-struct alignas(128) COL_VER_HDR_V3 {
+struct alignas(128) COL_VER_HDR_V3 { // gry(TODO): 128 是个魔法数呀，ValueCache emplace_back(1, 128)有什么关系么
   uint64_t numOfRecords;  // number of records
   uint64_t numOfNulls;    // number of nulls
   uint64_t numOfPacks;    // number of packs
@@ -106,7 +106,7 @@ class ColumnShare final {
   void read_meta();
   void scan_dpn(common::TX_ID xid);
 
-  TableShare *owner;
+  TableShare *owner; // gry: 属于哪个 table
   const fs::path m_path;
   ColumnType ct;
   int dn_fd{-1};

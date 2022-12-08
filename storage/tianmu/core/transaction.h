@@ -32,8 +32,8 @@ class Transaction final {
  private:
   common::TX_ID txn_id_;
 
-  std::unordered_map<std::string, std::shared_ptr<TianmuTable>> modified_tables_;
-  std::unordered_map<std::string, std::shared_ptr<TianmuTable>> readonly_tables_;
+  std::unordered_map<std::string, std::shared_ptr<TianmuTable>> modified_tables_; // gry: 活动表
+  std::unordered_map<std::string, std::shared_ptr<TianmuTable>> readonly_tables_; // gry: 只读表
 
   std::atomic_int display_lock_{0};  // if >0 disable messages e.g. in subqueries
 

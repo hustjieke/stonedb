@@ -923,7 +923,7 @@ void TianmuAttr::LoadData(loader::ValueCache *nvs, Transaction *conn_info) {
   hdr.natural_size += nvs->SumarizedSize();
 }
 
-void TianmuAttr::LoadDataPackN(size_t pi, loader::ValueCache *nvs) {
+void TianmuAttr::LoadDataPackN(size_t pi, loader::ValueCache *nvs) { // gry: load int pack
   std::optional<common::double_int_t> nv;
 
   if (Type().NotNull()) {
@@ -934,7 +934,7 @@ void TianmuAttr::LoadDataPackN(size_t pi, loader::ValueCache *nvs) {
   }
 
   auto &dpn = get_dpn(pi);
-  auto load_values = nvs->NumOfValues();
+  auto load_values = nvs->NumOfValues(); // value size
   size_t load_nulls = nv.has_value() ? 0 : nvs->NumOfNulls();
 
   // nulls only

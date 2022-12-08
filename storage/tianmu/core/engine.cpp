@@ -1477,7 +1477,7 @@ int Engine::InsertRow(const std::string &table_path, [[maybe_unused]] Transactio
       }
       tianmu_stat.delayinsert++; // gry: 保存 delay insert 数值，后台线程根据这个有做什么处理么?
     } else {
-      current_txn_->SetLoadSource(common::LoadSource::LS_Direct);
+      current_txn_->SetLoadSource(common::LoadSource::LS_Direct); // gry: 这个逻辑是什么
       auto rct = current_txn_->GetTableByPath(table_path);
       ret = rct->Insert(table);
     }

@@ -121,7 +121,7 @@ constexpr const char *get_enum_field_types_name(int type) {
   return "unkonwn type";
 }
 
-enum class PackType { INT, STR };
+enum class PackType { INT, STR }; // 底层存储就两种，int 和 str
 
 constexpr double PLUS_INF_DBL = DBL_MAX;
 constexpr double MINUS_INF_DBL = DBL_MAX * -1;
