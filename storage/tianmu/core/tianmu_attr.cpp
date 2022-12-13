@@ -206,7 +206,7 @@ size_t TianmuAttr::ComputeNaturalSize() {
     case common::ColumnType::TIMESTAMP:
       na_size += Type().GetDisplaySize() * NumOfObj();
       break;
-    case common::ColumnType::NUM:
+    case common::ColumnType::NUM: // gry(TODO): bit 参考这个还是下面那个?
       na_size += (Type().GetPrecision() + (Type().GetScale() ? 1 : 0)) * NumOfObj();
       break;
     case common::ColumnType::BIT:
@@ -355,8 +355,8 @@ void TianmuAttr::PostCommit() {
 void TianmuAttr::Rollback() {
   for (size_t i = 0; i < m_idx.size(); i++) {
     auto &dpn(get_dpn(i));
-    if (dpn.IsLocal()) {
-      ha_tianmu_engine_->cache.DropObject(get_pc(i));
+    if (dpn.IsLocal()) { // gry: dpn owned by a write transaction, thus to-be-commit
+      ha_tianmu_engine_->cache.DropObject(get_pc(i)); // gry: 回滚，cache drop(tianmu attr's pack)
       dpn.reset();
     }
   }
@@ -949,7 +949,7 @@ void TianmuAttr::LoadDataPackN(size_t pi, loader::ValueCache *nvs) { // gry: loa
   // has non-null data to load
   int64_t load_min;
   int64_t load_max;
-  if (!is_real_type) {
+  if (!is_real_type) { // gry: 非浮点数
     nvs->CalcIntStats(nv);
     load_min = nvs->MinInt();
     load_max = nvs->MaxInt();

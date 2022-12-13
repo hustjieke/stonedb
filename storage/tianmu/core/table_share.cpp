@@ -68,7 +68,7 @@ TableShare::~TableShare() {
       TIANMU_LOG(LogCtl_Level::FATAL, "TableShare still has ref outside by old versions");
 }
 
-std::shared_ptr<TianmuTable> TableShare::GetSnapshot() { // gry: 这个是 share table 的快照
+std::shared_ptr<TianmuTable> TableShare::GetSnapshot() { // gry: 这个是 share table 的快照, 这个函数应该叫 GetAndSetSnapshot
   std::scoped_lock guard(current_mtx);
   if (!current)
     current = std::make_shared<TianmuTable>(table_path, this);

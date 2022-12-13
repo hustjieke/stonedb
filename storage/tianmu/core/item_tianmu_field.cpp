@@ -70,7 +70,7 @@ void Item_tianmufield::SetType(DataType t) {
         ivalue = new Item_int(static_cast<longlong>(0));
       else
         ivalue = new Item_tianmudecimal(tianmu_type);
-      ivalue->unsigned_flag = ifield->unsigned_flag;
+      ivalue->unsigned_flag = ifield->unsigned_flag; // gry:为什么设置无符号标志位
       break;
 
     case DataType::ValueType::VT_FLOAT:

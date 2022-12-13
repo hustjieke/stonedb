@@ -137,7 +137,7 @@ class Item_tianmudecimal : public Item_decimal {
  private:
   int scale;
   int64_t scaleCoef;
-};
+}; // gry: 需不需要创建一个类似的 Item_tianmubit ...
 
 //! Base class for TIANMU's Item classes to store date/time values of columns
 //! occuring in a complex expression

@@ -33,7 +33,7 @@ class ValueParserForText {
   static auto GetParsingFuntion(const core::AttributeTypeInfo &at)
       -> std::function<common::ErrorCode(BString const &, int64_t &)> {
     switch (at.Type()) {
-      case common::ColumnType::NUM:
+      case common::ColumnType::NUM: // gry(TODO): 这里的 bit 估计是难啃的骨头
         return std::bind<common::ErrorCode>(&ParseDecimal, std::placeholders::_1, std::placeholders::_2, at.Precision(),
                                             at.Scale());
       case common::ColumnType::REAL:

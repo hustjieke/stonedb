@@ -424,7 +424,7 @@ class TianmuAttr final : public mm::TraceableObject, public PhysicalColumn, publ
  private:
   COL_VER_HDR hdr{};
   common::TX_ID m_version;  // the read-from version
-  Transaction *m_tx;
+  Transaction *m_tx; // gry: tianmu attr 所保存的当前事务
   int m_tid;
   int m_cid;
   ColumnShare *m_share;

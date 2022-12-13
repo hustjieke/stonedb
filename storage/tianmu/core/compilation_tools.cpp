@@ -131,7 +131,7 @@ QueryRouteTo OperationUnmysterify(Item *item, common::ColOperation &oper, bool &
   return QueryRouteTo::kToTianmu;
 }
 
-const char *FieldType(enum_field_types ft) {
+const char *FieldType(enum_field_types ft) { // gry(TODO): 这里需要更新代码
   // For declaration of enum_field_types see mysql.../include/mysql_com.h
   static const char *low_names[] = {
       "MYSQL_TYPE_DECIMAL", "MYSQL_TYPE_TINY", "MYSQL_TYPE_SHORT",     "MYSQL_TYPE_LONG",     "MYSQL_TYPE_FLOAT",

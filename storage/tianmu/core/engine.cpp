@@ -927,7 +927,7 @@ Transaction *Engine::CreateTx(THD *thd) {
 }
 
 Transaction *Engine::GetTx(THD *thd) {
-  if (thd->ha_data[m_slot].ha_ptr == nullptr)
+  if (thd->ha_data[m_slot].ha_ptr == nullptr) // gry: m_slot 只在事务中使用么?
     return CreateTx(thd);
   return static_cast<Transaction *>(thd->ha_data[m_slot].ha_ptr);
 }
@@ -1172,7 +1172,7 @@ static void HandleDelayedLoad(int table_id, std::vector<std::unique_ptr<char[]>>
     // error/////
   }
   List<Item> tmp_list;  // dummy
-  if (mysql_load(thd, &ex, &tl, tmp_list, tmp_list, tmp_list, DUP_ERROR, false)) {
+  if (mysql_load(thd, &ex, &tl, tmp_list, tmp_list, tmp_list, DUP_ERROR, false)) { // gry: 延迟插入，找到了，在这里调用 mysql_load
     thd->is_slave_error = 1;
   }
 
@@ -1462,7 +1462,7 @@ void Engine::InsertMemRow(const std::string &table_path, std::shared_ptr<TableSh
   EncodeRecord(table_path, share->TabID(), table->field, table->s->fields, table->s->blob_fields, buf, buf_sz,
                table->in_use);
   auto rctable = share->GetSnapshot();
-  rctable->InsertMemRow(std::move(buf), buf_sz);
+  rctable->InsertMemRow(std::move(buf), buf_sz); // gry: 写入 rocksdb
 }
 
 int Engine::InsertRow(const std::string &table_path, [[maybe_unused]] Transaction *trans_, TABLE *table,

@@ -192,7 +192,7 @@ T ValueBasic<T>::null_value_;
 
 using CondArray = std::vector<BString>;
 
-class BString : public ValueBasic<BString> {
+class BString : public ValueBasic<BString> { // gry(TODO): 移出去单独成立头文件。类似 tianmu_num.h
   friend std::ostream &operator<<(std::ostream &out, const BString &tianmu_s);
   friend bool operator!=(const BString &tianmu_s1, const BString &tianmu_s2);
 
@@ -303,7 +303,7 @@ class BString : public ValueBasic<BString> {
   const static ValueTypeEnum value_type_ = ValueTypeEnum::STRING_TYPE;
 };
 
-class TianmuDateTime : public ValueBasic<TianmuDateTime> {
+class TianmuDateTime : public ValueBasic<TianmuDateTime> { // gry(TODO): 移出去单独成立头文件。类似 tianmu_num.h
   friend class ValueParserForText;
 
  public:

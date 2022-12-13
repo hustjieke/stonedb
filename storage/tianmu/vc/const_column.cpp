@@ -130,7 +130,7 @@ types::TianmuValueObject ConstColumn::GetValueImpl([[maybe_unused]] const core::
   if (core::ATI::IsRealType(TypeName()))
     return types::TianmuNum(value_or_null_.Get64(), 0, true, TypeName());
   if (lookup_to_num || TypeName() == common::ColumnType::NUM || TypeName() == common::ColumnType::BIT)
-    return types::TianmuNum((int64_t)value_or_null_.Get64(), Type().GetScale());
+    return types::TianmuNum((int64_t)value_or_null_.Get64(), Type().GetScale()); // gry(TODO): 确认下 bit 是不是 scale
   DEBUG_ASSERT(!"Illegal execution path");
   return types::TianmuValueObject();
 }

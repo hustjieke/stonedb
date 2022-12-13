@@ -74,7 +74,7 @@ class TableShare final {
 
   std::vector<std::unique_ptr<ColumnShare>> m_columns;
 
-  std::shared_ptr<TianmuTable> current; // gry: 当前 tianmu 表快照
+  std::shared_ptr<TianmuTable> current; // gry: 当前 tianmu 表快照,后续再用的时候会取，如果是第一取，则赋值tianmu table指针
   std::mutex current_mtx;
 
   std::list<std::weak_ptr<TianmuTable>> versions; // gry: tianmu 表多版本?

@@ -585,15 +585,15 @@ void TianmuTable::LoadDataInfile(system::IOParameters &iop) {
   FunctionExecutor fe(std::bind(&TianmuTable::LockPackInfoForUse, this),
                       std::bind(&TianmuTable::UnlockPackInfoFromUse, this));
 
-  if (iop.LoadDelayed()) {
+  if (iop.LoadDelayed()) { // gry: 延迟 load 场景
     if (tianmu_sysvar_enable_rowstore) {
-      current_txn_->SetLoadSource(common::LoadSource::LS_MemRow);
+      current_txn_->SetLoadSource(common::LoadSource::LS_MemRow); // gry: MemRow，从 rocksdb load
       no_loaded_rows = MergeMemTable(iop);
     } else {
-      current_txn_->SetLoadSource(common::LoadSource::LS_InsertBuffer);
+      current_txn_->SetLoadSource(common::LoadSource::LS_InsertBuffer); // gry: 内存 buffer load
       no_loaded_rows = ProcessDelayed(iop);
     }
-  } else {
+  } else { // gry: 这个是从磁盘 load file，看 LS_File 注释
     current_txn_->SetLoadSource(common::LoadSource::LS_File);
     no_loaded_rows = ProceedNormal(iop);
   }
@@ -1030,7 +1030,7 @@ int TianmuTable::binlog_insert2load_block(std::vector<loader::ValueCache> &vcs, 
         case common::ColumnType::BIT: {
           types::BString s;
           int64_t v = *(int64_t *)(vcs[att].GetDataBytesPointer(i));
-          if (v == common::NULL_VALUE_64)
+          if (v == common::NULL_VALUE_64) // gry: case null value
             s = types::BString();
           else {
             types::TianmuNum tianmu_num(v, m_attrs[att]->Type().GetScale(), m_attrs[att]->Type().IsFloat(),
@@ -1311,7 +1311,7 @@ void TianmuTable::InsertMemRow(std::unique_ptr<char[]> buf, uint32_t size) {
   return m_mem_table->InsertRow(std::move(buf), size);
 }
 
-int TianmuTable::MergeMemTable(system::IOParameters &iop) {
+int TianmuTable::MergeMemTable(system::IOParameters &iop) { // gry: merge data from rocksdb
   ASSERT(m_tx, "Transaction not generated.");
   ASSERT(m_mem_table, "memory table not exist");
   auto index_table = ha_tianmu_engine_->GetTableIndex(share->Path());

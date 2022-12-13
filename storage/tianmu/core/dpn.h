@@ -97,7 +97,7 @@ struct DPN final {
     return numOfNulls == 0 && min_i == max_i;
   }  // for packN, all records are the same and not null
   bool NullOnly() const { return numOfRecords == numOfNulls; }
-  bool IsLocal() const { return local == 1; }
+  bool IsLocal() const { return local == 1; } // gry: owned by a write transaction, thus to-be-commit, 看 local 定义说明
   void SetLocal(bool v) { local = v; }
 
   bool IncRef() {

@@ -394,7 +394,7 @@ DataType MysqlExpression::EvalType(TypOfVars *tv) {
     case REAL_RESULT:
       type = DataType(common::ColumnType::FLOAT);
       break;
-    case DECIMAL_RESULT:
+    case DECIMAL_RESULT: // gry(TODO): 这里要添加 bit 么，注意精度，还是 scale，看函数实现里面，已经有 bit，但是没有精度
       type = DataType(common::ColumnType::NUM, decimal_precision, decimal_scale);
       break;
     case STRING_RESULT:  // GA: in case of time item->max_length can contain
