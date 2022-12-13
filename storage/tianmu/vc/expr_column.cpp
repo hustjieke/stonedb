@@ -176,12 +176,12 @@ types::TianmuValueObject ExpressionColumn::GetValueImpl(const core::MIIterator &
     return s;
   }
   if (core::ATI::IsIntegerType(TypeName()))
-    return types::TianmuNum(GetValueInt64(mi), -1, false, TypeName());
+    return types::TianmuNum(GetValueInt64(mit), -1, false, TypeName());
   if (core::ATI::IsDateTimeType(TypeName()))
     return types::TianmuDateTime(GetValueInt64(mit), TypeName());
   if (core::ATI::IsRealType(TypeName()))
     return types::TianmuNum(GetValueInt64(mit), 0, true, TypeName());
-  if (lookup_to_num || TypeName() == common::ColumnType::NUM || TypeName() == common::ColumnType::BIT)
+  if (lookup_to_num || TypeName() == common::ColumnType::NUM || TypeName() == common::ColumnType::BIT) // gry(bit):验证
     return types::TianmuNum(GetValueInt64(mit), Type().GetScale());
   DEBUG_ASSERT(!"Illegal execution path");
   return types::TianmuValueObject();
@@ -199,7 +199,7 @@ int64_t ExpressionColumn::GetMinInt64Impl([[maybe_unused]] const core::MIIterato
 int64_t ExpressionColumn::GetMaxInt64Impl([[maybe_unused]] const core::MIIterator &mit) {
   return common::PLUS_INF_64;  // not implemented
 }
-t
+
 types::BString ExpressionColumn::GetMinStringImpl([[maybe_unused]] const core::MIIterator &mit) {
   return types::BString();  // not implemented
 }

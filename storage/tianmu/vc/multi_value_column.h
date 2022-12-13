@@ -148,7 +148,7 @@ class MultiValColumn : public VirtualColumn {
     return (ContainsImpl(mit, val));
   }
   virtual bool IsSetEncoded([[maybe_unused]] common::ColumnType at, [[maybe_unused]] int scale) {
-    return false;
+    return false;  // gry(TODO): 直接 return false? 那调用这个函数的地方有什么意义么？
   }  // checks whether the set is constant and fixed size equal to the given one
   inline bool IsEmpty(core::MIIterator const &mit) { return (IsEmptyImpl(mit)); }
   inline int64_t NumOfValues(core::MIIterator const &mit) { return NumOfValuesImpl(mit); }

@@ -25,7 +25,7 @@ namespace Tianmu {
 namespace core {
 struct DataType;
 
-struct ColumnType {
+struct ColumnType { // gry: 跟列类型枚举重名，有点迷惑
   enum class enumCT {
     NOT_NULL = 0,
     AUTO_INC,
@@ -148,7 +148,7 @@ struct ColumnType {
  private:
   common::ColumnType type;
   bool unsigned_flag_ = false;
-  uint precision = 0;
+  uint precision = 0; // gry: 还会给字符串用来表示长度 char(n) 这样?
   int scale = 0;
   uint internal_size;
   int display_size;

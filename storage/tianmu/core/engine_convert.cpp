@@ -97,7 +97,7 @@ bool Engine::ConvertToField(Field *field, types::TianmuDataType &tianmu_item, st
         case common::ColumnType::BIGINT:
         case common::ColumnType::REAL:
         case common::ColumnType::FLOAT:
-        case common::ColumnType::NUM:
+        case common::ColumnType::NUM: // gry: decimal ?? 这部分逻辑有问题把，上面已经有decimal了。
         case common::ColumnType::BIT:
           switch (field->type()) {
             case MYSQL_TYPE_TINY:
@@ -374,9 +374,15 @@ int Engine::Convert(int &is_null, int64_t &value, types::TianmuDataType &tianmu_
     is_null = 1;
   else {
     is_null = 0;
+<<<<<<< HEAD
     if (tianmu_item.Type() == common::ColumnType::NUM || tianmu_item.Type() == common::ColumnType::BIGINT ||
         tianmu_item.Type() == common::ColumnType::BIT) {
       value = (int64_t)(types::TianmuNum &)tianmu_item;
+=======
+    if (rcitem.Type() == common::ColumnType::NUM || rcitem.Type() == common::ColumnType::BIGINT
+      || rcitem.Type() == common::ColumnType::BIT) { // gry(bit): 需要测试下怎么才能走到这里
+      value = (int64_t)(types::TianmuNum &)rcitem;
+>>>>>>> fix func item like min/max... temp table
       switch (f_type) {
         case MYSQL_TYPE_LONG:
         case MYSQL_TYPE_INT24:
@@ -513,7 +519,7 @@ bool Engine::AreConvertible(types::TianmuDataType &tianmu_item, enum_field_types
    tianmu_item->IsNull()) return true;*/
   common::ColumnType tianmu_type = tianmu_item.Type();
   switch (my_type) {
-    case MYSQL_TYPE_LONGLONG: // gry(TODO): 这里要支持转 bit 么？
+    case MYSQL_TYPE_LONGLONG: // gry(bit): 这里要支持转 bit 么？这里要测试转换函数，这里是转 longlong
       if (tianmu_type == common::ColumnType::INT || tianmu_type == common::ColumnType::MEDIUMINT ||
           tianmu_type == common::ColumnType::BIGINT ||
           (tianmu_type == common::ColumnType::NUM && dynamic_cast<types::TianmuNum &>(tianmu_item).Scale() == 0))
@@ -665,7 +671,7 @@ AttributeTypeInfo Engine::GetCorrespondingATI(Field &field) {
 
   if (ATI::IsNumericType(at)) {
     DEBUG_ASSERT(dynamic_cast<Field_num *>(&field));
-    if (at == common::ColumnType::NUM) {
+    if (at == common::ColumnType::NUM) { // gry(bit): 需要测试 bit 是否满足，精度获取是否 ok
       DEBUG_ASSERT(dynamic_cast<Field_new_decimal *>(&field));
       return AttributeTypeInfo(at, !field.maybe_null(), static_cast<Field_new_decimal &>(field).precision,
                                static_cast<Field_num &>(field).decimals());

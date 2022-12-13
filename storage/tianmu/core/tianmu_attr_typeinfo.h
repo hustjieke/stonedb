@@ -40,8 +40,7 @@ class ATI {
     return IsInteger32Type(attr_type) || attr_type == common::ColumnType::BIGINT;
   }
   
-  // TODO(gry): bit 怎么处理？固定还是不固定？定点数，不包含整型吧? bit 跟 decimal 一样，包含在 NUM 里面处理
-  // Fixed-point & interger, 
+  // Fixed-point & interger, // gry 这里是定点数，区别于定点类型, 参考 num 一起处理
   static bool IsFixedNumericType(common::ColumnType attr_type) {
     return IsInteger32Type(attr_type) || attr_type == common::ColumnType::BIGINT ||
            attr_type == common::ColumnType::NUM || attr_type == common::ColumnType::BIT;

@@ -33,7 +33,7 @@ class ValueParserForText {
   static auto GetParsingFuntion(const core::AttributeTypeInfo &at)
       -> std::function<common::ErrorCode(BString const &, int64_t &)> {
     switch (at.Type()) {
-      case common::ColumnType::NUM: // gry(TODO): 这里的 bit 估计是难啃的骨头
+      case common::ColumnType::NUM:
         return std::bind<common::ErrorCode>(&ParseDecimal, std::placeholders::_1, std::placeholders::_2, at.Precision(),
                                             at.Scale());
       case common::ColumnType::REAL:
@@ -45,6 +45,7 @@ class ValueParserForText {
         return std::bind<common::ErrorCode>(&ParseNumeric, std::placeholders::_1, std::placeholders::_2, at.Type(),
                                             at.GetUnsignedFlag());
       case common::ColumnType::BIGINT:
+      case common::ColumnType::BIT: // gry(bit): 需要实现带精度控制 out of range 的函数，先定位到哪个场景会调用
         return &ParseBigIntAdapter;
       case common::ColumnType::BIT:
         return &ParseBitAdapter;

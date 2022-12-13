@@ -655,6 +655,7 @@ void TianmuAttr::EvaluatePack_InNum(MIUpdatingIterator &mit, int dim, Descriptor
   DEBUG_ASSERT(dynamic_cast<vcolumn::MultiValColumn *>(d.val1.vc) != nullptr);
   vcolumn::MultiValColumn *multival_column = static_cast<vcolumn::MultiValColumn *>(d.val1.vc);
   bool lookup_to_num = ATI::IsStringType(TypeName());
+  // gry:IsSetEncoded 这个函数没什么用啊，只有 false 返回.
   bool encoded_set = (lookup_to_num ? multival_column->IsSetEncoded(common::ColumnType::NUM, 0)
                                     : multival_column->IsSetEncoded(TypeName(), ct.GetScale()));
   common::Tribool res;

@@ -469,12 +469,12 @@ void TempTable::SendResult(int64_t limit, int64_t offset, ResultSender &sender, 
       auto vc = col->term.vc;
       if (ct == common::ColumnType::INT || ct == common::ColumnType::MEDIUMINT || ct == common::ColumnType::SMALLINT ||
           ct == common::ColumnType::BYTEINT || ct == common::ColumnType::NUM || ct == common::ColumnType::BIGINT ||
-          ct == common::ColumnType::BIT) {
+          ct == common::ColumnType::BIT) { // gry(bit): select a-111 from bit2;，在创建 vc 的时候，INT_RESULT，设置了 bigint，什么情况会走到 bit?
         auto data_ptr = new types::TianmuNum();
         if (vc->IsNull(it))
           data_ptr->SetToNull();
         else
-          // gry(TODO): 这里要确认一下 bit 数据类型的精度传值问题
+          // gry(bit): 这里要确认一下 bit 数据类型的精度传值问题
           data_ptr->Assign(vc->GetValueInt64(it), col->Type().GetScale(), false, ct);
         record.emplace_back(data_ptr);
       } else if (ATI::IsRealType(ct)) {

@@ -24,7 +24,7 @@
 namespace Tianmu {
 namespace core {
 ColumnType::ColumnType(const DataType &dt) {
-  if (dt.IsFixed()) { // gry(TODO): 确定一下precision10 对 bit 类型的影响
+  if (dt.IsFixed()) { // gry(TODO): 确定一下precision10 对 bit 类型的影响,确定获取的精度跟实际的区别
     ColumnType ct(dt.attrtype, false, common::PackFmt::DEFAULT, QuickMath::precision10(dt.fixmax), dt.fixscale);
     ct.SetUnsigned(dt.unsigned_flag_);
     std::swap(ct, *this);
@@ -44,7 +44,7 @@ ColumnType::ColumnType(const DataType &dt) {
 bool ColumnType::operator==(const ColumnType &ct2) const {
   if (type == ct2.type && Lookup() == ct2.Lookup() && unsigned_flag_ == ct2.GetUnsigned() &&
       std::strcmp(collation.collation->csname, ct2.collation.collation->csname) == 0 &&
-      (type != common::ColumnType::NUM ||
+      (type != common::ColumnType::NUM || // gry(TODO):select a=b'111' from bit1; 测试没有问题,再 debug 一下
        (type == common::ColumnType::NUM && precision == ct2.precision && scale == ct2.scale)))
     return true;
   else
@@ -53,7 +53,7 @@ bool ColumnType::operator==(const ColumnType &ct2) const {
 
 uint ColumnType::InternalSize() {
   if (Lookup())
-    return 4;
+    return 4; // gry: 魔法数
   else if (ATI::IsStringType(type))
     return precision;
   else if (type == common::ColumnType::INT || type == common::ColumnType::MEDIUMINT)
@@ -62,7 +62,7 @@ uint ColumnType::InternalSize() {
     return 2;
   else if (type == common::ColumnType::BYTEINT || type == common::ColumnType::YEAR)
     return 1;
-  return 8;
+  return 8; // gry: 包含其它的数据类型，8个字节，后续 decimal 如果要支持，这里肯定要改
 }
 
 ColumnType ColumnType::RemovedLookup() const {

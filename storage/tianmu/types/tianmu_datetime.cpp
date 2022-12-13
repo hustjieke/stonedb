@@ -117,6 +117,7 @@ TianmuDateTime::TianmuDateTime(const MYSQL_TIME &myt, common::ColumnType at) : a
   dt_.neg = myt.neg;
 }
 
+// gry(bit): 确定下 bit 可不可以转 datetime, 先用 int64_t 先转，感觉这种转化没意义
 TianmuDateTime::TianmuDateTime(TianmuNum &tianmu_n, common::ColumnType at) : at_(at) {
   null_ = tianmu_n.null_;
   if (!null_) {

@@ -206,7 +206,9 @@ size_t TianmuAttr::ComputeNaturalSize() {
     case common::ColumnType::TIMESTAMP:
       na_size += Type().GetDisplaySize() * NumOfObj();
       break;
-    case common::ColumnType::NUM: // gry(TODO): bit 参考这个还是下面那个?
+    case common::ColumnType::NUM:
+      // gry: scale 不是0，说明有小数点，+1,没有，那就是精度本身长度(bytes 数)s，然后乘以对象数
+      // gry: 但是我觉得这个算法不太对，一个字节存一个数不合理
       na_size += (Type().GetPrecision() + (Type().GetScale() ? 1 : 0)) * NumOfObj();
       break;
     case common::ColumnType::BIT:
@@ -214,6 +216,7 @@ size_t TianmuAttr::ComputeNaturalSize() {
       break;
     case common::ColumnType::BIGINT:
     case common::ColumnType::REAL:
+    case common::ColumnType::BIT: // gry(bit): 先这么按 8 字节算
       na_size += 8 * NumOfObj();
       break;
     case common::ColumnType::FLOAT:
@@ -631,7 +634,7 @@ types::BString TianmuAttr::DecodeValue_S(int64_t code) {
     types::BString tianmu_bstring = tianmu_n.ToBString();
     tianmu_bstring.MakePersistent();
     return tianmu_bstring;
-  } else if (a_type == common::ColumnType::NUM || a_type == common::ColumnType::BIT) {
+  } else if (a_type == common::ColumnType::NUM || a_type == common::ColumnType::BIT) { // gry: bit 编解码
     types::TianmuNum tianmu_n(code, Type().GetScale(), false, a_type);
     types::BString tianmu_bstring = tianmu_n.ToBString();
     tianmu_bstring.MakePersistent();
@@ -703,6 +706,7 @@ int64_t TianmuAttr::EncodeValue64(types::TianmuDataType *v, bool &rounded, commo
   if (!v || v->IsNull())
     return common::NULL_VALUE_64;
 
+  // gry(bit): bit 会跟 lookup 一起出现么？lookup 主要针对的是字符串
   if ((Type().Lookup() && v->Type() != common::ColumnType::NUM && v->Type() != common::ColumnType::BIT)) {
     return EncodeValue_T(v->ToBString(), false, tianmu_err_code);
   } else if (ATI::IsDateTimeType(TypeName()) || ATI::IsDateTimeNType(TypeName())) {

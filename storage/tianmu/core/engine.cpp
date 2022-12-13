@@ -663,7 +663,6 @@ AttributeTypeInfo Engine::GetAttrTypeInfo(const Field &field) {
     case MYSQL_TYPE_DATETIME:
     case MYSQL_TYPE_DATE:
     case MYSQL_TYPE_NEWDATE:
-      // gry(TODO): 确认一下 bit 类型的列属性有没有填错
       return AttributeTypeInfo(Engine::GetCorrespondingType(field), notnull, (ushort)field.field_length, 0, auto_inc,
                                DTCollation(), fmt, filter, std::string(), field.flags & UNSIGNED_FLAG);
     case MYSQL_TYPE_TIME:

@@ -128,7 +128,7 @@ TianmuNum &TianmuNum::operator=(const TianmuDataType &tianmu_dt) {
 common::ColumnType TianmuNum::Type() const { return attr_type_; }
 
 bool TianmuNum::IsDecimal(ushort scale) const {
-  if (core::ATI::IsIntegerType(this->attr_type_) || attr_type_ == common::ColumnType::BIT) {
+  if (core::ATI::IsIntegerType(this->attr_type_) || attr_type_ == common::ColumnType::BIT) { // gry(bit): 这里要加上 bit 一起处理
     return GetDecIntLen() <= (MAX_DEC_PRECISION - scale);
   } else if (attr_type_ == common::ColumnType::NUM) {
     if (this->GetDecFractLen() <= scale)
@@ -255,7 +255,11 @@ BString TianmuNum::ToBString() const {
     } else if (core::ATI::IsIntegerType(attr_type_))
       std::sprintf(buf, "%ld", value_);
     else {
+<<<<<<< HEAD
       return BString(Text(value_, buf, scale_), 0, true);  // here include num & bit
+=======
+      return BString(Text(value_, buf, scale_), 0, true); // gry: 这里包含 num & bit
+>>>>>>> fix func item like min/max... temp table
     }
     return BString(buf, std::strlen(buf), true);
   }
