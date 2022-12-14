@@ -1395,7 +1395,7 @@ void Engine::LogStat() {
   TIANMU_LOG(LogCtl_Level::DEBUG,
              "Select: %lu/%lu, Loaded: %lu/%lu(%lu/%lu), dup: %lu/%lu, insert: "
              "%lu/%lu, failed insert: %lu/%lu, update: "
-             "%lu/%lu",
+             "%lu/%lu", // gry(TODO): 增加 delete 信息
              tianmu_stat.select - saved.select, tianmu_stat.select, tianmu_stat.loaded - saved.loaded,
              tianmu_stat.loaded, tianmu_stat.load_cnt - saved.load_cnt, tianmu_stat.load_cnt,
              tianmu_stat.loaded_dup - saved.loaded_dup, tianmu_stat.loaded_dup,

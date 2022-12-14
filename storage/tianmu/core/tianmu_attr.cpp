@@ -208,7 +208,7 @@ size_t TianmuAttr::ComputeNaturalSize() {
       break;
     case common::ColumnType::NUM:
       // gry: scale 不是0，说明有小数点，+1,没有，那就是精度本身长度(bytes 数)s，然后乘以对象数
-      // gry: 但是我觉得这个算法不太对，一个字节存一个数不合理
+      // gry: 一个字节存一个数, 这里算法可以参考每个类型的 display size:TxtDataFormat::StaticExtrnalSize
       na_size += (Type().GetPrecision() + (Type().GetScale() ? 1 : 0)) * NumOfObj();
       break;
     case common::ColumnType::BIT:
@@ -216,7 +216,6 @@ size_t TianmuAttr::ComputeNaturalSize() {
       break;
     case common::ColumnType::BIGINT:
     case common::ColumnType::REAL:
-    case common::ColumnType::BIT: // gry(bit): 先这么按 8 字节算
       na_size += 8 * NumOfObj();
       break;
     case common::ColumnType::FLOAT:

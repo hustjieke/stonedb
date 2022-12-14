@@ -51,7 +51,7 @@ bool ColumnType::operator==(const ColumnType &ct2) const {
     return false;
 }
 
-uint ColumnType::InternalSize() {
+uint ColumnType::InternalSize() { // gry: 这里跟计算 display size 方式不一样,这里是内存保存的字节数
   if (Lookup())
     return 4; // gry: 魔法数
   else if (ATI::IsStringType(type))
