@@ -92,7 +92,7 @@ void ValueSet::Clear() {
   use_easy_table = false;
 }
 
-// gry(bit): 确认一下需不需要添加, add64 的时候 debug 一下
+// gry(bit): 确认一下需不需要添加, add64 的时候 debug
 void ValueSet::Add64(int64_t v)  // only for integers
 {
   if (v == common::NULL_VALUE_64) {
@@ -257,7 +257,6 @@ inline bool ValueSet::IsPrepared(common::ColumnType at, int scale, DTCollation c
            (!types::RequiresUTFConversions(prep_collation) && !types::RequiresUTFConversions(coll))));
 }
 
-// gry(bit): 这里确认下怎么加进去
 void ValueSet::Prepare(common::ColumnType at, int scale, DTCollation coll) {
   if (!IsPrepared(at, scale, coll)) {
     decltype(values) new_values;
@@ -296,7 +295,7 @@ void ValueSet::Prepare(common::ColumnType at, int scale, DTCollation coll) {
       }
       std::swap(values, new_values);
       for (const auto &it : new_values) delete it;
-    } else if (ATI::IsIntegerType(at) || ATI::IsBitType(at)) { // gry(bit): 先当成整型处理看看
+    } else if (ATI::IsIntegerType(at) || ATI::IsBitType(at)) { // gry(bit): 先当成整型处理看看(确认先这么处理)
       delete min;
       min = new types::TianmuNum();
       delete max;

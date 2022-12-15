@@ -849,8 +849,8 @@ void Engine::UpdateAndStoreColumnComment(TABLE *table, int field_id, Field *sour
     }
 
     double d_comp = int(sum_c / 104857.6) / 10.0;  // 1 MB = 2^20 bytes
-    if (d_comp < 0.1)
-      d_comp = 0.1;
+    if (d_comp < 0.1) // gry: 压缩率这个算法需要再研究下
+      d_comp = 0.1; // gry: double 精度问题, debug 显示 0.10000000000000001
     double ratio = (sum_c > 0 ? sum_u / double(sum_c) : 0);
     if (ratio > 1000)
       ratio = 999.99;

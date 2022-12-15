@@ -755,7 +755,7 @@ int TianmuTable::Insert(TABLE *table) {
     }
   }
   for (uint i = 0; i < NumOfAttrs(); i++) {
-    m_attrs[i]->LoadData(&vcs[i]);
+    m_attrs[i]->LoadData(&vcs[i]); // gry: 在里面 pack.Save 落地数据的。
   }
   return 0;
 }

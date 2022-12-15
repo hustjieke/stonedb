@@ -45,7 +45,7 @@ class ValueParserForText {
         return std::bind<common::ErrorCode>(&ParseNumeric, std::placeholders::_1, std::placeholders::_2, at.Type(),
                                             at.GetUnsignedFlag());
       case common::ColumnType::BIGINT:
-      case common::ColumnType::BIT: // gry(bit): 需要实现带精度控制 out of range 的函数，先定位到哪个场景会调用
+      case common::ColumnType::BIT: // gry(bit): 需要实现带精度控制 out of range 的函数，哪个场景会调用到？
         return &ParseBigIntAdapter;
       case common::ColumnType::BIT:
         return &ParseBitAdapter;

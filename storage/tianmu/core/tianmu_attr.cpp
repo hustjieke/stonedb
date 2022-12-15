@@ -312,7 +312,7 @@ bool TianmuAttr::SaveVersion() {
         return sum + dpn->dataLength;
       else
         return sum;
-    });
+    }); // gry(TODO): 这里natural_size为什么不进行计算呢，同等uncomp_size
   }
 
   auto fname = Path() / common::COL_VERSION_DIR / m_tx->GetID().ToString();
@@ -705,7 +705,7 @@ int64_t TianmuAttr::EncodeValue64(types::TianmuDataType *v, bool &rounded, commo
   if (!v || v->IsNull())
     return common::NULL_VALUE_64;
 
-  // gry(bit): bit 会跟 lookup 一起出现么？lookup 主要针对的是字符串
+  // gry(bit): bit 会跟 lookup 一起出现么？lookup 主要针对的是字符串(先去掉 bit 判断)
   if ((Type().Lookup() && v->Type() != common::ColumnType::NUM && v->Type() != common::ColumnType::BIT)) {
     return EncodeValue_T(v->ToBString(), false, tianmu_err_code);
   } else if (ATI::IsDateTimeType(TypeName()) || ATI::IsDateTimeNType(TypeName())) {
@@ -910,7 +910,7 @@ void TianmuAttr::LoadData(loader::ValueCache *nvs, Transaction *conn_info) {
 
   DPN &dpn = get_dpn(pi);
   Pack *pack = get_pack(pi);
-  if (!dpn.Trivial()) {
+  if (!dpn.Trivial()) { // gry: 判断是否创建新的 pack
     pack->Save();
   }
   if (current_txn_->LoadSource() == common::LoadSource::LS_File) {

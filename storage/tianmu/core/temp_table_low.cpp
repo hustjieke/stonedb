@@ -474,7 +474,7 @@ void TempTable::SendResult(int64_t limit, int64_t offset, ResultSender &sender, 
         if (vc->IsNull(it))
           data_ptr->SetToNull();
         else
-          // gry(bit): 这里要确认一下 bit 数据类型的精度传值问题
+          // gry(bit): 这里要确认一下 bit 数据类型的精度传值问题, prec 有没有转成 getscale，如果有，构造的就没问题(prec, scale 确认)
           data_ptr->Assign(vc->GetValueInt64(it), col->Type().GetScale(), false, ct);
         record.emplace_back(data_ptr);
       } else if (ATI::IsRealType(ct)) {

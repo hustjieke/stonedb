@@ -23,7 +23,7 @@
 
 namespace Tianmu {
 namespace core {
-// gry: tianmu item 转 mysql Field
+// gry: tianmu item 转 mysql Field, 这个在 SendResults 的时候被调用.
 bool Engine::ConvertToField(Field *field, types::TianmuDataType &tianmu_item, std::vector<uchar> *blob_buf) {
   if (tianmu_item.IsNull()) {
     std::memset(field->ptr, 0, 2);
@@ -124,8 +124,7 @@ bool Engine::ConvertToField(Field *field, types::TianmuDataType &tianmu_item, st
               // params: "true" is unsigned flag, but it's not used in bit field->store() function.
               field->store((int64_t)((types::TianmuNum &)(tianmu_item)), true);
               break;
-            case MYSQL_TYPE_BIT: // mysql bit(1~64), here is (1~63, 1 precision lose)
-            // TODO(gry): 这里要参考 decimal 做法，转换到 mysql 的 bit 类型出去
+            case MYSQL_TYPE_BIT: // mysql bit(1~64), tianmu is (1~63, 1 precision lose), field->ptr is uchar*.
               *(int64_t *)field->ptr = (int64_t)((types::TianmuNum &)(rcitem));
               break;
             case MYSQL_TYPE_FLOAT:
@@ -367,22 +366,16 @@ int Engine::Convert(int &is_null, my_decimal *value, types::TianmuDataType &tian
   return 1;
 }
 
-// gry: mysql int64_t 转 TianmuDataType
+// gry: mysql int64_t 转 TianmuDataType, 对应 convert / cast 函数
 int Engine::Convert(int &is_null, int64_t &value, types::TianmuDataType &tianmu_item, enum_field_types f_type,
                     bool unsigned_flag) {
   if (tianmu_item.IsNull())
     is_null = 1;
   else {
     is_null = 0;
-<<<<<<< HEAD
     if (tianmu_item.Type() == common::ColumnType::NUM || tianmu_item.Type() == common::ColumnType::BIGINT ||
-        tianmu_item.Type() == common::ColumnType::BIT) {
+        tianmu_item.Type() == common::ColumnType::BIT) { // gry(bit): 需要测试下怎么才能走到这里，类型转换？
       value = (int64_t)(types::TianmuNum &)tianmu_item;
-=======
-    if (rcitem.Type() == common::ColumnType::NUM || rcitem.Type() == common::ColumnType::BIGINT
-      || rcitem.Type() == common::ColumnType::BIT) { // gry(bit): 需要测试下怎么才能走到这里
-      value = (int64_t)(types::TianmuNum &)rcitem;
->>>>>>> fix func item like min/max... temp table
       switch (f_type) {
         case MYSQL_TYPE_LONG:
         case MYSQL_TYPE_INT24:
@@ -671,14 +664,14 @@ AttributeTypeInfo Engine::GetCorrespondingATI(Field &field) {
 
   if (ATI::IsNumericType(at)) {
     DEBUG_ASSERT(dynamic_cast<Field_num *>(&field));
-    if (at == common::ColumnType::NUM) { // gry(bit): 需要测试 bit 是否满足，精度获取是否 ok
+    if (at == common::ColumnType::NUM) { // gry(bit): 这里没问题(需要测试 bit 是否满足，精度获取是否 ok).因为 decimal 精度只能转然后获取，而 bit 直接从 field.field_length 获取
       DEBUG_ASSERT(dynamic_cast<Field_new_decimal *>(&field));
       return AttributeTypeInfo(at, !field.maybe_null(), static_cast<Field_new_decimal &>(field).precision,
                                static_cast<Field_num &>(field).decimals());
     }
     auto unsigned_flag = field.flags & UNSIGNED_FLAG;
     return AttributeTypeInfo(at, !field.maybe_null(), field.field_length, static_cast<Field_num &>(field).decimals(),
-                             false, DTCollation(), common::PackFmt::DEFAULT, false, std::string(), unsigned_flag);
+                             false, DTCollation(), common::PackFmt::DEFAULT, false, std::string(), unsigned_flag); // gry(bit): 能走还是走一遍确认下 scale 对 bit 影响：static_cast<Field_num &>(field).decimals()
   }
   return AttributeTypeInfo(at, !field.maybe_null(), field.field_length);
 }

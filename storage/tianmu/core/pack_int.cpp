@@ -682,7 +682,7 @@ void PackInt::Save() {
     if (dpn_->numOfNulls)
       dpn_->dataLength += bitmap_size_;
     if (dpn_->numOfDeleted)
-      dpn_->dataLength += bitmap_size_;
+      dpn_->dataLength += bitmap_size_; // gry: 跟 nulls 一样，删除掉了，也要占据长度的。
     dpn_->dataLength += data_.value_type_ * dpn_->numOfRecords;
   } else {
     auto res = Compress();
@@ -699,7 +699,7 @@ void PackInt::Save() {
   else
     f.WriteExact(uptr.get(), dpn_->dataLength);
 
-  ASSERT(f.Tell() == off_t(dpn_->dataAddress + dpn_->dataLength));
+  ASSERT(f.Tell() == off_t(dpn_->dataAddress + dpn_->dataLength)); // gry: 判断写入后的 offset = 起始偏移 + 当前写入数据长度
 
   f.Close();
   dpn_->synced = true;

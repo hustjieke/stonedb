@@ -92,9 +92,6 @@ bool AreComparable(common::ColumnType attr1_t, common::ColumnType attr2_t) {
   return true;
 }
 
-// TODO(gry): 这里要加一个 ToBit() {
-// }
-
 bool TianmuDataType::ToDecimal(const TianmuDataType &in, int scale, TianmuNum &out) {
   if (TianmuNum *tianmu_n = dynamic_cast<TianmuNum *>(const_cast<TianmuDataType *>(&in))) {
     if (tianmu_n->IsDecimal(scale)) {

@@ -128,7 +128,7 @@ TianmuNum &TianmuNum::operator=(const TianmuDataType &tianmu_dt) {
 common::ColumnType TianmuNum::Type() const { return attr_type_; }
 
 bool TianmuNum::IsDecimal(ushort scale) const {
-  if (core::ATI::IsIntegerType(this->attr_type_) || attr_type_ == common::ColumnType::BIT) { // gry(bit): 这里要加上 bit 一起处理
+  if (core::ATI::IsIntegerType(this->attr_type_) || attr_type_ == common::ColumnType::BIT) { // gry(bit): 这里要加上 bit 一起处理？
     return GetDecIntLen() <= (MAX_DEC_PRECISION - scale);
   } else if (attr_type_ == common::ColumnType::NUM) {
     if (this->GetDecFractLen() <= scale)

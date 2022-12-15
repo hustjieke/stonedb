@@ -317,7 +317,7 @@ common::ErrorCode ValueParserForText::Parse(const BString &tianmu_s, TianmuNum &
   ptr_len = len;
   val_ptr = val;
   EatWhiteSigns(val_ptr, ptr_len);
-  if (core::ATI::IsIntegerType(at)) { // gry(TODO) 这里补充 bit 解析和 out of range?
+  if (core::ATI::IsIntegerType(at)) { // gry(bit) 这里补充 bit 解析和 out of range?
     ret = ParseBigInt(tianmu_s, tianmu_n);
     int64_t v = tianmu_n.value_;
 
