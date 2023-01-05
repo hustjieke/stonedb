@@ -25,33 +25,34 @@ namespace Tianmu {
 namespace core {
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 
-DataType::DataType(common::ColumnType atype, int prec, int scale, DTCollation collation) : precision(prec) {
+DataType::DataType(common::ColumnType atype, int prec, int scale, DTCollation collation, bool unsigned_flag) : precision(prec) {
   valtype = ValueType::VT_NOTKNOWN;
   attrtype = atype;
   fixscale = scale;
   fixmax = -1;
   this->collation = collation;
+  unsigned_flag_ = unsigned_flag;
 
-  switch (attrtype) {
+  switch (attrtype) { // TODO(gry): 用 mysql 变量全部替换 tianmu 的变量, 但是 uint64 应该要自己定义，ndb 也是这样。不知道为什么 mysql 没有这样做, 保持跟 ndb 一样宏定义做法：UINT_MAX64
     case common::ColumnType::INT:
       valtype = ValueType::VT_FIXED;
-      fixmax = MAX(std::numeric_limits<int>::max(), -TIANMU_INT_MIN);
+      fixmax = unsigned_flag ? UINT_MAX32 : MAX(std::numeric_limits<int>::max(), -TIANMU_INT_MIN);
       break;
     case common::ColumnType::BIGINT:
       valtype = ValueType::VT_FIXED;
-      fixmax = MAX(common::TIANMU_BIGINT_MAX, -common::TIANMU_BIGINT_MIN);
+      fixmax = unsigned_flag ? common::TIANMU_BIGINT_UNSIGNED_MAX : MAX(common::TIANMU_BIGINT_MAX, -common::TIANMU_BIGINT_MIN);
       break;
     case common::ColumnType::MEDIUMINT:
       valtype = ValueType::VT_FIXED;
-      fixmax = MAX(TIANMU_MEDIUMINT_MAX, -TIANMU_MEDIUMINT_MIN);
+      fixmax = unsigned_flag ? UINT_MAX24 : MAX(TIANMU_MEDIUMINT_MAX, -TIANMU_MEDIUMINT_MIN);
       break;
     case common::ColumnType::SMALLINT:
       valtype = ValueType::VT_FIXED;
-      fixmax = MAX(TIANMU_SMALLINT_MAX, -TIANMU_SMALLINT_MIN);
+      fixmax = unsigned_flag ? UINT_MAX16 : MAX(TIANMU_SMALLINT_MAX, -TIANMU_SMALLINT_MIN);
       break;
     case common::ColumnType::BYTEINT:
       valtype = ValueType::VT_FIXED;
-      fixmax = MAX(TIANMU_TINYINT_MAX, -TIANMU_TINYINT_MIN);
+      fixmax = unsigned_flag ? UINT_MAX8 : MAX(TIANMU_TINYINT_MAX, -TIANMU_TINYINT_MIN);
       break;
 
     case common::ColumnType::NUM:
@@ -101,7 +102,7 @@ DataType &DataType::operator=(const ColumnType &ct) {
   if (!ct.IsKnown())
     return *this;
 
-  *this = DataType(ct.GetTypeName(), ct.GetPrecision(), ct.GetScale(), ct.GetCollation());
+  *this = DataType(ct.GetTypeName(), ct.GetPrecision(), ct.GetScale(), ct.GetCollation(), ct.GetUnsigned());
 
   if (valtype == ValueType::VT_NOTKNOWN) {
     char s[128];

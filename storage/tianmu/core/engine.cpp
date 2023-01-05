@@ -440,41 +440,49 @@ void Engine::EncodeRecord(const std::string &table_path, int table_id, Field **f
       null_mask.set(i);
       continue;
     }
-
+    // bool unsigned_flag = f->flags & UNSIGNED_FLAG;
     switch (f->type()) {
       case MYSQL_TYPE_TINY: {
         int64_t v = f->val_int();
-        if (v > TIANMU_TINYINT_MAX)
-          v = TIANMU_TINYINT_MAX;
-        else if (v < TIANMU_TINYINT_MIN)
-          v = TIANMU_TINYINT_MIN;
+	if (!(f->flags & UNSIGNED_FLAG)) { // not unsigned, 后续优化, 直接 throw 或者参考 load 抛异常
+          if (v > TIANMU_TINYINT_MAX)
+            v = TIANMU_TINYINT_MAX;
+          else if (v < TIANMU_TINYINT_MIN)
+            v = TIANMU_TINYINT_MIN;
+	}
         *(int64_t *)ptr = v;
         ptr += sizeof(int64_t);
       } break;
       case MYSQL_TYPE_SHORT: {
         int64_t v = f->val_int();
-        if (v > TIANMU_SMALLINT_MAX)
-          v = TIANMU_SMALLINT_MAX;
-        else if (v < TIANMU_SMALLINT_MIN)
-          v = TIANMU_SMALLINT_MIN;
+	if (!(f->flags & UNSIGNED_FLAG)) { // not unsigned
+          if (v > TIANMU_SMALLINT_MAX)
+            v = TIANMU_SMALLINT_MAX;
+          else if (v < TIANMU_SMALLINT_MIN)
+            v = TIANMU_SMALLINT_MIN;
+	}
         *(int64_t *)ptr = v;
         ptr += sizeof(int64_t);
       } break;
       case MYSQL_TYPE_LONG: {
         int64_t v = f->val_int();
-        if (v > std::numeric_limits<int>::max())
-          v = std::numeric_limits<int>::max();
-        else if (v < TIANMU_INT_MIN)
-          v = TIANMU_INT_MIN;
+	if (!(f->flags & UNSIGNED_FLAG)) { // not unsigned
+          if (v > std::numeric_limits<int>::max())
+            v = std::numeric_limits<int>::max();
+          else if (v < TIANMU_INT_MIN)
+            v = TIANMU_INT_MIN;
+	}
         *(int64_t *)ptr = v;
         ptr += sizeof(int64_t);
       } break;
       case MYSQL_TYPE_INT24: {
         int64_t v = f->val_int();
-        if (v > TIANMU_MEDIUMINT_MAX)
-          v = TIANMU_MEDIUMINT_MAX;
-        else if (v < TIANMU_MEDIUMINT_MIN)
-          v = TIANMU_MEDIUMINT_MIN;
+	if (!(f->flags & UNSIGNED_FLAG)) { // not unsigned
+          if (v > TIANMU_MEDIUMINT_MAX)
+            v = TIANMU_MEDIUMINT_MAX;
+          else if (v < TIANMU_MEDIUMINT_MIN)
+            v = TIANMU_MEDIUMINT_MIN;
+	}
         *(int64_t *)ptr = v;
         ptr += sizeof(int64_t);
       } break;
@@ -676,7 +684,7 @@ AttributeTypeInfo Engine::GetAttrTypeInfo(const Field &field) {
     case MYSQL_TYPE_DATE:
     case MYSQL_TYPE_NEWDATE:
       return AttributeTypeInfo(Engine::GetCorrespondingType(field), notnull, (ushort)field.field_length, 0, auto_inc,
-                               DTCollation(), fmt, filter);
+                               DTCollation(), fmt, filter, std::string(), field.flags & UNSIGNED_FLAG);
     case MYSQL_TYPE_TIME:
       return AttributeTypeInfo(common::ColumnType::TIME, notnull, 0, 0, false, DTCollation(), fmt, filter);
     case MYSQL_TYPE_STRING:

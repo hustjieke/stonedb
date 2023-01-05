@@ -350,6 +350,8 @@ int Engine::Convert(int &is_null, my_decimal *value, types::TianmuDataType &rcit
   return 1;
 }
 
+// TODO(gry): 这里 unsigned 也要处理吧? 如何处理? 为什么要做截断处理? 这里需要传值，参考：
+// static bool ConvertToField(Field *field, types::TianmuDataType &rcitem, std::vector<uchar> *blob_buf);
 int Engine::Convert(int &is_null, int64_t &value, types::TianmuDataType &rcitem, enum_field_types f_type) {
   if (rcitem.IsNull())
     is_null = 1;
@@ -634,7 +636,9 @@ AttributeTypeInfo Engine::GetCorrespondingATI(Field &field) {
       return AttributeTypeInfo(at, !field.maybe_null(), static_cast<Field_new_decimal &>(field).precision,
                                static_cast<Field_num &>(field).decimals());
     }
-    return AttributeTypeInfo(at, !field.maybe_null(), field.field_length, static_cast<Field_num &>(field).decimals());
+    auto unsigned_flag = field.flags & UNSIGNED_FLAG;
+    return AttributeTypeInfo(at, !field.maybe_null(), field.field_length, static_cast<Field_num &>(field).decimals(),
+    false, DTCollation(), common::PackFmt::DEFAULT, false, std::string(), unsigned_flag);
   }
   return AttributeTypeInfo(at, !field.maybe_null(), field.field_length);
 }

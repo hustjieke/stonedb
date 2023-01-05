@@ -26,6 +26,7 @@ namespace core {
 ColumnType::ColumnType(const DataType &dt) {
   if (dt.IsFixed()) {
     ColumnType ct(dt.attrtype, false, common::PackFmt::DEFAULT, QuickMath::precision10(dt.fixmax), dt.fixscale);
+    ct.SetUnsigned(dt.unsigned_flag_);
     std::swap(ct, *this);
   } else if (dt.IsFloat()) {
     ColumnType ct(common::ColumnType::REAL, false, common::PackFmt::DEFAULT, QuickMath::precision10(dt.fixmax), -1);
@@ -40,7 +41,7 @@ ColumnType::ColumnType(const DataType &dt) {
     TIANMU_ERROR("invalid conversion DataType -> ColumnType");
 }
 
-bool ColumnType::operator==(const ColumnType &ct2) const {
+bool ColumnType::operator==(const ColumnType &ct2) const {  // TODO(gry): 这里要比较 unsigned 么？
   if (type == ct2.type && IsLookup() == ct2.IsLookup() &&
       std::strcmp(collation.collation->csname, ct2.collation.collation->csname) == 0 &&
       (type != common::ColumnType::NUM ||

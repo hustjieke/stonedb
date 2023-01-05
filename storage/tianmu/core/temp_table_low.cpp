@@ -517,7 +517,7 @@ std::vector<AttributeTypeInfo> TempTable::GetATIs(bool orig) {
       continue;
     deas.emplace_back(attrs[i]->TypeName(), attrs[i]->Type().NotNull(),
                       orig ? attrs[i]->orig_precision : attrs[i]->Type().GetPrecision(), attrs[i]->Type().GetScale(),
-                      false, attrs[i]->Type().GetCollation());
+                      false, attrs[i]->Type().GetCollation(), common::PackFmt::DEFAULT, false, std::string(),  attrs[i]->Type().GetUnsigned());
   }
   return deas;
 }

@@ -271,6 +271,7 @@ void TempTable::Attr::DeleteBuffer() {
   no_obj = 0;
 }
 
+// TODO(gry) 这里是设置特殊值？怎么处理 unsigned?
 void TempTable::Attr::SetValueInt64(int64_t obj, int64_t val) {
   no_materialized = obj + 1;
   no_obj = obj >= no_obj ? obj + 1 : no_obj;
