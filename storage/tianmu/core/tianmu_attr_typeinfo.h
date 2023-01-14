@@ -105,7 +105,7 @@ class AttributeTypeInfo {
     flag_[static_cast<int>(enumATI::AUTO_INC)] = auto_inc;
 
     // lookup only applies to string type
-    if (attrt != common::ColumnType::STRING && attrt != common::ColumnType::VARCHAR && IsLookup())
+    if (attrt != common::ColumnType::STRING && attrt != common::ColumnType::VARCHAR && Lookup())
       fmt = common::PackFmt::DEFAULT;
   }
   common::ColumnType Type() const { return attrt_; }

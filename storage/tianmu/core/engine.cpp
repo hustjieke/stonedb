@@ -462,15 +462,6 @@ void Engine::EncodeRecord(const std::string &table_path, int table_id, Field **f
         *reinterpret_cast<int64_t *>(ptr) = v;
         ptr += sizeof(int64_t);
       } break;
-      case MYSQL_TYPE_BIT: { // gry(TODO): 确认下是不是可以一样处理 bit
-         int64_t v = f->val_int();
-        if (v > common::TIANMU_BIGINT_MAX) // gry: 如果写入 64 位 bit，这里就会丢失数据吧?
-          v = common::TIANMU_BIGINT_MAX;
-        else if (v < 0)
-          TIANMU_LOG(LogCtl_Level::INFO, "bit type data should never less than 0.");
-        *(int64_t *)ptr = v; // gry: int64 值存储 ptr
-        ptr += sizeof(int64_t); // 后移 8 字节
-      } break;     
       case MYSQL_TYPE_DECIMAL:
       case MYSQL_TYPE_FLOAT:
       case MYSQL_TYPE_DOUBLE: {

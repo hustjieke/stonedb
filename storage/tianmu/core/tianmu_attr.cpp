@@ -103,7 +103,7 @@ void TianmuAttr::Create(const fs::path &dir, const AttributeTypeInfo &ati, uint8
       0,        // compressed size
   };
 
-  if (ati.IsLookup()) { // gry: 针对字符串处理，只有在 lookup fmt 时候才会创建 dict，我说怎么没见过
+  if (ati.Lookup()) { // gry: 针对字符串处理，只有在 lookup fmt 时候才会创建 dict，我说怎么没见过
     hdr.dict_ver = 1;  // starting with 1 because 0 means n/a
 
     fs::create_directory(dir / common::COL_DICT_DIR);

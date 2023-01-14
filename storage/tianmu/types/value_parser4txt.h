@@ -47,8 +47,6 @@ class ValueParserForText {
       case common::ColumnType::BIGINT:
       case common::ColumnType::BIT: // gry(bit): 需要实现带精度控制 out of range 的函数，哪个场景会调用到？
         return &ParseBigIntAdapter;
-      case common::ColumnType::BIT:
-        return &ParseBitAdapter;
       case common::ColumnType::DATE:
       case common::ColumnType::TIME:
       case common::ColumnType::YEAR:

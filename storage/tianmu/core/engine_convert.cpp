@@ -124,9 +124,6 @@ bool Engine::ConvertToField(Field *field, types::TianmuDataType &tianmu_item, st
               // params: "true" is unsigned flag, but it's not used in bit field->store() function.
               field->store((int64_t)((types::TianmuNum &)(tianmu_item)), true);
               break;
-            case MYSQL_TYPE_BIT: // mysql bit(1~64), tianmu is (1~63, 1 precision lose), field->ptr is uchar*.
-              *(int64_t *)field->ptr = (int64_t)((types::TianmuNum &)(rcitem));
-              break;
             case MYSQL_TYPE_FLOAT:
               *reinterpret_cast<float *>(field->ptr) = (float)((types::TianmuNum &)(tianmu_item));
               break;
@@ -601,8 +598,6 @@ common::ColumnType Engine::GetCorrespondingType(const enum_field_types &eft) {
     case MYSQL_TYPE_VAR_STRING:
     case MYSQL_TYPE_BLOB:
       return common::ColumnType::VARCHAR;
-    case MYSQL_TYPE_BIT:
-      return common::ColumnType::BIT;
     default:
       return common::ColumnType::UNK;
   }
