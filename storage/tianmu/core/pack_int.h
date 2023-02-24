@@ -54,10 +54,10 @@ class PackInt final : public Pack {
   void UpdateValue(size_t locationInPack, const Value &v) override;
   void DeleteByRow(size_t locationInPack) override;
 
-  // gry: 写数据,  把vc写到 pack
+  // gry: 写数据, 把vc写到 pack
   void LoadValues(const loader::ValueCache *vc, const std::optional<common::double_int_t> &null_value);
-  int64_t GetValInt(int locationInPack) const override { return data_[locationInPack]; }
-  double GetValDouble(int locationInPack) const override {
+  int64_t GetValInt(int locationInPack) const override { return data_[locationInPack]; } // gry: 参数是行号
+  double GetValDouble(int locationInPack) const override { // gry: 参数是行号
     ASSERT(is_real_);
     return data_.ptr_double_[locationInPack];
   }
@@ -71,8 +71,8 @@ class PackInt final : public Pack {
   PackInt(const PackInt &apn, const PackCoordinate &pc);
 
   void AppendValue(uint64_t v) {
-    dpn_->numOfRecords++;
-    SetVal64(dpn_->numOfRecords - 1, v);
+    dpn_->numOfRecords++; // records + 1
+    SetVal64(dpn_->numOfRecords - 1, v); // gry: 第一个参数, 行数, 这里已经计算好records, 往后面填数据, v 填入的是 uint64
   }
 
   void AppendNull() {
@@ -106,7 +106,7 @@ class PackInt final : public Pack {
         TIANMU_ERROR("bad value type in pakcN");
     }
   }
-  void SetVal64(uint n, const Value &v) {
+  void SetVal64(uint n, const Value &v) { // gry: 这个是什么场景?
     if (v.HasValue())
       SetVal64(n, v.GetInt());
     else
@@ -120,7 +120,8 @@ class PackInt final : public Pack {
   void LoadValuesDouble(const loader::ValueCache *vc, const std::optional<common::double_int_t> &nv);
   void LoadValuesFixed(const loader::ValueCache *vc, const std::optional<common::double_int_t> &nv);
 
-  uint8_t GetValueSize(uint64_t v) const;
+  // 注意, 里面调用的底层硬件函数, 目前只支持 x86_64 架构
+  uint8_t GetValueSize(uint64_t v) const; // gry: 获取 value 的size, int 型有1,2,4,8四种(medium,int合并一种)
 
   template <typename etype>
   void DecompressAndInsertNulls(compress::NumCompressor<etype> &nc, uint *&cur_buf);
@@ -147,7 +148,7 @@ class PackInt final : public Pack {
     bool empty() const { return ptr_ == nullptr; }
 
    public:
-    unsigned char value_type_;
+    unsigned char value_type_; // gry: 1,2,4,8, 可能直接设置，也可能用 GetValueSize() 计算
     union {
       uint8_t *ptr_int8_;
       uint16_t *ptr_int16_;

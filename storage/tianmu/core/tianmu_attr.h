@@ -108,18 +108,18 @@ class TianmuAttr final : public mm::TraceableObject, public PhysicalColumn, publ
   }
 
   int64_t GetValueInt64(int64_t obj) const override {
-    if (obj == common::NULL_VALUE_64)
+    if (obj == common::NULL_VALUE_64) // gry: obj 如果设置这个数, 说明是 null, 直接返回 64 null
       return common::NULL_VALUE_64;
     DEBUG_ASSERT(hdr.numOfRecords >= static_cast<uint64_t>(obj));
-    auto pack = row2pack(obj);
-    const auto &dpn = get_dpn(pack);
-    auto p = get_packN(pack);
-    if (!dpn.Trivial()) {
+    auto pack = row2pack(obj); // gry: 此时 obj 是行 id,根据行id计算出对应的pack index
+    const auto &dpn = get_dpn(pack); // gry: 根据pack index拿到dpn
+    auto p = get_packN(pack); // gry: 根据pack index 拿到pack
+    if (!dpn.Trivial()) { // gry: 非均匀的
       DEBUG_ASSERT(pack_type == common::PackType::INT);
       DEBUG_ASSERT(p->IsLocked());  // assuming it is already loaded and locked
       int inpack = row2offset(obj);
       if (p->IsNull(inpack))
-        return common::NULL_VALUE_64;
+        return common::NULL_VALUE_64; // gry: 取值的时候, 如果是 null 值，直接返回 64 null
       int64_t res = p->GetValInt(inpack);  // 2-level encoding
       // Natural encoding
       if (ATI::IsRealType(TypeName()))
@@ -128,7 +128,7 @@ class TianmuAttr final : public mm::TraceableObject, public PhysicalColumn, publ
       return res;
     }
     if (dpn.NullOnly())
-      return common::NULL_VALUE_64;
+      return common::NULL_VALUE_64; // gry: 这里也是, 说明是通用的
     // the only possibility: uniform
     ASSERT(dpn.min_i == dpn.max_i);
     return dpn.min_i;

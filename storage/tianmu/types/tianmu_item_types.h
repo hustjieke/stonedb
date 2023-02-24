@@ -86,7 +86,7 @@ class ItemSumSumTianmuBase : public Item_sum_num {
   my_decimal decimal_buffs_[1];
 };
 
-class ItemSumHybridTianmuBase : public Item_sum {
+class ItemSumHybridTianmuBase : public Item_sum { // gry: 这里聚合运算继承 Item_sum, tianmu 自己重载了一部分函数, 有一部分没有实现
  public:
   ItemSumHybridTianmuBase();
   ~ItemSumHybridTianmuBase();

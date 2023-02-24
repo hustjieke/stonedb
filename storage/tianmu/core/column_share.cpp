@@ -109,7 +109,7 @@ void ColumnShare::read_meta() {
 
   ASSERT(meta.ver == common::COL_FILE_VERSION, "Invalid version in column file " + m_path.string());
 
-  pss = meta.pss;
+  pss = meta.pss; // gry: COL_META 只在解析出来，然后赋值给 ct 时用到了，还有就是创建表的时候用到，因为要写列元数据信息, 跟 col header 不一样
   ct.SetTypeName(meta.type);
   ct.SetFmt(meta.fmt);
   ct.SetFlag(meta.flag);

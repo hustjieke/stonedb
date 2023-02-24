@@ -894,7 +894,7 @@ void TianmuAttr::LoadData(loader::ValueCache *nvs, Transaction *conn_info) {
     current_txn_ = conn_info;
 
   PreparePackForLoad();
-  int pi = SizeOfPack() - 1;
+  int pi = SizeOfPack() - 1; // gry: 获取最新的 dnp, pi = pack index, 计算总共到pack数目, 因为数据总是往最后一个pack写满为止
   switch (GetPackType()) {
     case common::PackType::INT:
       LoadDataPackN(pi, nvs);
@@ -908,7 +908,7 @@ void TianmuAttr::LoadData(loader::ValueCache *nvs, Transaction *conn_info) {
       break;
   }
 
-  DPN &dpn = get_dpn(pi);
+  DPN &dpn = get_dpn(pi); // gry: 获取最新的 dnp
   Pack *pack = get_pack(pi);
   if (!dpn.Trivial()) { // gry: 判断是否创建新的 pack
     pack->Save();
@@ -936,6 +936,7 @@ void TianmuAttr::LoadDataPackN(size_t pi, loader::ValueCache *nvs) { // gry: loa
       nv.emplace(0L);
   }
 
+  // gry: 更新 dpn 信息
   auto &dpn = get_dpn(pi);
   auto load_values = nvs->NumOfValues(); // value size
   size_t load_nulls = nv.has_value() ? 0 : nvs->NumOfNulls();
@@ -964,7 +965,7 @@ void TianmuAttr::LoadDataPackN(size_t pi, loader::ValueCache *nvs) { // gry: loa
     dpn.sum_d += nvs->SumDouble();
   }
 
-  // now dpn->sum has been updated
+  // now dpn->sum has been updated gry: 这里更新的 pack 对应 dpn 的统计信息
 
   // uniform package
   if ((dpn.numOfNulls + load_nulls) == 0 && load_min == load_max &&
@@ -978,13 +979,13 @@ void TianmuAttr::LoadDataPackN(size_t pi, loader::ValueCache *nvs) { // gry: loa
       // we need a pack struct for the previous trivial dp
       auto sp = ha_tianmu_engine_->cache.GetOrFetchObject<Pack>(get_pc(pi), this);
 
-      // we don't need any synchronization here because the dpn is local!
+      // we don't need any synchronization here because the dpn is local! gry: 设置 pack 地址
       dpn.SetPackPtr(reinterpret_cast<unsigned long>(sp.get()) + tag_one);
     }
     get_packN(pi)->LoadValues(nvs, nv);
   }
 
-  // update global column statistics
+  // update global column statistics gry: 这里更新的是全局列的统计信息
   if (nvs->NumOfNulls() != nvs->NumOfValues()) {
     if (NumOfObj() == 0) {
       SetMinInt64(dpn.min_i);

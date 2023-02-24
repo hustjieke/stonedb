@@ -446,14 +446,14 @@ void TempTable::SendResult(int64_t limit, int64_t offset, ResultSender &sender, 
   if (!has_intresting_columns)
     return;
 
-  MIIterator it(filter.mind_, filter.mind_->ValueOfPower());
+  MIIterator it(filter.mind_, filter.mind_->ValueOfPower()); // gry: 迭代器
   if (pagewise && offset < no_materialized)
     offset = no_materialized;  // continue filling
 
   if (offset > 0)
     it.Skip(offset);
 
-  int row = 0;
+  int row = 0; // gry: 这个用来表示行号, 不断迭代
   bool first_row_for_vc = true;
   while (it.IsValid() && row < no_obj) {
     if (it.PackrowStarted() || first_row_for_vc) {
@@ -501,7 +501,7 @@ void TempTable::SendResult(int64_t limit, int64_t offset, ResultSender &sender, 
         record.emplace_back(data_ptr);
       }
     }
-    sender.SendRow(record, this);
+    sender.SendRow(record, this); // gry: 每一列, 按行发送
     row++;
     ++it;
     if (lazy)

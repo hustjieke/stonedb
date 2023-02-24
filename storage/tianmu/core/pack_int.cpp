@@ -509,7 +509,7 @@ void PackInt::LoadValuesFixed(const loader::ValueCache *vc, const std::optional<
 
   auto new_min = std::min(vc->MinInt(), dpn_->min_i);
   auto new_max = std::max(vc->MaxInt(), dpn_->max_i);
-  auto new_vt = GetValueSize(new_max - new_min);
+  auto new_vt = GetValueSize(new_max - new_min); // gry: 这个存储字节数是根据当前数据动态更新的?
   auto new_nr = dpn_->numOfRecords + vc->NumOfValues();
 
   ASSERT(new_vt >= data_.value_type_);
@@ -519,7 +519,7 @@ void PackInt::LoadValuesFixed(const loader::ValueCache *vc, const std::optional<
   if (dpn_->Trivial()) {
     ASSERT(data_.ptr_ == nullptr);
     data_.ptr_ = alloc(new_vt * new_nr, mm::BLOCK_TYPE::BLOCK_UNCOMPRESSED);
-    if (dpn_->Uniform()) {
+    if (dpn_->Uniform()) { // gry: 如果是均匀的, 那么统一填入均匀的值
       switch (new_vt) {
         case 8:
           std::fill_n(static_cast<uint64_t *>(data_.ptr_), new_nr, delta);
@@ -538,22 +538,22 @@ void PackInt::LoadValuesFixed(const loader::ValueCache *vc, const std::optional<
           break;
       }
     }
-  } else {
+  } else { // gry: 如果不是, 扩展 data_ 然后再 for 循环挨个填值
     // expanding existing pack data_
     ASSERT(data_.ptr_ != nullptr);
     auto tmp_ptr = alloc(new_vt * new_nr, mm::BLOCK_TYPE::BLOCK_UNCOMPRESSED);
     xf[{data_.value_type_, new_vt}](data_.ptr_, data_.ptr_int8_ + (data_.value_type_ * dpn_->numOfRecords), tmp_ptr,
                                     delta);
-    dealloc(data_.ptr_);
-    data_.ptr_ = tmp_ptr;
+    dealloc(data_.ptr_); // gry: 释放旧的
+    data_.ptr_ = tmp_ptr; // gry: 赋新的 ptr
   }
 
-  data_.value_type_ = new_vt;
+  data_.value_type_ = new_vt; // gry: 更新 vt, 那么, 这个到底是动态的还是不动态?
 
   dpn_->synced = false;
 
   for (size_t i = 0; i < vc->NumOfValues(); i++) {
-    if (vc->NotNull(i)) {
+    if (vc->NotNull(i)) { // gry: 原来如此, 在填值阶段才会判断是不是 null
       AppendValue(*(reinterpret_cast<uint64_t *>(const_cast<char *>(vc->GetDataBytesPointer(i)))) - new_min);
     } else {
       if (nv.has_value())
@@ -562,7 +562,7 @@ void PackInt::LoadValuesFixed(const loader::ValueCache *vc, const std::optional<
         AppendNull();
     }
   }
-  // sum has already been updated outside
+  // sum has already been updated outside gry: 这里更新的最大最小值, sum 在外面已经更新过了
   dpn_->min_i = new_min;
   dpn_->max_i = new_max;
 }

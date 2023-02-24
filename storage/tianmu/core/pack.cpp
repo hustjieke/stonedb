@@ -29,15 +29,15 @@
 namespace Tianmu {
 namespace core {
 Pack::Pack(DPN *dpn, PackCoordinate pc, ColumnShare *col_share) : col_share_(col_share), dpn_(dpn) {
-  bitmap_size_ = (1 << col_share->pss) / 8;
-  nulls_ptr_ = std::make_unique<uint32_t[]>(bitmap_size_ / sizeof(uint32_t));
+  bitmap_size_ = (1 << col_share->pss) / 8; // gry:  一个 pack 的大小是 65536, 除以 8 是因为一个 byte = 8bit, 这样可以算出占据多少个字节
+  nulls_ptr_ = std::make_unique<uint32_t[]>(bitmap_size_ / sizeof(uint32_t)); // gry: 用 uint32 存储位图标记, 上面算出一个包多少个字节，这里算出占用多少个uint32 = 65536 / 8 / 4 = 2048
   deletes_ptr_ = std::make_unique<uint32_t[]>(bitmap_size_ / sizeof(uint32_t));
   // nulls MUST be initialized in the constructor, there are 3 cases in total:
   //   1. All values are nullptr. It is initialized here by InitNull();
   //   2. All values are uniform. Then it would be all zeros already.
   //   3. Otherwise. It would be loaded from disk by PackInt() or PackStr().
   InitNull();
-  m_coord.ID = COORD_TYPE::PACK;
+  lm_coord.ID = COORD_TYPE::PACK;
   m_coord.co.pack = pc;
 }
 

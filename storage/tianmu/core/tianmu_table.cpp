@@ -587,7 +587,7 @@ void TianmuTable::LoadDataInfile(system::IOParameters &iop) {
 
   if (iop.LoadDelayed()) { // gry: 延迟 load 场景
     if (tianmu_sysvar_enable_rowstore) {
-      current_txn_->SetLoadSource(common::LoadSource::LS_MemRow); // gry: MemRow，从 rocksdb load
+      current_txn_->SetLoadSource(common::LoadSource::LS_MemRow); // gry: MemRow, 从 rocksdb load
       no_loaded_rows = MergeMemTable(iop);
     } else {
       current_txn_->SetLoadSource(common::LoadSource::LS_InsertBuffer); // gry: 内存 buffer load
@@ -600,7 +600,7 @@ void TianmuTable::LoadDataInfile(system::IOParameters &iop) {
 }
 
 void TianmuTable::Field2VC(Field *f, loader::ValueCache &vc, size_t col) { // gry: to value cache(VC)
-  if (f->is_null()) {
+  if (f->is_null()) { // gry: 最开始就判断是不是 null, 是根据field的null flag标志的, 延迟写有延迟写到处理
     vc.ExpectedNull(true);
     return;
   }
@@ -735,7 +735,7 @@ int TianmuTable::Insert(TABLE *table) {
 
   std::vector<loader::ValueCache> vcs;
   vcs.reserve(NumOfAttrs());
-  for (uint i = 0; i < NumOfAttrs(); i++) {
+  for (uint i = 0; i < NumOfAttrs(); i++) { // gry: 把mysql里面的每一列field赋值到value cache, 包括 null/非null 值
     vcs.emplace_back(1, 128);
     Field2VC(table->field[i], vcs[i], i);
     vcs[i].Commit(); // gry: for 循环 commit，如果循环中断电了呢？事务一致性能否保证？这个只是 commit 到内存
@@ -755,7 +755,7 @@ int TianmuTable::Insert(TABLE *table) {
     }
   }
   for (uint i = 0; i < NumOfAttrs(); i++) {
-    m_attrs[i]->LoadData(&vcs[i]); // gry: 在里面 pack.Save 落地数据的。
+    m_attrs[i]->LoadData(&vcs[i]); // gry: 在里面 pack.Save 落地数据的.
   }
   return 0;
 }

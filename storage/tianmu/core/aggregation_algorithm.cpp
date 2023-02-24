@@ -871,6 +871,7 @@ void AggregationAlgorithm::TaskFillOutput(GroupByWrapper *gbw, Transaction *ci, 
   }
 }
 
+// gry: 做 sum 聚合的时候，多线程获取 pack 聚合结果会调用到这个函数。
 void AggregationWorkerEnt::TaskAggrePacks(MIIterator *taskIterator, DimensionVector *dims [[maybe_unused]],
                                           MIIterator *mit [[maybe_unused]], CTask *task [[maybe_unused]],
                                           GroupByWrapper *gbw, Transaction *ci [[maybe_unused]]) {

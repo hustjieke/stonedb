@@ -1454,7 +1454,7 @@ longlong Item_func_numhybrid::val_int()
     return result;
   }
   case INT_RESULT:
-    return int_op();
+    return int_op(); // gry: 在这里根据具体的 Item_func_mul::int_op ... 等函数做运算
   case REAL_RESULT:
     return (longlong) rint(real_op());
   case STRING_RESULT:
@@ -2073,7 +2073,7 @@ longlong Item_func_mul::int_op()
   if (a1 && b1)
     goto err;
 
-  res1= (ulonglong) a1 * b0 + (ulonglong) a0 * b1;
+  res1= (ulonglong) a1 * b0 + (ulonglong) a0 * b1; // gry: 乘法运算会自动转为 ulonglong
   if (res1 > 0xFFFFFFFFUL)
     goto err;
 

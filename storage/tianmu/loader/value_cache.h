@@ -126,7 +126,7 @@ class ValueCache final { // gry(TODO): 好好研究下 loader ValueCache 这个�
   bool expected_null_ = false;
 
   std::vector<size_t> values_;
-  std::vector<bool> nulls_;
+  std::vector<bool> nulls_; // gry: 保存行号对应的值是否 null
   size_t null_cnt_ = 0;
 
   int64_t min_i_, max_i_, sum_i_;
