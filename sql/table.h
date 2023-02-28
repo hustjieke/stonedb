@@ -994,7 +994,7 @@ enum index_hint_type
 /* Bitmap of table's fields */
 typedef Bitmap<MAX_FIELDS> Field_map;
 
-struct TABLE /* gry: The current open table */
+struct TABLE /* gry: The current open table, 物理表 */
 {
   TABLE() { memset(this, 0, sizeof(*this)); }
   /*

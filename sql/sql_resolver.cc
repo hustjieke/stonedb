@@ -103,7 +103,7 @@ bool SELECT_LEX::prepare(THD *thd)
 {
   DBUG_ENTER("SELECT_LEX::prepare");
 
-  // We may do subquery transformation, or Item substitution:
+  // We may do subquery transformation(gry: 转换), or Item substitution(gry: 替换):
   Prepare_error_tracker tracker(thd);
 
   assert(this == thd->lex->current_select());
@@ -111,10 +111,10 @@ bool SELECT_LEX::prepare(THD *thd)
 
   SELECT_LEX_UNIT *const unit= master_unit();
 
-  if (top_join_list.elements > 0)
+  if (top_join_list.elements > 0) // gry: 这个 null 传递是什么场景?
     propagate_nullability(&top_join_list, false);
 
-  is_item_list_lookup= true;
+  is_item_list_lookup= true; // gry: 这个是干什么用的?
 
   /*
     Determine whether immediate derived tables can be merged:
@@ -189,11 +189,12 @@ bool SELECT_LEX::prepare(THD *thd)
   ulonglong want_privilege_saved= thd->want_privilege;
   thd->want_privilege= check_privs ? SELECT_ACL : 0;
 
-  if (with_wild && setup_wild(thd))
+  if (with_wild && setup_wild(thd)) // gry: 把查询语句中的 "*" 扩展为表上所有的列
     DBUG_RETURN(true);
   if (setup_ref_array(thd))
     DBUG_RETURN(true); /* purecov: inspected */
   
+  // gry: 为列填充相应的信息
   if (setup_fields(thd, ref_ptrs, fields_list, thd->want_privilege,
                    &all_fields, true, false))
     DBUG_RETURN(true);
@@ -208,6 +209,8 @@ bool SELECT_LEX::prepare(THD *thd)
   thd->mark_used_columns= MARK_COLUMNS_READ;
   thd->want_privilege= SELECT_ACL;
 
+  // gry: 5.6 代码为 setup_without_group(...), 5.7 把里面的三个函数提出来了:setup_conds, setup_order, setup_group
+  // gry: 初始化条件, 排序, 分组操作各子句.
   // Set up join conditions and WHERE clause
   if (setup_conds(thd))
     DBUG_RETURN(true);
@@ -259,11 +262,11 @@ bool SELECT_LEX::prepare(THD *thd)
          query involving a view is optimized, not when the view
          is created
   */
-  if (unit->item &&                                        // 1)
-      first_execution &&                                   // 2)
-      !(thd->lex->context_analysis_only & CONTEXT_ANALYSIS_ONLY_VIEW)) // 3)
+  if (unit->item &&                                        // 1) // gry: 子查询
+      first_execution &&                                   // 2) // gry: 首次优化
+      !(thd->lex->context_analysis_only & CONTEXT_ANALYSIS_ONLY_VIEW)) // 3) // gry: 非正常视图
   {
-    remove_redundant_subquery_clauses(thd, hidden_group_field_count);
+    remove_redundant_subquery_clauses(thd, hidden_group_field_count); // gry: 去掉子查询冗余的部分
   }
 
   if (order_list.elements &&
@@ -310,14 +313,15 @@ bool SELECT_LEX::prepare(THD *thd)
   */
   if (unit->item &&                      // This is a subquery
       this != unit->fake_select_lex &&   // A real query block
-                                         // Not normalizing a view
+                                         // Not normalizing a view gry: 非正常视图
       !(thd->lex->context_analysis_only & CONTEXT_ANALYSIS_ONLY_VIEW))
   {
     // Query block represents a subquery within an IN/ANY/ALL/EXISTS predicate
-    if (resolve_subquery(thd))
+    if (resolve_subquery(thd)) // gry: 优化 IN/ANY/ALL/EXISTS 式子查询
       DBUG_RETURN(true);
   }
 
+  // gry: 调用 split_sum_func, split_sum_func2 等方法, 统计 ORDERBY, HAVING 等字句中的 sum 操作
   if (m_having_cond && m_having_cond->with_sum_func)
     m_having_cond->split_sum_func2(thd, ref_ptrs, all_fields, &m_having_cond,
                                    true);
@@ -343,7 +347,7 @@ bool SELECT_LEX::prepare(THD *thd)
       additional hidden field for grouping because later it will be
       converted to a LONG field. Original field will remain of the
       BIT type and will be returned to a client.
-    */
+    */ // gry: 为 bit 类型增加隐藏列
     for (ORDER *ord= group_list.first; ord; ord= ord->next)
     {
       if ((*ord->item)->type() == Item::FIELD_ITEM &&
@@ -364,7 +368,7 @@ bool SELECT_LEX::prepare(THD *thd)
   if (olap == ROLLUP_TYPE && resolve_rollup(thd))
     DBUG_RETURN(true); /* purecov: inspected */
 
-  if (flatten_subqueries())
+  if (flatten_subqueries()) // gry: 子查询展开
     DBUG_RETURN(true);
 
   sj_candidates= NULL;
