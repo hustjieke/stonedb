@@ -185,7 +185,7 @@ std::pair<int, int> Query::VirtualColumnAlreadyExists(const TabID &tmp_table, co
 }
 
 bool Query::IsFieldItem(Item *item) {
-  return (item->type() == Item::FIELD_ITEM || item->type() == Item::REF_ITEM ||
+  return (item->type() == Item::FIELD_ITEM || item->type() == Item::REF_ITEM || // gry: ref_item 是什么东西?
           item->type() == Item_tianmufield::get_tianmuitem_type());
 }
 
@@ -589,7 +589,7 @@ TempTable *Query::Preexecute(CompiledQuery &qu, ResultSender *sender, [[maybe_un
     if (step.t1.n != common::NULL_VALUE_32) {
       if (step.t1.n >= 0)// gry: tabid >=0, 真实的物理表
         t1_ptr = Table(step.t1.n);  // normal table
-      else {// gry: tabid < 0,  有可能是空的，因为没有初始化 
+      else {// gry: tabid < 0,  有可能是空的，因为没有初始化
         t1_ptr = ta[-step.t1.n - 1];  // TempTable
       }
     }

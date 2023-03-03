@@ -27,7 +27,7 @@
 
 namespace Tianmu {
 namespace core {
-QueryRouteTo TableUnmysterify(TABLE_LIST *tab, const char *&database_name, const char *&table_name,
+QueryRouteTo TableUnmysterify(TABLE_LIST *tab, const char *&database_name, const char *&table_name, // gry: 把表相关信息都解密出去
                               const char *&table_alias, const char *&table_path) {
   ASSERT_MYSQL_STRING(tab->table->s->db);
   ASSERT_MYSQL_STRING(tab->table->s->table_name);
@@ -38,14 +38,14 @@ QueryRouteTo TableUnmysterify(TABLE_LIST *tab, const char *&database_name, const
     table_name = tab->referencing_view->table_name;
   else
     table_name = tab->table->s->table_name.str;
-  table_alias = tab->alias;
+  table_alias = tab->alias; // gry: 如果没有设置别名，那么别名就是表名本身
   table_path = tab->table->s->path.str;
 
   return QueryRouteTo::kToTianmu;
 }
 
-QueryRouteTo JudgeErrors(SELECT_LEX *sl) {
-  if (!sl->join) {
+QueryRouteTo JudgeErrors(SELECT_LEX *sl) { // gry: 这个函数应该rename, 这个是判断不支持的情况
+  if (!sl->join) { // gry: 这个判断有点多余，外面刚刚申请了新的 join
     return QueryRouteTo::kToMySQL;
   }
 
@@ -56,13 +56,13 @@ QueryRouteTo JudgeErrors(SELECT_LEX *sl) {
       }
   */
 
-  if (sl->offset_limit)
+  if (sl->offset_limit) // gry: limit ... offset 子句, tianmu 只支持整数偏移.
     if (sl->offset_limit->type() != Item::INT_ITEM /*|| sl->offset_limit->val_int()*/) {
       my_message(ER_SYNTAX_ERROR, "Tianmu specific error: Only numerical OFFSET supported", MYF(0));
       throw ReturnMeToMySQLWithError();
     }
 
-  if (sl->select_limit)
+  if (sl->select_limit) // gry: limit 子句, 同上
     if (sl->select_limit->type() != Item::INT_ITEM) {
       my_message(ER_SYNTAX_ERROR, "Tianmu specific error: Only numerical LIMIT supported", MYF(0));
       throw ReturnMeToMySQLWithError();
@@ -204,7 +204,7 @@ QueryRouteTo Query::FieldUnmysterify(Item *item, const char *&database_name, con
   return QueryRouteTo::kToTianmu;
 }
 
-bool Query::FieldUnmysterify(Item *item, TabID &tab, AttrID &col) {
+bool Query::FieldUnmysterify(Item *item, TabID &tab, AttrID &col) { // gry: 为什么没有 Item::REF...
   Item_field *ifield;
   if (item->type() == Item_tianmufield::get_tianmuitem_type()) {
     ifield = dynamic_cast<Item_tianmufield *>(item)->OriginalItem();
@@ -369,9 +369,9 @@ QueryRouteTo Query::AddJoins(List<TABLE_LIST> &join, TabID &tmp_table, std::vect
           return QueryRouteTo::kToMySQL;
         table_alias = join_ptr->alias;
       } else {
-        if (QueryRouteTo::kToMySQL == TableUnmysterify(join_ptr, database_name, table_name, table_alias, table_path))
+        if (QueryRouteTo::kToMySQL == TableUnmysterify(join_ptr, database_name, table_name, table_alias, table_path)) // gry:  这个 if 判断没有意义, 返回值不会有 kToMySQL
           return QueryRouteTo::kToMySQL;
-        int tab_num = path2num[table_path];  // number of a table on a list in
+        int tab_num = path2num[table_path];  // number of a table on a list in // gry: 这个严格来说, 是table对应的索引序号, 从0开始的, 1 张表的时候，对应0, rename 为tab_idx
                                              // `this` QUERY object
         int id = t[tab_num]->GetID();
         cq->TableAlias(tab, TabID(tab_num), table_name, id);
@@ -972,10 +972,10 @@ QueryRouteTo Query::Compile(CompiledQuery *compiled_query, SELECT_LEX *selects_l
   int64_t global_offset_value = -1;
 
   // local copy of current cq, to be restored on exit
-  CompiledQuery *saved_cq = cq; // gry: 在 exit 的时候 restored
+  CompiledQuery *saved_cq = cq; // gry: 在 exit 的时候 restored, 是不是叫 prev_cq 更好一些
   cq = compiled_query; // gry: 赋值入参
 
-  if ((selects_list->join) &&
+  if ((selects_list->join) && // gry: union 情况, set 参数
       (selects_list != selects_list->join->unit->global_parameters())) {  // only in case of unions this is set
     SetLimit(selects_list->join->unit->global_parameters(), 0, global_offset_value, (int64_t &)global_limit_value);
     global_order = &(selects_list->join->unit->global_parameters()->order_list);
@@ -1005,10 +1005,10 @@ QueryRouteTo Query::Compile(CompiledQuery *compiled_query, SELECT_LEX *selects_l
     if (QueryRouteTo::kToMySQL == JudgeErrors(sl))
       return QueryRouteTo::kToMySQL;
 
-    SetLimit(sl, sl == selects_list ? 0 : sl->join->unit->global_parameters(), offset_value, limit_value);
+    SetLimit(sl, sl == selects_list ? 0 : sl->join->unit->global_parameters(), offset_value, limit_value); // gry: sl 可能是 next, 也就是 union 的情况，有没有子查询情况?
     List<Item> *fields = &sl->fields_list;
 
-    Item *conds = (ifNewJoinForTianmu || !sl->join->where_cond) ? sl->where_cond() : sl->join->where_cond;//gry:奇怪,where_cond为null，却返回where_cond(),都where子句
+    Item *conds = (ifNewJoinForTianmu || !sl->join->where_cond) ? sl->where_cond() : sl->join->where_cond;//gry: 如果不是新 Join 或者sl->join中where为空，表示没有被优化过,从sl拿，优化过的话，会在sl->join->where_cond里面
 
     ORDER *order = sl->order_list.first;
 
@@ -1019,7 +1019,7 @@ QueryRouteTo Query::Compile(CompiledQuery *compiled_query, SELECT_LEX *selects_l
 
     ORDER *group = sl->group_list.first;
     Item *having = sl->having_cond();
-    List<TABLE_LIST> *join_list = sl->join_list;
+    List<TABLE_LIST> *join_list = sl->join_list; // gry: 连接表, 没有 join 的话就一张表
     bool zero_result = sl->join->zero_result_cause != nullptr; //gry(TODO):要有括号
 
     // The exists subquery determines whether a value exists during the query optimization phase
@@ -1047,7 +1047,7 @@ QueryRouteTo Query::Compile(CompiledQuery *compiled_query, SELECT_LEX *selects_l
     }
 
     // When join_list has no elements and field has sp, tmp table is used and de-duplicated
-    // Use use_tmp_when_no_join when AddJoins
+    // Use use_tmp_when_no_join when AddJoins // gry: 这个是不是类似 select 1; 这种？debug 验证下
     bool use_tmp_when_no_join = false;
     if (!join_list->elements) {
       List_iterator_fast<Item> li(*fields);
@@ -1072,15 +1072,15 @@ QueryRouteTo Query::Compile(CompiledQuery *compiled_query, SELECT_LEX *selects_l
       // partial optimization of LOJ conditions, JOIN::optimize(part=3)
       // necessary due to already done basic transformation of conditions
       // see comments in sql_select.cc:JOIN::optimize()
-      if (IsLOJ(join_list))
+      if (IsLOJ(join_list)) // gry: 如果是 LOJ, 完成这个阶段的优化
         sl->join->optimize(OptimizePhase::Finish_LOJ_Transform);
 
-      if (left_expr_for_subselect)
+      if (left_expr_for_subselect) // gry: 这个 flag 真是 ... 一言难尽
         if (!ClearSubselectTransformation(*oper_for_subselect, field_for_subselect, conds, having, cond_to_reinsert,
                                           list_to_reinsert, left_expr_for_subselect))
           throw CompilationError();
 
-      if (having && !group)  // we cannot handle the case of a having without a group by //gry:这个是成对的？
+      if (having && !group)  // we cannot handle the case of a having without a group by //gry:这个是成对的？没有 having 条件的 groupby 是有问题的, 没有意义. case 测试下
         throw CompilationError();
 
       TABLE_LIST *tables = sl->leaf_tables ? sl->leaf_tables : (TABLE_LIST *)sl->table_list.first;
@@ -1090,7 +1090,7 @@ QueryRouteTo Query::Compile(CompiledQuery *compiled_query, SELECT_LEX *selects_l
             throw CompilationError();
           std::string path = TablePath(table_ptr); // gry:e.g. "./test.t1"
           if (path2num.find(path) == path2num.end()) {
-            path2num[path] = NumOfTabs(); // Tianmu 表数量？
+            path2num[path] = NumOfTabs(); // Tianmu 表数量？AddTable 之后数值会 +1
             AddTable(m_conn->GetTableByPath(path));
             TIANMU_LOG(LogCtl_Level::DEBUG, "add query table: %s", path.c_str());
           }
@@ -1181,7 +1181,7 @@ QueryRouteTo Query::Compile(CompiledQuery *compiled_query, SELECT_LEX *selects_l
 }
 
 JoinType Query::GetJoinTypeAndCheckExpr(uint outer_join, Item *on_expr) {
-  if (outer_join)
+  if (outer_join) // gry: 外连接必须带 on 条件嘛
     ASSERT(on_expr != 0, "on_expr shouldn't be null when outer_join != 0");
 
   JoinType join_type;

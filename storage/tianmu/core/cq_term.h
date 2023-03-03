@@ -33,7 +33,7 @@ class Hash64;
 
 namespace core {
 struct AttrID {
-  int n;
+  int n; // gry: 目前看，数字是列的索引号，从0开始, 比如一张表 5 列，那么 n=4
   AttrID() : n(common::NULL_VALUE_32) {}
   explicit AttrID(int _n) : n(_n) {}
 };

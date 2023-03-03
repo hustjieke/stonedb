@@ -428,10 +428,10 @@ void CompiledQuery::CQStep::Print(Query *query) {
 void CompiledQuery::TableAlias(TabID &t_out, const TabID &n, const char *name, [[maybe_unused]] int id) {
   CompiledQuery::CQStep s;
   s.type = StepType::TABLE_ALIAS;
-  s.t1 = t_out = NextTabID();
+  s.t1 = t_out = NextTabID();  // gry: 为什么设置成负数呢?我知道负数代表临时表
   s.t2 = n;
   if (name) {
-    s.alias = new char[std::strlen(name) + 1];
+    s.alias = new char[std::strlen(name) + 1];  // gry: 用 string 不就完了么
     std::strcpy(s.alias, name);
   }
   steps.push_back(s);
@@ -439,11 +439,11 @@ void CompiledQuery::TableAlias(TabID &t_out, const TabID &n, const char *name, [
 
 void CompiledQuery::TmpTable(TabID &t_out, const TabID &t1, bool for_subq_in_where) {
   CompiledQuery::CQStep s;
-  if (for_subq_in_where)
+  if (for_subq_in_where) // gry: TODO 需要看懂这段代码
     s.n1 = 1;
   else
     s.n1 = 0;
-  DEBUG_ASSERT(t1.n < 0 && NumOfTabs() > 0);
+  DEBUG_ASSERT(t1.n < 0 && NumOfTabs() > 0); // gry: 这个判断的逻辑，应该是先构建 alias table，必然是负数, 然后表数量肯定不为 0
   s.type = StepType::TMP_TABLE;
   s.t1 = t_out = NextTabID();  // was s.t2!!!
   s.tables1.push_back(t1);

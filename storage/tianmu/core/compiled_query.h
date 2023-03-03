@@ -29,7 +29,7 @@ namespace Tianmu {
 namespace core {
 /*
         CompiledQuery - for storing execution plan of a query (sequence of
-   primitive operations) and output data definition
+   primitive operations) and output data definition // gry: CompileQuery>> 存储一条 query(原始操作序列)的执行计划和输出数据定义
 */
 class MysqlExpression;
 
@@ -66,7 +66,7 @@ class CompiledQuery final {
     TabID t3;
     AttrID a1, a2;
     CondID c1, c2, c3;
-    CQTerm e1, e2, e3;  // gry:mysql item 转换过来的
+    CQTerm e2, e2, e3;  // gry:mysql item 转换过来的
     common::Operator op;  // predicate: common::Operator::O_EQ, common::Operator::O_LESS etc.
     common::ExtraOperation ex_op;
     TMParameter tmpar;  // Table Mode Parameter
@@ -79,7 +79,7 @@ class CompiledQuery final {
     std::vector<TabID> tables2;
     int64_t n1, n2;  // additional parameter (e.g. descending order, TOP n,
                      // LIMIT n1..n2)
-    SI si;
+    SI si; // gry: Sepecial Instruction, 特别说明, 包含 group_concat 分隔符和升序/降序的信息
 
     CQStep()
         : type(StepType::TABLE_ALIAS),
@@ -246,7 +246,7 @@ class CompiledQuery final {
   // reserved and obtained by these functions.
   TabID NextTabID() {
     no_tabs++;
-    no_attrs.push_back(0);
+    no_attrs.push_back(0); // gry: 这个应该是执行初始化
     return TabID(-no_tabs);
   }
   AttrID NextVCID(const TabID &tt) { return AttrID(no_virt_cols[tt]++); }

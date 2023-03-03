@@ -2480,7 +2480,7 @@ public:
   /* call back function for asking handler about caching in query cache */
   qc_engine_callback callback_func;
   thr_lock_type lock_type; // 表对象上的锁信息
-  uint		outer_join;		/* Which join type */
+  uint		outer_join;		/* Which join type */ // gry: 标志位 & 的 搜索: JOIN_TYPE_LEFT
   uint		shared;			/* Used in multi-upd */
   size_t        db_length;
   size_t        table_name_length;

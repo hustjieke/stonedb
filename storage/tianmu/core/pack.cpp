@@ -37,7 +37,7 @@ Pack::Pack(DPN *dpn, PackCoordinate pc, ColumnShare *col_share) : col_share_(col
   //   2. All values are uniform. Then it would be all zeros already.
   //   3. Otherwise. It would be loaded from disk by PackInt() or PackStr().
   InitNull();
-  lm_coord.ID = COORD_TYPE::PACK;
+  m_coord.ID = COORD_TYPE::PACK;
   m_coord.co.pack = pc;
 }
 

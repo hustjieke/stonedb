@@ -1688,7 +1688,7 @@ uint TempTable::CalculatePageSize(int64_t _no_obj) {
         attrs[i]->TypeName() == common::ColumnType::STRING || attrs[i]->TypeName() == common::ColumnType::VARCHAR)
       size_of_one_record += attrs[i]->Type().GetInternalSize() + 4;  // 4 bytes describing length
     else
-      size_of_one_record += attrs[i]->Type().GetInternalSize();
+      size_of_one_record += attrs[i]->Type().GetInternalSize(); // gry: 这里 decimal 要注意计算页大小
   uint raw_size = (uint)new_no_obj;
   if (size_of_one_record < 1)
     size_of_one_record = 1;
