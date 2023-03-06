@@ -133,7 +133,7 @@ bool Query::HasAggregation(Item *item) {
   return has;
 }
 
-int Query::VirtualColumnAlreadyExists(const TabID &tmp_table, MysqlExpression *expression) {
+int Query::VirtualColumnAlreadyExists(const TabID &tmp_table, MysqlExpression *expression) { // gry: 虚拟列是否存在
   int exists = common::NULL_VALUE_32;
   for (auto it = tab_id2expression.lower_bound(tmp_table), end = tab_id2expression.upper_bound(tmp_table); it != end;
        ++it) {
@@ -1119,7 +1119,7 @@ QueryRouteTo Query::Item2CQTerm(Item *an_arg, CQTerm &term, const TabID &tmp_tab
       if (ws != WrapStatus::SUCCESS)
         return QueryRouteTo::kToMySQL;
       vc.n = VirtualColumnAlreadyExists(tmp_table, expr);
-      if (vc.n == common::NULL_VALUE_32) {
+      if (vc.n == common::NULL_VALUE_32) { // gry: 虚拟列不存在
         cq->CreateVirtualColumn(vc, tmp_table, expr);
         tab_id2expression.insert(std::make_pair(tmp_table, std::make_pair(vc.n, expr)));
       }

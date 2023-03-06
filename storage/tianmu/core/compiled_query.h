@@ -62,7 +62,7 @@ class CompiledQuery final {
    public:
     StepType type;
     TabID t1;
-    TabID t2;
+    TabID t2; // gry: 从 CreateVirtualColumn() 重载函数看, t2 是源表/子查询/表别名...
     TabID t3;
     AttrID a1, a2;
     CondID c1, c2, c3;
