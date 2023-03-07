@@ -379,7 +379,7 @@ bool ParameterizedFilter::RoughUpdateMultiIndex() {
       MIIterator mit(mind_, dim, true);
       while (mit.IsValid()) {
         int p = mit.GetCurPackrow(dim);
-        if (p >= 0 && rf[p] != common::RoughSetValue::RS_NONE)
+        if (p >= 0 && rf[p] != common::RoughSetValue::RS_NONE) // gry: 问题出在这里，有数据的，过滤出没数据
           rf[p] = descriptors_[i].EvaluateRoughlyPack(mit);  // rough values are also accumulated inside
 
         mit.NextPackrow();
@@ -388,7 +388,7 @@ bool ParameterizedFilter::RoughUpdateMultiIndex() {
           throw common::KilledException();
       }
 
-      bool this_nonempty = rough_mind_->UpdateGlobalRoughFilter(dim, i);  // update the filter using local information
+      bool this_nonempty = rough_mind_->UpdateGlobalRoughFilter(dim, i);  // update the filter using local information // gry: 上面计算出 RS_NONE, 到值这里返回 false
       is_nonempty = (is_nonempty && this_nonempty);
       descriptors_[i].UpdateVCStatistics();
       descriptors_[i].SimplifyAfterRoughAccumulate();  // simplify tree if there is a
@@ -1231,7 +1231,7 @@ void ParameterizedFilter::UpdateMultiIndex(bool count_only, int64_t limit) {
   PrepareRoughMultiIndex();
   nonempty = RoughUpdateMultiIndex();  // calculate all rough conditions,
 
-  if ((!nonempty && empty_cannot_grow) || mind_->m_conn->Explain()) {
+  if ((!nonempty && empty_cannot_grow) || mind_->m_conn->Explain()) { // gry(TODO): 这里结果集为空? 这里就不一样了
     mind_->Empty();  // nonempty==false if the whole result is empty (outer joins considered)
     rough_mind_->ClearLocalDescFilters();
     return;

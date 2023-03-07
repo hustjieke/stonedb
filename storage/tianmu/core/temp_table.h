@@ -393,7 +393,7 @@ class TempTable : public JustATable {
   bool CanCondPushDown() { return can_cond_push_down; };
 
  protected:
-  int64_t no_obj;
+  int64_t no_obj; // gry: 从 debug 看，这里是
   uint32_t p_power;                      // pack power
   uint no_cols;                          // no. of output columns, i.e., with defined alias
   TableMode mode;                        // based on { TM_DISTINCT, TM_TOP, TM_EXISTS }

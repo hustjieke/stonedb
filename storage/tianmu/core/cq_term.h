@@ -53,7 +53,7 @@ struct CondID {
   CondID() : n(common::NULL_VALUE_32) {}
   explicit CondID(int _n) { n = _n; }
   bool IsNull() const { return (n == common::NULL_VALUE_32); }
-  bool IsInvalid() const { return (n < 0); }
+  bool IsInvalid() const { return (n < 0); } // gry: < 0 的话是非法
   bool operator==(const CondID &other) const { return (n == other.n) && (!IsNull()); }
 };
 

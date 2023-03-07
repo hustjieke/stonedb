@@ -796,7 +796,7 @@ TempTable *Query::Preexecute(CompiledQuery &qu, ResultSender *sender, [[maybe_un
           if (IsRoughQuery()) {
             filter->RoughUpdateParamFilter();
           } else
-            filter->UpdateMultiIndex(qu.CountColumnOnly(step.t1), cur_limit);
+            filter->UpdateMultiIndex(qu.CountColumnOnly(step.t1), cur_limit); // gry: 主要在这里过滤出数据
           break;
         }
         case CompiledQuery::StepType::ADD_COLUMN: {
@@ -1083,7 +1083,7 @@ QueryRouteTo Query::Item2CQTerm(Item *an_arg, CQTerm &term, const TabID &tmp_tab
     AttrID vc;
     AttrID col;
     TabID tab;
-    if (IsFieldItem(an_arg) && !FieldUnmysterify(an_arg, tab, col))
+    if (IsFieldItem(an_arg) && !FieldUnmysterify(an_arg, tab, col)) // gry: 处理不了的类型
       return QueryRouteTo::kToMySQL;
     if (IsFieldItem(an_arg) && cq->ExistsInTempTable(tab, tmp_table)) {
       auto phys_vc = VirtualColumnAlreadyExists(tmp_table, tab, col);

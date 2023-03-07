@@ -122,10 +122,10 @@ void VirtualColumnBase::SetLocalMinMax(int64_t loc_min, int64_t loc_max) {
       vc_max_val_ = loc_max;
   } else {
     if (vc_min_val_ == common::NULL_VALUE_64 || loc_min > vc_min_val_)
-      vc_min_val_ = loc_min;
+      vc_min_val_ = loc_min; // gry: 更新最小值
 
     if (vc_max_val_ == common::NULL_VALUE_64 || loc_max < vc_max_val_)
-      vc_max_val_ = loc_max;
+      vc_max_val_ = loc_max;  // gry: 更新最大值
   }
 }
 

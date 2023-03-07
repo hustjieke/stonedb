@@ -273,7 +273,7 @@ void ConditionEncoder::TransformOtherThanINsOnNumerics() {
       v2 = attr->EncodeValue64(mvc->GetSetMin(mit).Get(),
                                v2_rounded);  // 1-level values
   } else {
-    common::ErrorCode tianmu_err_code = common::ErrorCode::SUCCESS;
+    common::ErrorCode tianmu_err_code = common::ErrorCode::SUCCESS; // gry: 是不是这里出了问题 ?
     if (!desc->val2.IsNull() && desc->val2.vc && desc->val2.vc->IsConst()) {
       v2 = attr->EncodeValue64(desc->val2.vc->GetValue(mit), v2_rounded,
                                &tianmu_err_code);  // 1-level values
@@ -367,7 +367,7 @@ void ConditionEncoder::TransformOtherThanINsOnNumerics() {
   if (ISTypeOfNotEqualOperator(desc->op) || desc->op == common::Operator::O_NOT_BETWEEN)
     desc->op = common::Operator::O_NOT_BETWEEN;
   else
-    desc->op = common::Operator::O_BETWEEN;
+    desc->op = common::Operator::O_BETWEEN;  // gry: 这里转化为 between
 
   desc->val1 = CQTerm();
   desc->val1.vc = new vcolumn::ConstColumn(
