@@ -615,7 +615,7 @@ AttributeTypeInfo Engine::GetAttrTypeInfo(const Field &field) {
 
   bool notnull = (field.null_bit == 0);
   auto str = boost::to_upper_copy(std::string(field.comment.str, field.comment.length));
-  bool bloom_filter = (str.find("FILTER") != std::string::npos); // gry: 这个是什么作用？
+  bool filter = (str.find("FILTER") != std::string::npos); // gry: 这个是什么作用？
 
   auto fmt = common::PackFmt::DEFAULT; // gry: 列压缩方式, 原来在建表中的列 comment 中指定。
   if (str.find("LOOKUP") != std::string::npos) {
@@ -657,7 +657,7 @@ AttributeTypeInfo Engine::GetAttrTypeInfo(const Field &field) {
       return AttributeTypeInfo(Engine::GetCorrespondingType(field), notnull, (ushort)field.field_length, 0, auto_inc,
                                DTCollation(), fmt, filter, std::string(), field.flags & UNSIGNED_FLAG);
     case MYSQL_TYPE_TIME:
-      return AttributeTypeInfo(common::ColumnType::TIME, notnull, 0, 0, false, DTCollation(), fmt, bloom_filter);
+      return AttributeTypeInfo(common::ColumnType::TIME, notnull, 0, 0, false, DTCollation(), fmt, filter);
     case MYSQL_TYPE_STRING:
     case MYSQL_TYPE_VARCHAR: {
       if (field.field_length > FIELD_MAXLENGTH)
@@ -675,17 +675,17 @@ AttributeTypeInfo Engine::GetAttrTypeInfo(const Field &field) {
         }
         if (fstr->charset() != &my_charset_bin)
           return AttributeTypeInfo(common::ColumnType::STRING, notnull, field.field_length, 0, auto_inc, coll, fmt,
-                                   bloom_filter);
-        return AttributeTypeInfo(common::ColumnType::BYTE, notnull, field.field_length, 0, auto_inc, coll, fmt, bloom_filter);
+                                   filter);
+        return AttributeTypeInfo(common::ColumnType::BYTE, notnull, field.field_length, 0, auto_inc, coll, fmt, filter);
       } else if (const Field_str *fvstr = dynamic_cast<const Field_varstring *>(&field)) {
         DTCollation coll(fvstr->charset(), fvstr->derivation());
         if (fmt == common::PackFmt::TRIE && types::IsCaseInsensitive(coll))
           throw common::UnsupportedDataTypeException();
         if (fvstr->charset() != &my_charset_bin)
           return AttributeTypeInfo(common::ColumnType::VARCHAR, notnull, field.field_length, 0, auto_inc, coll, fmt,
-                                   bloom_filter);
+                                   filter);
         return AttributeTypeInfo(common::ColumnType::VARBYTE, notnull, field.field_length, 0, auto_inc, coll, fmt,
-                                 bloom_filter);
+                                 filter);
       }
       throw common::UnsupportedDataTypeException();
     }
@@ -711,19 +711,19 @@ AttributeTypeInfo Engine::GetAttrTypeInfo(const Field &field) {
             if (field.field_length > FIELD_MAXLENGTH) {
               t = common::ColumnType::LONGTEXT;
             }
-            return AttributeTypeInfo(t, notnull, field.field_length, 0, auto_inc, DTCollation(), fmt, bloom_filter);
+            return AttributeTypeInfo(t, notnull, field.field_length, 0, auto_inc, DTCollation(), fmt, filter);
           }
           switch (field.field_length) {
             case 255:
             case FIELD_MAXLENGTH:
               // TINYBLOB, BLOB
               return AttributeTypeInfo(common::ColumnType::VARBYTE, notnull, field.field_length, 0, auto_inc,
-                                       DTCollation(), fmt, bloom_filter);
+                                       DTCollation(), fmt, filter);
             case 16777215:
             case 4294967295:
               // MEDIUMBLOB, LONGBLOB
               return AttributeTypeInfo(common::ColumnType::BIN, notnull, field.field_length, 0, auto_inc, DTCollation(),
-                                       fmt, bloom_filter);
+                                       fmt, filter);
             default:
               throw common::UnsupportedDataTypeException();
           }
