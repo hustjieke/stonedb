@@ -130,7 +130,8 @@ union DT {
   }
 };
 
-enum class ValueTypeEnum { NULL_TYPE, DATE_TIME_TYPE, NUMERIC_TYPE, STRING_TYPE };
+// in MySQL: stonedb/libbinlogevents/include/statement_events.h: User_var_event::Value_type
+enum class ValueTypeEnum { NULL_TYPE, DATE_TIME_TYPE, NUMERIC_TYPE, STRING_TYPE, DECIMAL_TYPE };
 
 class TianmuDataType {
  public:

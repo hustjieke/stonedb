@@ -103,7 +103,6 @@ class TianmuNum : public ValueBasic<TianmuNum> {
   int compare(const TianmuDateTime &tianmu_n) const;
 
  private:
-  static constexpr int MAX_DEC_PRECISION = 18;
   int64_t value_;
   ushort scale_;  // means 'scale' actually
   bool is_double_;
@@ -112,6 +111,7 @@ class TianmuNum : public ValueBasic<TianmuNum> {
 
  public:
   const static ValueTypeEnum value_type_ = ValueTypeEnum::NUMERIC_TYPE;
+  static constexpr int MAX_DEC_PRECISION = 18;
 };
 
 }  // namespace types
