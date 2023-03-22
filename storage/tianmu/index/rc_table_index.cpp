@@ -61,11 +61,11 @@ void create_rdbkey(TABLE *table, uint i, std::shared_ptr<RdbKey> &new_key_def, r
   }
 
   const char *const key_name = table->key_info[i].name;
-  uchar index_type = (i == table->s->primary_key) ? static_cast<uchar>(enumIndexType::INDEX_TYPE_PRIMARY)
-                                                  : static_cast<uchar>(enumIndexType::INDEX_TYPE_SECONDARY);
+  uchar index_type = (i == table->s->primary_key) ? static_cast<uchar>(IndexType::INDEX_TYPE_PRIMARY)
+                                                  : static_cast<uchar>(IndexType::INDEX_TYPE_SECONDARY);
   uint16_t index_ver = (key_info->actual_key_parts > 1)
-                           ? static_cast<uint16_t>(enumIndexInfo::INDEX_INFO_VERSION_COLS)
-                           : static_cast<uint16_t>(enumIndexInfo::INDEX_INFO_VERSION_INITIAL);
+                           ? static_cast<uint16_t>(IndexInfoType::INDEX_INFO_VERSION_COLS)
+                           : static_cast<uint16_t>(IndexInfoType::INDEX_INFO_VERSION_INITIAL);
   new_key_def = std::make_shared<RdbKey>(index_id, i, cf_handle, index_ver, index_type, false, key_name, vcols);
 }
 
@@ -295,7 +295,7 @@ common::ErrorCode RCTableIndex::GetRowByKey(core::Transaction *tx, std::vector<s
 
   StringReader reader({value.data(), value.length()});
   // ver compatible
-  if (rdbkey_->m_index_ver > static_cast<uint16_t>(enumIndexInfo::INDEX_INFO_VERSION_INITIAL)) {
+  if (rdbkey_->m_index_ver > static_cast<uint16_t>(IndexInfoType::INDEX_INFO_VERSION_INITIAL)) {
     uint16_t packlen;
     reader.read_uint16(&packlen);
     reader.read(packlen);
