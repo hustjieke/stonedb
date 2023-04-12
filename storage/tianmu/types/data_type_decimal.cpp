@@ -18,7 +18,7 @@
 #include "data_type_decimal.h"
 
 #include "common/assert.h"
-#include "core/tools.h"
+#include "util/tools.h"
 #include "system/txt_utils.h"
 #include "types/tianmu_data_types.h"
 #include "types/tianmu_num.h"
