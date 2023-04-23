@@ -43,6 +43,7 @@ class ValueMatching_HashTable : public mm::TraceableObject, public ValueMatching
   unsigned char *GetAggregationRow(int64_t row) override { return (unsigned char *)t.GetRow(row) + input_buffer_width; }
 
   bool FindCurrentRow(unsigned char *input_buffer, int64_t &row, bool add_if_new = true) override;
+  bool FindCurrentRow(unsigned char *input_buffer, int64_t &row, bool add_if_new, int match_width) override;
 
   void Rewind(bool release = false) override { t.Rewind(release); }
   int64_t GetCurrentRow() override { return t.GetCurrent(); }

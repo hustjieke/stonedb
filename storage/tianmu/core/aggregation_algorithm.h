@@ -19,6 +19,7 @@
 #pragma once
 
 #include <mutex>
+#include "core/ctask.h"
 #include "core/groupby_wrapper.h"
 #include "core/mi_iterator.h"
 #include "core/query.h"
@@ -48,7 +49,7 @@ class AggregationAlgorithm {
                       int64_t local_factor, int just_one_aggr = -1);
 
   void MultiDimensionalGroupByScan(GroupByWrapper &gbw, int64_t &limit, int64_t &offset, ResultSender *sender,
-                                   bool limit_less_than_no_groups);
+                                   bool limit_less_than_no_groups, bool force_parall);
 
   void MultiDimensionalDistinctScan(GroupByWrapper &gbw, MIIterator &mit);
 
@@ -95,7 +96,7 @@ class AggregationWorkerEnt {
   // Return code for AggregatePackrow: 0 - success, 1 - stop aggregation
   // (finished), 2 - killed, 3
   // - overflow, 4 - other error, 5 - pack already aggregated (skip)
-  AggregatePackRowStats AggregatePackrow(MIUpdatingIterator &lmit, int64_t cur_tuple) {
+  AggregatePackRowStats AggregatePackrow(MIIterator &lmit, int64_t cur_tuple) {
     return aa->AggregatePackrow(*gb_main, &lmit, cur_tuple);
   }
 
@@ -111,8 +112,8 @@ class AggregationWorkerEnt {
 
   void Barrier() {}
 
-  void TaskAggrePacks(MIUpdatingIterator *taskIterator, DimensionVector *dims, MIIterator *mit, int pstart, int pend,
-                      int tuple, GroupByWrapper *gbw, Transaction *ci);
+  void TaskAggrePacks(MIIterator *taskIterator, DimensionVector *dims, MIIterator *mit, CTask *task,
+                      GroupByWrapper *gbw, Transaction *ci);
 
   void DistributeAggreTaskAverage(MIIterator &mit);
 

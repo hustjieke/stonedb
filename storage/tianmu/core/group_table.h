@@ -227,6 +227,7 @@ class GroupTable : public mm::TraceableObject {
 
   // some memory managing
   int64_t max_total_size;
+  std::mutex mtx;
 };
 
 }  // namespace core

@@ -214,7 +214,7 @@ void AggregationAlgorithm::Aggregate(bool just_distinct, int64_t &limit, int64_t
     }
   } else {
     int64_t local_limit = limit == -1 ? upper_approx_of_groups : limit;
-    MultiDimensionalGroupByScan(gbw, local_limit, offset, sender, limit_less_than_no_groups);
+    MultiDimensionalGroupByScan(gbw, local_limit, offset, sender, limit_less_than_no_groups, true);
     if (limit != -1)
       limit = local_limit;
   }
@@ -226,7 +226,8 @@ void AggregationAlgorithm::Aggregate(bool just_distinct, int64_t &limit, int64_t
 }
 
 void AggregationAlgorithm::MultiDimensionalGroupByScan(GroupByWrapper &gbw, int64_t &limit, int64_t &offset,
-                                                       ResultSender *sender, bool limit_less_than_no_groups) {
+                                                       ResultSender *sender, bool limit_less_than_no_groups,
+                                                       bool force_parall) {
   MEASURE_FET("TempTable::MultiDimensionalGroupByScan(...)");
   bool first_pass = true;
   // tuples are numbered according to tuple_left filter (not used, if tuple_left
@@ -256,9 +257,19 @@ void AggregationAlgorithm::MultiDimensionalGroupByScan(GroupByWrapper &gbw, int6
   }
   gbw.SetDistinctTuples(mit.NumOfTuples());
 
+  auto get_thd_cnt = []() {
+    int hardware_concurrency = std::thread::hardware_concurrency();
+    // TODO: The original code was the number of CPU cores divided by 4, and the reason for that is to be traced further
+    return hardware_concurrency > 4 ? (hardware_concurrency / 4) : 1;
+  };
+
   int thd_cnt = 1;
-  if (ParallelAllowed(gbw) && !limit_less_than_no_groups) {
-    thd_cnt = std::thread::hardware_concurrency() / 4;  // For concurrence reason, don't swallow all cores once.
+  if (force_parall) {
+    thd_cnt = get_thd_cnt();
+  } else {
+    if (ParallelAllowed(gbw) && !limit_less_than_no_groups) {
+      thd_cnt = get_thd_cnt();  // For concurrence reason, don't swallow all cores once.
+    }
   }
 
   AggregationWorkerEnt ag_worker(gbw, mind, thd_cnt, this);
@@ -406,8 +417,8 @@ void AggregationAlgorithm::MultiDimensionalGroupByScan(GroupByWrapper &gbw, int6
       if (t->NumOfObj() >= limit)
         break;
       if (gbw.AnyTuplesLeft())
-        gbw.ClearUsed();            // prepare for the next pass, if needed
-    } while (gbw.AnyTuplesLeft());  // do the next pass, if anything left
+        gbw.ClearUsed();                              // prepare for the next pass, if needed
+    } while (gbw.AnyTuplesLeft() && (1 == thd_cnt));  // do the next pass, if anything left
   } catch (...) {
     ag_worker.Commit(false);
     throw;
@@ -538,6 +549,7 @@ void AggregationAlgorithm::MultiDimensionalDistinctScan(GroupByWrapper &gbw, MII
 }
 
 AggregatePackRowStats AggregationAlgorithm::AggregatePackrow(GroupByWrapper &gbw, MIIterator *mit, int64_t cur_tuple) {
+  std::scoped_lock guard(mtx);
   int64_t packrow_length = mit->GetPackSizeLeft();
   if (!gbw.AnyTuplesLeft(cur_tuple, cur_tuple + packrow_length - 1)) {
     mit->NextPackrow();
@@ -897,30 +909,28 @@ void AggregationAlgorithm::TaskFillOutput(GroupByWrapper *gbw, Transaction *ci, 
   }
 }
 
-void AggregationWorkerEnt::TaskAggrePacks(MIUpdatingIterator *taskIterator, [[maybe_unused]] DimensionVector *dims,
-                                          [[maybe_unused]] MIIterator *mit, [[maybe_unused]] int pstart,
-                                          [[maybe_unused]] int pend, int tuple, GroupByWrapper *gbw, Transaction *ci) {
-  int i = 0;
-  int64_t cur_tuple = tuple;
-  common::SetMySQLTHD(ci->Thd());
-  current_txn_ = ci;
-
+void AggregationWorkerEnt::TaskAggrePacks(MIIterator *taskIterator, [[maybe_unused]] DimensionVector *dims,
+                                          [[maybe_unused]] MIIterator *mit, [[maybe_unused]] CTask *task,
+                                          GroupByWrapper *gbw, Transaction *ci) {
+  taskIterator->Rewind();
+  int task_pack_num = 0;
   while (taskIterator->IsValid()) {
-    int64_t packrow_length = taskIterator->GetPackSizeLeft();
-    AggregatePackRowStats grouping_result = aa->AggregatePackrow(*gbw, taskIterator, cur_tuple);
-    if (grouping_result != AggregatePackRowStats::AGG_PACK_ROW_SKIP)
-      i++;
-    if (grouping_result == AggregatePackRowStats::AGG_PACK_ROW_FINISHED)
-      break;
-    if (grouping_result == AggregatePackRowStats::AGG_PACK_ROW_KILLED)
-      throw common::KilledException();
-    if (grouping_result == AggregatePackRowStats::AGG_PACK_ROW_OVERFLOW ||
-        grouping_result == AggregatePackRowStats::AGG_PACK_ROW_ERROR)
-      throw common::NotImplementedException("Aggregation overflow.");
-    cur_tuple += packrow_length;
-  }
+    if ((task_pack_num >= task->dwStartPackno) && (task_pack_num <= task->dwEndPackno)) {
+      int cur_tuple = (*task->dwPack2cur)[task_pack_num];
+      MIInpackIterator mii(*taskIterator);
+      AggregatePackRowStats grouping_result = aa->AggregatePackrow(*gbw, &mii, cur_tuple);
+      if (grouping_result == AggregatePackRowStats::AGG_PACK_ROW_FINISHED)
+        break;
+      if (grouping_result == AggregatePackRowStats::AGG_PACK_ROW_KILLED)
+        throw common::KilledException();
+      if (grouping_result == AggregatePackRowStats::AGG_PACK_ROW_OVERFLOW ||
+          grouping_result == AggregatePackRowStats::AGG_PACK_ROW_ERROR)
+        throw common::NotImplementedException("Aggregation overflow.");
+    }
 
-  TIANMU_LOG(LogCtl_Level::DEBUG, "TaskAggrePacks routine ends. Task id %d", taskIterator->GetTaskNum());
+    taskIterator->NextPackrow();
+    ++task_pack_num;
+  }
 }
 
 void AggregationWorkerEnt::PrepShardingCopy(MIIterator *mit, GroupByWrapper *gb_sharding,
@@ -948,81 +958,83 @@ void AggregationWorkerEnt::DistributeAggreTaskAverage(MIIterator &mit) {
     rc_control_.lock(conn->GetThreadID()) << "Prepare data for parallel aggreation" << system::unlock;
 
   int packnum = 0;
+  int curtuple_index = 0;
+  std::unordered_map<int, int> pack2cur;
   while (mit.IsValid()) {
+    pack2cur.emplace(std::pair<int, int>(packnum, curtuple_index));
+
+    int64_t packrow_length = mit.GetPackSizeLeft();
+    curtuple_index += packrow_length;
     packnum++;
     mit.NextPackrow();
   }
+
+  pack2cur.emplace(std::pair<int, int>(packnum, curtuple_index));
 
   int loopcnt = (packnum < m_threads) ? packnum : m_threads;
 
   int mod = packnum % loopcnt;
   int num = packnum / loopcnt;
+
   utils::result_set<void> res;
   for (int i = 0; i < loopcnt; ++i) {
     res.insert(
         ha_rcengine_->query_thread_pool.add_task(&AggregationWorkerEnt::PrepShardingCopy, this, &mit, gb_main, &vGBW));
+    int pack_start = i * num;
+    int pack_end = 0;
+    int dwPackNum = 0;
+    if (i == (loopcnt - 1)) {
+      pack_end = packnum;
+      dwPackNum = packnum;
+    } else {
+      pack_end = (i + 1) * num - 1;
+      dwPackNum = pack_end + 1;
+    }
+
+    int cur_start = pack2cur[pack_start];
+    int cur_end = pack2cur[pack_end] - 1;
+
     CTask tmp;
     tmp.dwTaskId = i;
-    tmp.dwPackNum = num + mod + i * num;
+    tmp.dwPackNum = dwPackNum;
+    tmp.dwStartPackno = pack_start;
+    tmp.dwEndPackno = pack_end;
+    tmp.dwStartTuple = cur_start;
+    tmp.dwEndTuple = cur_end;
+    tmp.dwTuple = cur_start;
+    tmp.dwPack2cur = &pack2cur;
+
     vTask.push_back(tmp);
   }
   res.get_all_with_except();
 
-  if (rc_control_.isOn())
-    rc_control_.lock(conn->GetThreadID())
-        << "Prepare data for parallel aggreation done. Total packnum " << packnum << system::unlock;
-  packnum = 0;
   mit.Rewind();
-  int curtuple = 0;
-  while (mit.IsValid()) {
-    int64_t packrow_length = mit.GetPackSizeLeft();
-    packnum++;
-    curtuple += packrow_length;
-    for (auto &it : vTask) {
-      if (packnum == it.dwPackNum) {
-        it.dwEndPackno = mit.GetCurPackrow(0);
-        it.dwTuple = curtuple;
-      }
-    }
 
-    if (rc_control_.isOn())
-      rc_control_.lock(conn->GetThreadID()) << " GetCurPackrow: " << mit.GetCurPackrow(0) << " packnum: " << packnum
-                                            << " cur_tuple: " << curtuple << system::unlock;
-
-    mit.NextPackrow();
-  }
-
-  std::vector<MultiIndex> mis;
-  mis.reserve(vTask.size());
-
-  std::vector<MIUpdatingIterator> taskIterator;
+  std::vector<MIIterator> taskIterator;
   taskIterator.reserve(vTask.size());
 
   utils::result_set<void> res1;
   for (uint i = 0; i < vTask.size(); ++i) {
-    auto &mi = mis.emplace_back(*mind, true);
     if (dims.NoDimsUsed() == 0)
       dims.SetAll();
-    auto &mii = taskIterator.emplace_back(&mi, dims);
+    auto &mii = taskIterator.emplace_back(mit, true);
     mii.SetTaskNum(vTask.size());
     mii.SetTaskId(i);
-    mii.SetNoPacksToGo(vTask[i].dwEndPackno);
-    mii.RewindToPack((i == 0) ? 0 : vTask[i - 1].dwEndPackno + 1);
   }
 
-  res1.insert(ha_rcengine_->query_thread_pool.add_task(&AggregationWorkerEnt::TaskAggrePacks, this, &taskIterator[0],
-                                                       &dims, &mit, 0, vTask[0].dwEndPackno, 0, gb_main, conn));
-  for (size_t i = 1; i < vTask.size(); ++i) {
-    res1.insert(ha_rcengine_->query_thread_pool.add_task(
-        &AggregationWorkerEnt::TaskAggrePacks, this, &taskIterator[i], &dims, &mit, vTask[i - 1].dwEndPackno + 1,
-        vTask[i].dwEndPackno, vTask[i - 1].dwTuple, vGBW[i].get(), conn));
+  for (size_t i = 0; i < vTask.size(); ++i) {
+    GroupByWrapper *gbw = i == 0 ? gb_main : vGBW[i].get();
+    res1.insert(ha_rcengine_->query_thread_pool.add_task(&AggregationWorkerEnt::TaskAggrePacks, this, &taskIterator[i],
+                                                         &dims, &mit, &vTask[i], gbw, conn));
   }
   res1.get_all_with_except();
 
   for (size_t i = 0; i < vTask.size(); ++i) {
     // Merge aggreation data together
-    if (i != 0)
+    if (i != 0) {
+      aa->MultiDimensionalDistinctScan(*(vGBW[i]), mit);
       gb_main->Merge(*(vGBW[i]));
+    }
   }
 }
 
