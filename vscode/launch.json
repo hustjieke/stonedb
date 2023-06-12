@@ -1,0 +1,29 @@
+{
+    // 使用 IntelliSense 了解相关属性。 
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "cppdbg",
+            "request": "launch",
+            "name": "Debug mysqld8",
+            "program": "/github/stonedb/build/install8/bin/mysqld",
+            "args": [
+                "--defaults-file=/github/stonedb/build/install8/my.cnf", "--user=mysql", "--debug"
+            ],
+            "cwd": "/github/stonedb/build/install8"
+        },
+        {
+            "type": "cppdbg",
+            "request": "launch",
+            "name": "Debug mysql57",
+            "program": "/github/stonedb/build/install57/bin/mysqld",
+            "args": [
+                "--defaults-file=/github/stonedb/build/install57/my.cnf", "--user=mysql", "--debug"
+            ],
+            "cwd": "/github/stonedb/build/install57"
+        }
+    ]
+}
+

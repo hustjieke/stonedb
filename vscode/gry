@@ -1,0 +1,5129 @@
+commit 2579bd4aaed2262b393007c3a9bf1d2f4b6e2941
+Author: RingsC <hom.lee@hotmail.com>
+Date:   Thu May 25 14:51:43 2023 +0800
+
+    fix(tianmu): fix up the incompatible type
+    
+    1) In result value setup phase, it only deals with num, but in some case, some non-num types
+    involved, therefore, we should also deal with these types.
+    
+    2) To fixup the boundary of the error codes.
+
+commit d99c9d5b34cbaf3e58cb5f9d2bd67d20c0886318
+Author: shizhao <shizhao@stoneatom.com>
+Date:   Thu May 25 15:44:36 2023 +0800
+
+    docs(website): update the documentation for Compile StoneDB 8.0 in Docker(#1823)
+
+commit 69a49bde010114264c2ceafa7414a10258c5586d
+Author: unknown <adofsauron>
+Date:   Fri May 19 17:38:27 2023 +0800
+
+        fix(tinmu): fix tianmu crash when set varchar to num when order by
+
+commit 6c11356456494d95ec6e9b8fde4cd6411abee075
+Author: Jinrong Duan <duanjr02@gmail.com>
+Date:   Thu May 11 13:46:44 2023 +0800
+
+    fix incorrect result of TIME type by distinguishing the processing of TIME type from other time types
+
+commit 9805e0784f3f1abf1738b03f4e6fa883ca2a6173
+Author: Jinrong Duan <duanjr02@gmail.com>
+Date:   Tue May 9 09:59:54 2023 +0800
+
+    fix: fix storage of DT type
+
+commit 72a160c0c13f42a522d6d118e9d08e20180c63aa
+Author: Jinrong Duan <duanjr02@gmail.com>
+Date:   Tue May 9 10:40:55 2023 +0800
+
+    automatically formatting
+
+commit 9b50843774abd3d80a527cbc45ccde649aed59df
+Author: Jinrong Duan <duanjr02@gmail.com>
+Date:   Mon May 8 21:25:13 2023 +0800
+
+    feature: remove DBUG_OFF and repalce DEBUG_ASSERT with assert
+
+commit 20abfc7298bd7ebe9e400eed073279a61b98d2b7
+Author: augety <chenshengjiang@stoneatom.com>
+Date:   Tue May 16 16:26:45 2023 +0800
+
+    docs:add docker compile guide of stonedb8.0.(#1780)
+
+commit 65585be834fdc551e6feadd40506ac69781b4a4e
+Author: dysprosium0626 <1119493091@qq.com>
+Date:   Thu May 11 00:31:52 2023 +0800
+
+    doc(develop-guide): modify method for complie stonedb using docker
+    
+    1. change the version of the stonedb from 5.6 to 5.7 in docs.
+    2. list both manual install and automatic install in docs.
+    3. update the reference in zh-doc to a valid one:
+    可以参考：[StoneDB快速部署手册](https://stonedb.io/zh/docs/getting-started/quick-deployment)
+    可以参考：[StoneDB快速部署手册](https://stonedb.io/zh/docs/quick-deployment)
+
+commit c3931feae87d3ce325fa6cf9a016ce4271254b5d
+Author: adofsauron <adofsauron@163.com>
+Date:   Thu May 11 11:28:54 2023 +0800
+
+        fix(tianmu): fix Error result set of the IN subquery with semi join (#1764)
+
+commit 141918da39bc8fa64c6fa4902466edcab7729408
+Author: Jinrong Duan <duanjr02@gmail.com>
+Date:   Wed May 10 16:52:46 2023 +0800
+
+    fit format
+
+commit d9b41262f74c509a29ab51ff3cef117f67ed292b
+Author: Jinrong Duan <duanjr02@gmail.com>
+Date:   Tue May 9 12:00:27 2023 +0800
+
+    open log for all cmds
+
+commit 2c96b13767615a9e21f699cc7bc71e55d0b86fe9
+Author: Jinrong Duan <duanjr02@gmail.com>
+Date:   Mon May 8 16:44:32 2023 +0800
+
+    add delete/drop into tianmu log stat
+
+commit 304df8e225fbbd42d1496d33b84bb4e566945241
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Wed May 10 14:29:58 2023 +0800
+
+    fix(tianmu):Even if a primary key is defined, duplicate data may be imported.(#1648)
+
+commit c4d2d2fe6cd78fc59291c17b10bdf1c375e63450
+Author: xuxinqiang <xxq2933@163.com>
+Date:   Tue May 9 20:14:27 2023 -0700
+
+    docs(quickstart): add stonedb-8.0 compiling guide(Chinese) for CentOS 7.x
+
+commit b16bfaa6e32b9fdcad665fea44334d7f1783fa18
+Author: xuxinqiang <xxq2933@163.com>
+Date:   Mon May 8 23:41:34 2023 -0700
+
+    add stonedb-8.0 compiling guide for CentOS 7.x
+
+commit 8d438e11e5561b8d0727442c0f73aa5ef25379b8
+Author: zzzz-vincent <wenzishen.vincent@hotmail.com>
+Date:   Sun May 7 23:26:49 2023 +0000
+
+    fix bug and change test case exptected result
+
+commit 6ed8fb169ed41fa15756df59305a598afa8deace
+Author: zzzz-vincent <wenzishen.vincent@hotmail.com>
+Date:   Mon May 1 02:53:10 2023 +0000
+
+    remove unused code block
+
+commit a33ba87370ead83d60ee456ae277f3cf41acb86e
+Author: adofsauron <adofsauron@163.com>
+Date:   Mon May 8 20:35:42 2023 +0800
+
+        fix(tianmu): fix error occurred in the union all query result (#1599)
+
+commit 74b5b059cf7fc91de8bc30ed6cf0097924b34386
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Tue May 9 01:04:53 2023 +0800
+
+    fix(tianmu): Insert ignore can insert duplicate values.(#1699)
+
+commit 2daac7c992a9bf60849be7289c76e0ec740ea88d
+Author: adofsauron <adofsauron@163.com>
+Date:   Mon May 8 15:20:14 2023 +0800
+
+        fix(tianmu): fix mysqld crash when assigning return values using both custom variables and derived tables (#1707)
+
+commit c95d263567d9b41a6e5309a3fa84374316ca31d7
+Author: adofsauron <adofsauron@163.com>
+Date:   Sat May 6 16:32:03 2023 +0800
+
+        feat(tianmu): Test cases that supplement custom variables (#1703)
+
+commit b7286105bef82dae8be0f44c72f9cf50a24c060f
+Author: adofsauron <adofsauron@163.com>
+Date:   Sat May 6 15:05:40 2023 +0800
+
+        fix(tianmu): fix results of two queries using a derived table and a custom face change are incorrect (#1696)
+
+commit 70bdb91d4cd0ac9be91e6c33b9aa18fd2bbbc14d
+Author: adofsauron <adofsauron@163.com>
+Date:   Sat May 6 11:06:41 2023 +0800
+
+        fix(tianmu): fix result of the query using the subquery derived table is incorrect (#1662)
+
+commit 1ba566389e516d55f72843125e628084af32f6ae
+Author: adofsauron <adofsauron@163.com>
+Date:   Fri May 5 16:38:50 2023 +0800
+
+        fix(tianmu): fix query input variables wrong result (#1647)
+
+commit 57e34973be17319e6fc6b31de7b410fc8db5846c
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Sat Apr 29 00:54:00 2023 +0800
+
+    fix(tianmu):Support insert ignore syntax (#1637)
+
+commit 4a35d96fc5c2120c8f3c6addde060f10b53c3daa
+Author: adofsauron <adofsauron@163.com>
+Date:   Fri Apr 28 16:50:27 2023 +0800
+
+        fix(tianmu): fix MySQL server has gone away when exec query (#1641 #1640)
+
+commit 587d2768bf7680d18bf4dcf79ea693723b4a67f9
+Author: adofsauron <adofsauron@163.com>
+Date:   Thu Apr 27 18:49:51 2023 +0800
+
+        fix(tianmu): fix mysqld crash when query where JOIN::propagate_dependencies (#1628)
+
+commit 70f15f1e3a090719e4f9f2a5952c1a72bbc18c68
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Wed Apr 26 14:19:22 2023 +0800
+
+    feat(tianmu):Increase assertion printing information and optimize code logic(#1617)
+
+commit 4a41514f7f38d03afeaa9afb806e367987c18207
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Wed Apr 26 14:07:15 2023 +0800
+
+    fix(tianmu):assert failed on oldv <= dpn_->max_i at pack_int.cpp:337 (#1610)
+
+commit f1a7259cae82a0e65d62505e30524314c7853e6a
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Wed Apr 26 14:06:18 2023 +0800
+
+    fix(tianmu):assert failed on ptr == buff.get() + data_.sum_len at pack_str.cpp:584(#1620)
+
+commit cc8a96b6c14a59620d9a2dba3f7f9a60c2607c39
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Wed Apr 26 11:31:37 2023 +0800
+
+    feat(tianmu):Optimize delta layer merge operations to remove useless logic
+
+commit 32cb03cdfba0e1b3df4ab953224493af0232b5ae
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Wed Apr 26 11:29:18 2023 +0800
+
+    fix(tianmu):Perfect atomic operations for delta_table
+
+commit 29000c92881589c05a750fd6006332d5aef86107
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Wed Apr 26 11:27:55 2023 +0800
+
+    feat(tianmu):Add delta layer information output and table name output
+
+commit 561f6534e04294ec31fd5cff8b885554b830d95a
+Author: LiMK <slibre@qq.com>
+Date:   Wed Apr 26 19:10:45 2023 +0800
+
+    fix(website): fix the wrong QR code(#1624)
+
+commit 31919be0139cfd351c680c7bca41e37706fd7e9c
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Thu Apr 20 10:19:54 2023 +0800
+
+    fix(tianmu):Code format adjustment
+
+commit 2e4dbdc6aafc92a0353ebb19bc543a3025d4a0f3
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Wed Apr 19 19:25:44 2023 +0800
+
+    fix(tianmu):Resolve the issue of assertion failure caused by memory allocation bugs in (pack_int)
+
+commit 67030373688c42e241f89b1fc7da9fa678ad10c9
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Tue Apr 18 17:19:49 2023 +0800
+
+    fix(tianmu):Fix bug in delta layer initialization
+
+commit feb4b53bd9bed6d36c53922e80ccade327205ba1
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Tue Apr 18 16:36:25 2023 +0800
+
+    fix(tianmu):Modify merge_ The assignment method of ID, delaying the assignment to ensure that the final value is correct
+
+commit 0b1c15a37484740f9b5f68966cef6ffdac0707fc
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Mon Apr 17 17:06:20 2023 +0800
+
+    fix(tianmu):The instance occasionally crashes when the memory leak. (#1549)
+
+commit ba8cead981ae0abb603e8d9a46a93f413cafe99c
+Author: LiMK <slibre@qq.com>
+Date:   Thu Apr 20 18:17:33 2023 +0800
+
+    feat(website): update the logo of XinChuang(#1590)
+
+commit 2f6ae10807573b524935e89fa147d440ca1c33fa
+Author: LiMK <slibre@qq.com>
+Date:   Thu Apr 20 18:16:07 2023 +0800
+
+    website(community): update the content
+
+commit 6b5636643d8d54b94b417a9ab206516ecf782b52
+Author: LiMK <slibre@qq.com>
+Date:   Thu Apr 20 17:02:34 2023 +0800
+
+    fix(website): fix Roadmap module location(#1597)
+
+commit c8c37fd33945bef6681222053ac7718e650ce2ec
+Author: LiMK <slibre@qq.com>
+Date:   Thu Apr 20 16:57:15 2023 +0800
+
+    feat(website): upgrade the docusaurus version(#1604)
+    fix #1604
+
+commit 875be6f52a0a783c2d1b950ddbc3bb9b02dd251f
+Author: Agility6 <agility6@163.com>
+Date:   Thu Apr 20 15:21:01 2023 +0800
+
+    fix: max-width navbar search style
+
+commit 6e56cef611c77b40500925ee20d554220f74c48b
+Author: RingsC <hom.lee@hotmail.com>
+Date:   Wed Apr 19 20:53:49 2023 +0800
+
+    feat(tianmu): support volcano framework (#1554)
+    
+    Part3: To remove the `ha_tianmu_engine`, and gets it from hton's data. This makes
+    it behavior just like innodb.  MySQL gets innodb handler instance from table->s->file.
+    and it will make the code logic more concise.
+
+commit f79002ef370087ddaa986e095016930b8c4eb2e4
+Author: LiMK <slibre@qq.com>
+Date:   Wed Apr 19 20:02:22 2023 +0800
+
+    feat(website): update the latest content(#1587)
+
+commit e510ad3c9c035724fd6c56ec5b677493f2919181
+Author: LiMK <slibre@qq.com>
+Date:   Wed Apr 19 20:00:10 2023 +0800
+
+    fix(website): fix the download link of 5.7(#1518)
+
+commit 4b7c64b0f0c10255b2cfcf2a4fdacf814a16b304
+Author: adofsauron <adofsauron@163.com>
+Date:   Wed Apr 19 14:45:29 2023 +0800
+
+    fix(tianmu): fix mysqld crash when exec query with AggregateRough, assert failed on i < m_idx.size() at tianmu_attr.h:387, msg: [bad dpn index 0/0] (#1580)
+
+commit 99c5e80fbe814c77ce536bbf0e0c17ef02222cbc
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Wed Apr 12 00:34:41 2023 +0800
+
+    fix(tianmu):Remove excess log printing and add some code comments(#1545)
+
+commit 09f0e402d731b679dc11b1004e4afbce7642710c
+Author: shizhao <shizhao@stoneatom.com>
+Date:   Sun Apr 16 18:28:15 2023 +0800
+
+    test(mtr): add more innodb testcases and tianmu range testcase(#1196)
+
+commit f8cf62bc41144e95ab0c8016cf5b94b003d92d02
+Author: augety <chenshengjiang@stoneatom.com>
+Date:   Fri Apr 14 16:50:43 2023 +0800
+
+    docs:update the compile guides #1562
+
+commit 45e75eeae1b863248ee17caf597446647aa290ed
+Author: zzzz-vincent <wenzishen.vincent@hotmail.com>
+Date:   Thu Apr 6 04:20:43 2023 +0000
+
+    feat(tiamnu): hard code in defs.h (#1481)
+    change magic number to readable const
+
+commit 8e197ae06688c1a52a4edada74bd8d26626a3f98
+Author: dysprosium0626 <1119493091@qq.com>
+Date:   Thu Apr 13 10:39:23 2023 +0800
+
+    fix(tianmu): revert code, mv ret value from try block back to catch block
+    
+    [summary]
+    
+    The logic of this modification is as follows:
+    Previously, set ret action has been moved to try block, which is not efficient because every time we do truncate success, ret will be setted to 1. This time we will move the set ret action back to catch block, which will only trigged when truncate failed.
+
+commit d0665f9dc9a5d370a63713c22368d215718fc36e
+Author: RingsC <hom.lee@hotmail.com>
+Date:   Wed Apr 12 10:52:39 2023 +0800
+
+    feat(tianmu): support volcano framewrok (#1546)
+    
+    * feat(tianmu): To support volcano framework
+    
+    This is a serial of PRs, part2: To remove global var `ha_kvstore`, which should be in an engine.
+    To support volcano framework. and In order to do that, at secondly, ha_kvstore_,
+    a global variable removed to the engine. That follows innodb conventional rules.
+
+commit 8a4b65b1b25b3eae3e3ab11f4ab8df78194579bf
+Author: Double0101 <double0101@foxmail.com>
+Date:   Tue Apr 11 18:46:32 2023 +0800
+
+    fix(website): fix website error #1449
+
+commit 16d2c01580187fa65abdae341e7d4ac304d191fe
+Author: Double0101 <double0101@foxmail.com>
+Date:   Mon Apr 3 11:30:58 2023 +0800
+
+    docs(quickstart): add stonedb-8.0 compiling guide #1449
+
+commit 8146e9bcf171922e19bd7ab1494247247c3db782
+Author: RingsC <hom.lee@hotmail.com>
+Date:   Mon Apr 10 18:50:30 2023 +0800
+
+    feat(tianmu): To support vocalno framwork
+    
+    The PRs to support vocalno framwork include a serials of PR.
+    Part1: Refine framework of code to make it clean and clear to read.
+
+commit 758bce8a5974cdfb2443e7fd11bb3e50f4c5cd21
+Author: wisehead <alex.chenhui@gmail.com>
+Date:   Mon Apr 10 19:46:20 2023 +0800
+
+    bug 1538:The instance occasionally crashes when the parallel degree is enabled of the right table #1538
+
+commit 44d6ff8351a3fe617ab558744e5d7f5d7277bd1d
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Tue Apr 11 18:23:15 2023 +0800
+
+    feat(tianmu):Add delta layer mtr
+
+commit 56cd1f3135b96a05bb8124c6f790f2c0d2939d12
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Tue Apr 4 22:31:33 2023 +0800
+
+    fix(tianmu):The mysqld is crashed when you are starting replication.(#1523)
+    
+    It is possible to update null values with null values in the delta layer,
+    For example:
+    update t set name="xiaohua" where id=1;
+    update t set name=null where id=1;
+    So when encountering this situation, directly return
+
+commit 166f87ae32ba96dcfb2d35a4bddb244bdf0b1dad
+Author: RingsC <hom.lee@hotmail.com>
+Date:   Mon Apr 10 10:36:52 2023 +0800
+
+    feat(mtr): To fix the mtr usage
+    
+    The disabeld mtr use cases should follow the mtr conventional rules.
+    Adds a disabled.def to indeciate which case is disabled or not.
+
+commit 65e7c25dca0bfb806916d2313a643331cb15acce
+Author: Agility6 <agility6@163.com>
+Date:   Fri Apr 7 12:17:01 2023 +0800
+
+    fix: page hover font style
+
+commit 03f5df22351dfcd727db7b112d9b2e53a4cf6471
+Author: wisehead <alex.chenhui@gmail.com>
+Date:   Tue Apr 4 17:09:07 2023 +0800
+
+    fix(core): fix bug: The instance occasionally crashes if both fields specified for an equi-join are of the string data types (#1476)
+
+commit 9d4572678fc94d226967592903bd98f1459854bc
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Tue Apr 4 19:09:24 2023 +0800
+
+    fix(tianmu):The myloader cann't work if the autocommit is closed. (#1510)
+    
+    Currently, TIANMU does not support manual transactions and only supports automatic commit.
+    However, it does determine whether to commit the transaction based on the automatic commit parameters of MySQL.
+    If automatic commit is turned off, automatic commit will not be performed on the transaction
+
+commit bcc42adefec5f85df5a22da2c6dd00e75940ac1d
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Tue Mar 28 18:57:15 2023 +0800
+
+    feat(tianmu):Add code comments for easy understanding
+
+commit 1de9a915a881fda6369aeaabe9b58dfb09be16c1
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Tue Mar 28 18:46:51 2023 +0800
+
+    feat(tianmu):Reconstruct direct insert into parallel execution, improving direct insert performance.
+
+commit d49df151466e3c8edf93b17694367ac8ae32c423
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Mon Mar 20 15:53:42 2023 +0800
+
+    fix(tianmu):Resolve DDL and insert inot select Possible space inflation issues(#366)
+    
+    Cause of the problem:
+    1. For multiple versions, Tianmu needs to first copy an original pack when performing DML operations,
+    Modify the copied package and use append write or overwrite write after modification
+    (If there is invalid space in the DATA file that can be written to the current pack, use overwrite write, otherwise use append write) to write to the file,
+    After the latest package is written to a file, the latest version chain will point to the address that was last written.
+    There is a problem with the current (TianmuAttr:: LoadData) logic. Every time you call (TianmuAttr:: LoadData),
+    Will write data to disk,
+    If there are multiple rows written in a transaction, there will be multiple copies of data,
+    "Because the current transaction has not been committed, the space for previous repeated writes has not been released, so the logic of overwriting writes will not be reached.",
+    "I only follow the logic of additional writing, which is the fundamental reason for the skyrocketing space.".
+    If you encounter a particularly large multiline write transaction, it will lead to a space explosion.
+    Moreover, disk IO is performed once per load line, which can also lead to degraded insert performance.
+    Solution:
+    To optimize the logic of (TianmuAttr:: LoadData), it is necessary to determine whether the data in the pack is full before saving changes,
+    Is whether to reach 65536 lines, and if so, write again,
+    If it cannot be reached, it is necessary to write again in the commit phase.
+
+commit 59e9174b529aa96cebfa3ba58233aa2a7ca81f61
+Author: zzzz-vincent <wenzishen.vincent@hotmail.com>
+Date:   Tue Apr 4 05:46:12 2023 +0000
+
+    change to uint
+
+commit 167521675da7ec37f007c44629338193b05b5b67
+Author: zzzz-vincent <wenzishen.vincent@hotmail.com>
+Date:   Tue Apr 4 05:43:50 2023 +0000
+
+    remove dup lines
+
+commit e049e3b8840238561c4924da0f69d341dec094ac
+Author: zzzz-vincent <wenzishen.vincent@hotmail.com>
+Date:   Tue Apr 4 05:26:51 2023 +0000
+
+    strip spaces
+
+commit 7b03c288f1245dec6e35f7436c99fc60088ac67a
+Author: zzzz-vincent <wenzishen.vincent@hotmail.com>
+Date:   Tue Apr 4 05:22:19 2023 +0000
+
+    style change
+
+commit 82b249a0aaa36cc127d0d54e82707b3c6d565893
+Author: zzzz-vincent <wenzishen.vincent@hotmail.com>
+Date:   Tue Apr 4 05:03:47 2023 +0000
+
+    feat(tianmu): mv func from public to protected(#1501)
+
+commit e7bbe885d0c9a44e9ac824ac42d9422794a8659d
+Author: zzzz-vincent <wenzishen.vincent@hotmail.com>
+Date:   Wed Apr 5 02:50:52 2023 +0000
+
+    remove dup lines in git workflow
+
+commit 7484c58ab43d84e812ba86a331cf9703a5523203
+Author: StoneAtom <98451811+stoneatomadmin@users.noreply.github.com>
+Date:   Mon Apr 3 11:19:01 2023 +0800
+
+    Update FUNDING.yml
+    
+    fix the link of opencollective
+
+commit a4c5f7cd3773f3926217b9d6400c33aead934dd1
+Author: StoneAtom <98451811+stoneatomadmin@users.noreply.github.com>
+Date:   Mon Apr 3 11:17:05 2023 +0800
+
+    Create FUNDING.yml
+    
+    update the Sponsor button
+
+commit e7de186751683c833ec73c01f1cabf3505536cda
+Author: LiMK <slibre@qq.com>
+Date:   Fri Mar 31 19:07:04 2023 +0800
+
+    update the readme(#1324)
+
+commit 3ac5796e2517b29ad00bc171792f6b9e4ae313ae
+Author: LiMK <slibre@qq.com>
+Date:   Fri Mar 31 19:06:10 2023 +0800
+
+    update the copyright
+
+commit b90030f23e266017a16d4a660064c143a4463161
+Author: LiMK <slibre@qq.com>
+Date:   Fri Mar 31 17:46:59 2023 +0800
+
+    docs(deploy): Update the document and fix the link
+
+commit ee41be0f041080f1d0dbb0c08de08fdb4c333d22
+Author: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+Date:   Fri Mar 31 07:06:51 2023 +0000
+
+    build(deps): bump nth-check and unist-util-select in /website
+    
+    Bumps [nth-check](https://github.com/fb55/nth-check) to 2.1.1 and updates ancestor dependency [unist-util-select](https://github.com/syntax-tree/unist-util-select). These dependencies need to be updated together.
+    
+    
+    Updates `nth-check` from 1.0.2 to 2.1.1
+    - [Release notes](https://github.com/fb55/nth-check/releases)
+    - [Commits](https://github.com/fb55/nth-check/compare/v1.0.2...v2.1.1)
+    
+    Updates `unist-util-select` from 2.0.2 to 4.0.1
+    - [Release notes](https://github.com/syntax-tree/unist-util-select/releases)
+    - [Commits](https://github.com/syntax-tree/unist-util-select/compare/2.0.2...4.0.1)
+    
+    ---
+    updated-dependencies:
+    - dependency-name: nth-check
+      dependency-type: indirect
+    - dependency-name: unist-util-select
+      dependency-type: direct:production
+    ...
+    
+    Signed-off-by: dependabot[bot] <support@github.com>
+
+commit 4bd09ac3ef1934427a17082f2db8d9dc07510049
+Author: adofsauron <adofsauron@163.com>
+Date:   Fri Mar 31 09:43:11 2023 +0800
+
+        fix crash when the aggregated element was decimal (#1402)
+        1. Fix the crash first
+        2. then redesign the entire aggregated data stream
+
+commit 9c87c73a6d60ada8e545219bad98176671e5c7e2
+Author: shizhao <shizhao@stoneatom.com>
+Date:   Thu Mar 30 21:24:33 2023 +0800
+
+    test(mtr): Optimize parallel scheduling to execute more innodb engine testcases, add date type and std func testcase(#1196)
+
+commit d29544b1a5fa9bac5ac195103173e5d741c31ea6
+Author: LiMK <slibre@qq.com>
+Date:   Thu Mar 30 18:17:05 2023 +0800
+
+    fix(website): fix Baidu statistics script(#1502)
+
+commit 45874bec09875d2e636afad94be7e5cb50b7b8ff
+Author: LiMK <slibre@qq.com>
+Date:   Thu Mar 30 17:45:49 2023 +0800
+
+    feat: add Baidu statistics script(#1498)
+
+commit 37beb82e581153306a186d2074fc6ea6598ad435
+Author: LiMK <slibre@qq.com>
+Date:   Thu Mar 30 17:45:17 2023 +0800
+
+    fix(dcoker): FixDocker deployment commands(#1499)
+
+commit fd653e1085a501b25572608efef70c11493d8bfa
+Author: LiMK <slibre@qq.com>
+Date:   Thu Mar 30 16:15:51 2023 +0800
+
+    docs(v1.0.3): update the docs for v1.0.3
+
+commit 1fa5661e4b27feb39123d710173fd10528c806df
+Author: shizhao <shizhao@stoneatom.com>
+Date:   Thu Mar 23 20:19:17 2023 +0800
+
+    test(mtr): add integer/unsigned/in subquery/create temporary testcases and update escape.test(#1196)
+
+commit 05db04de45c36a90a92c5ee2d75415f0c84ccf0a
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Wed Mar 22 21:09:55 2023 +0800
+
+    fix(tianmu):(Primary/Secondary)Error 1032 occasionally occurs during primary/secondary synchronization if UUIDs are used as the primary key(#1464)
+    
+    Cause of the problem:
+    When performing a primary key scan under the master slave, "ha_tianmu:: position()" is called first to obtain the primary key value from the "record",
+    However, in this scenario, after calling the "key_copy()" function, the "record" will be cleared, resulting in the subsequent "GetKeys()" obtaining a null primary key value.
+    Solution:
+    Because the value "handler->ref" is not used in the future, you can simply delete the call to "key_copy()".
+
+commit ef58f6ce66cdac6fba23cd9c5484de70e45f851f
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Wed Mar 22 21:50:37 2023 +0800
+
+    feat(tianmu):Resolve the issue of warning messages when setting new parameters
+
+commit 3dcc3fd9a2306d7722337ec404a68993db24d835
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Wed Mar 22 19:03:53 2023 +0800
+
+    feat(tianmu):Discard "MANDATORY_TIANMU" and "NO_KEY_ERROR" in (sql_mode)
+
+commit 4193cf699d2e665f9bf2fecc9d1b34715974a963
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Wed Mar 22 17:12:44 2023 +0800
+
+    feat(tianmu):New configuration parameters: "tianmu_mandatory" and "tianmu_no_key_error (#1462)"
+    In version 1.0.4, we will discard "MANDATORY_TIANMU" and "NO_KEY_ERROR" in (sql_mode)
+    
+    Specifies whether to enable mandatory Tianmu engine in table. if yes ,set tianmu_mandatory to ON, otherwise set the variable to OFF.
+    Specifies whether to to directly skip DDL statements that are not supported by the SQL layer, instead of reporting errors.
+    if yes ,set tianmu_no_key_error to ON, otherwise set the variable to OFF.
+
+commit e06793e817bb756c1d4a23c4bc69c8226927d605
+Author: RingsC <hom.lee@hotmail.com>
+Date:   Thu Mar 16 14:05:51 2023 +0800
+
+    fix(workflow): fix can not run lcov in workflow
+
+commit dd8247bb2bb90248980291956af1a10db45ba65a
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Tue Mar 21 17:39:04 2023 +0800
+
+    fix(mtr):Resolve the nightly run error problem(#1458)
+
+commit 0a2f9be67bada64ebe85d4aa83c70bde5aef2b77
+Author: LiMK <slibre@qq.com>
+Date:   Mon Mar 20 20:32:42 2023 +0800
+
+    docs(downlaod)：update the docs of download(#1453)
+
+commit 058040697ebf2c106d14c37b4b59d382134a12a2
+Author: LiMK <slibre@qq.com>
+Date:   Mon Mar 20 16:05:27 2023 +0800
+
+    docs(stonedb): Update the latest docs(#1450)
+    
+    - update all installation and deployment docs
+    - update the version information from 1.0.2-GA to 1.0.3-GA
+
+commit 3ddea31815af7a5f930902ca31f097db123e895c
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Fri Mar 17 11:18:10 2023 +0000
+
+    fix(core): mv test from select_from to issue1332 and replace empty_flag --> (pv2 < local_min) #1332
+
+commit c2b746357e58bc9e8cc9fa97edf7c870a25566d8
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Wed Mar 15 07:16:41 2023 +0000
+
+    fix(core): incorrect result when execute sql with between | > or < | in or not in #1332
+    
+    [summary]
+    In tianmu, pack_int uses uint64_t to store level 2 encode, ranges from [0, uint64_max], so
+    when filter data, the conditions(in code named "pv1, pv2") should be also changed to level 2 encode.
+    e.g.: stored value = actually value - min
+    uint64 upv1 = pv1 - local_min;
+    uint64 upv2 = local_max - local_min;
+    the fixes mainly in funciont "EvaluatePack_BetweenInt".
+    
+    For not int (value): when value < local_min, it should be a special case.
+    Only used when rough check = RS_ALL(no numeric data matchs), but table has null, rough check will be reset RS_SOME.
+
+commit e2b836a4104d5ac3b3db61a8405786b38b4abfc5
+Author: adofsauron <adofsauron@163.com>
+Date:   Wed Mar 15 19:06:21 2023 +0800
+
+        fix(tianmu): fix mysqld crash when exec query limit 0 (#1394)
+        Cause: tianmu engine cannot process this scenario when limit=0 and cannot get conds, resulting in crash
+        Solution: limit 0 is executed without tianmu
+
+commit 2502ca5c6e759b2470336185efe5833b8c8b5735
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Wed Mar 15 22:38:47 2023 +0800
+
+    fix(tianmu):set sql_mode=NO_KEY_ERROR,Cannot create stored routine xxx. Check warnings(#1388)
+    NOTE: When adding new SQL_MODE types, make sure to also add them to
+    the scripts used for creating the MySQL system tables
+    in scripts/mysql_system_tables.sql and scripts/mysql_system_tables_fix.sql
+
+commit fb58421b37fdce78cd8bf3e388573e1e4cbe16de
+Author: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+Date:   Wed Mar 15 19:32:42 2023 +0800
+
+    build(deps): bump webpack from 5.74.0 to 5.76.1 in /website (#1391)
+    
+    Bumps [webpack](https://github.com/webpack/webpack) from 5.74.0 to 5.76.1.
+    - [Release notes](https://github.com/webpack/webpack/releases)
+    - [Commits](https://github.com/webpack/webpack/compare/v5.74.0...v5.76.1)
+    
+    ---
+    updated-dependencies:
+    - dependency-name: webpack
+      dependency-type: indirect
+    ...
+    
+    Signed-off-by: dependabot[bot] <support@github.com>
+    Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+
+commit 521e0a540b62e1f4fa47df66da71095323837ffb
+Author: wisehead <alex.chenhui@gmail.com>
+Date:   Wed Mar 15 13:20:08 2023 +0800
+
+    feature: The data type of the field is the text, the subquery does not support using the like fuzzy query. #1385
+
+commit 5c7d21a853ed770ce20e483e3b49aff5306efedc
+Author: wisehead <alex.chenhui@gmail.com>
+Date:   Mon Mar 13 17:00:17 2023 +0800
+
+     bug: If the SQL syntax contains 1 = 2,the StoneDB's InnoDB storage engine maybe wrong result #1383
+
+commit f5cd1f9bbb543a2c50ddca141856c276fcc8dd5b
+Author: adofsauron <adofsauron@163.com>
+Date:   Tue Mar 7 10:50:50 2023 +0800
+
+        fix(tianmu): Avoid OOM when data too large and aggregated (#949)
+        1. Use memory mapping
+        2. Set the maximum number of concurrent threads for aggregation
+
+commit 106431a63865eca96ab316fc0c54ec2f1a352cb2
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Fri Mar 10 17:06:36 2023 +0800
+
+    feat(tianmu):The delta layer supports master-slave synchronization(#1381)
+
+commit 25eff0235e9a88969ec973ebc12667496e1e5b42
+Author: fuxiang <duanfuxiang0@gmail.com>
+Date:   Fri Mar 10 16:10:31 2023 +0800
+
+    feat(test): add semi-join test and modify the test result according to innodb, the original result is wrong.
+
+commit 85d22750fcba2768a7c653bbb6169485d7a5d91a
+Author: fuxiang <duanfuxiang0@gmail.com>
+Date:   Fri Mar 10 16:07:57 2023 +0800
+
+    feat(tianmu): tianmu storage engine support execute semi-join.
+
+commit a05e4af4611b3a3310a50d46629ae2a5b90afeb7
+Author: fuxiang <duanfuxiang0@gmail.com>
+Date:   Fri Mar 10 16:06:20 2023 +0800
+
+    feat(sql): semi-join support exists.
+
+commit f4fd48656d384514820c5a4b9344a5b013ce35bc
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Fri Mar 10 07:56:50 2023 +0000
+
+    fix(workflow): rm no longer use testcase issue410 and make issue1111 disable to fix nightly build #1296
+
+commit 51ce9a13848659f8c8249d8a8e56f147ba9f5890
+Author: wisehead <alex.chenhui@gmail.com>
+Date:   Fri Mar 10 14:18:00 2023 +0800
+
+    bug: Failed to insert a null value to the composite primary key. #1374
+
+commit c040c506334470cafba6f3b59868cca14ab1b876
+Author: El-even-11 <zhao_ziqian@sjtu.edu.cn>
+Date:   Thu Mar 9 18:49:10 2023 +0800
+
+    fix(mtr): re-record signed_boundary.test
+    
+    Signed-off-by: El-even-11 <zhao_ziqian@sjtu.edu.cn>
+
+commit 0c8ef9cbcd284a45c635db3e469da6a8c943871b
+Author: El-even-11 <zhao_ziqian@sjtu.edu.cn>
+Date:   Thu Mar 9 17:35:59 2023 +0800
+
+    feat(mtr): add issue1361 bigint range mtr
+    
+    Signed-off-by: El-even-11 <zhao_ziqian@sjtu.edu.cn>
+
+commit 209fa3ed42df1e4c3739b63659332a1e5d6b27c5
+Author: El-even-11 <zhao_ziqian@sjtu.edu.cn>
+Date:   Thu Mar 9 17:15:47 2023 +0800
+
+    fix(tianmu): modify the minimum value of bigint
+    
+    Signed-off-by: El-even-11 <zhao_ziqian@sjtu.edu.cn>
+
+commit bda6751c230f69f7519e79ec75a39f9b36975b4a
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Thu Mar 9 11:24:00 2023 +0800
+
+    fix(tianm):oltp_read_write.lua sysbench returned error 1366(#1371)
+    Cause of the problem:
+    The bit bitmap was not initialized when it was created, resulting in the subsequent data confusion
+
+commit e8f0794405779555c8d457e15f6adc826ec190bc
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Wed Mar 8 19:10:15 2023 +0800
+
+    fix(tianmu): integer column with primary key problem(#1363)
+    Cause of the problem:
+    It is caused by writing back the field value when inserting the primary key and the problem of the assignment interface used.
+
+commit 3e38df5d7a76c42b5ab0601eeb6159db1f81f5f8
+Author: LiMK <slibre@qq.com>
+Date:   Wed Mar 8 17:44:50 2023 +0800
+
+    docs(limits): update the docs(#1367)
+    
+    Some restrictive features have been developed
+
+commit a294a9ccbc9437e6549fe9fe537ba299b970f58b
+Author: LiMK <slibre@qq.com>
+Date:   Wed Mar 8 17:36:33 2023 +0800
+
+    feat(website): Add the contact module(#1365)
+    
+    Add the contact information module of the official
+
+commit f754c2227e37134f171e4324c04eac64e14beeae
+Author: LiMK <slibre@qq.com>
+Date:   Wed Mar 8 16:59:41 2023 +0800
+
+    docs(website): Modify documentation(#1364)
+    
+    Modify the documentation in the Getting Started chapter
+
+commit d66a3ca701a45edca987c8ea00b971e1a7759c4e
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Wed Mar 8 10:28:54 2023 +0800
+
+    fix(tianmu):limit min signed int64 value to -9223372036854775807,The failure of mtr operation caused by missing the update logic
+
+commit 47d15d7d801fdcae141a88a8fd7982b8d89051c8
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Tue Mar 7 20:01:50 2023 +0800
+
+    feat(tianmu):delta store,Modify the handler layer and modify the base class to support the delta layer
+
+commit b5552d628a5f67b59fb65dc2e65b8d2c435a52a1
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Tue Mar 7 20:00:02 2023 +0800
+
+    feat(tianmu):delta store,Batch merge from Rocksdb to base layer
+
+commit f2e5df2b818d578cf1634ecf0a9209162fd2591b
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Tue Mar 7 19:57:33 2023 +0800
+
+    feat(tianmu):delta store,Modify the tianmu handler namespace name
+
+commit d5221e4ac1ccdda11556ee99f3a3762edd40ba82
+Author: fuxiang <duanfuxiang0@gmail.com>
+Date:   Tue Mar 7 19:44:23 2023 +0800
+
+    feat(tianmu): delta store support query and transaction.
+
+commit ea0907cf699caf66845f760dbfc05b2d50737f0e
+Author: fuxiang <duanfuxiang0@gmail.com>
+Date:   Tue Mar 7 19:32:11 2023 +0800
+
+    feat(tianmu): delta store, record encode and record merge.
+
+commit 06d88b85ffb0ad5221191bfbe4d972b4a6d5ab4e
+Author: wisehead <alex.chenhui@gmail.com>
+Date:   Tue Mar 7 20:30:09 2023 +0800
+
+     bug: The error message displayed is inaccurate when you drop unique index or drop fulltext index. #1342,#1243
+
+commit 478e705451b88e7d78d826566051dd29cc6ee464
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Tue Mar 7 15:26:04 2023 +0000
+
+    fix(core): rm incorrect boundary check on rough check with between #1344
+    
+    [summary]
+    1. change file(tianmu_attr_exeq_rs.cpp) format from dos 2 unix
+    
+    2. rm incorrect between check, actually the v1 or v2 equal to boundary is illegal and it will cause empty result when condition
+    like `where col = PLUS_INF_64`, `where col = PLUS_INF_DBL`, `where col = MINUS_INF_DBL`:
+    
+    ```
+    common::RoughSetValue TianmuAttr::RoughCheckBetween(int pack, int64_t v1, int64_
+                                                                    // and then consider negation
+       bool is_float = Type().IsFloat();
+       auto const &dpn(get_dpn(pack));
+    -  if (!is_float && (v1 == common::PLUS_INF_64 || v2 == common::MINUS_INF_64)) {
+    -    res = common::RoughSetValue::RS_NONE;
+    -  } else if (is_float && (v1 == *(int64_t *)&common::PLUS_INF_DBL || v2 == *(int64_t *)&common::MINUS_INF_DBL)) {
+    -    res = common::RoughSetValue::RS_NONE;
+    -  } else if (!is_float && (v1 > dpn.max_i || v2 < dpn.min_i)) {
+    +  if (!is_float && (v1 > dpn.max_i || v2 < dpn.min_i)) {
+    ```
+
+commit a094688f46b32f2d20dccaa028203bd35f67b68a
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Thu Mar 2 17:35:15 2023 +0800
+
+    fix(tianmu):Solve the problem that index renaming is not supported(#1345)
+    Modify points:
+    1. Add (RENAME_INDEX) unsupported judgment conditions
+    2. Remove the redundant filtering logic in (log_event. cpp)
+
+commit bc15bbe84fa901c3c39826094864ccd411cb0e16
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Thu Mar 2 02:56:04 2023 +0000
+
+    fix(common): limit min signed int64 value to -9223372036854775807 #1206
+    
+    [summary]
+    In Tianmu engine:
+    For int64, -9223372036854775807 is reserved to indicate as `NULL_64` flag, so we limit
+    min value of int64 to -9223372036854775806.
+    
+    For int32, -2147483648 is reserved to indicate as `NULL_32` flag, we limit min value of int32
+    to -2147483647.
+
+commit cf31f0a64da83c16357bea8f6e3d219374283f0a
+Author: wisehead <alex.chenhui@gmail.com>
+Date:   Tue Feb 28 15:12:50 2023 +0800
+
+    bug: add_timestamp_column Query result is incorrect #1327
+
+commit 43fcede06372e1c35ddf97bded8cdbfd8bbe3774
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Tue Feb 28 03:37:49 2023 +0000
+
+    fix(mtr): load/export case run failed with incorrect terminerted #1329
+
+commit bd6f3cd05de9f62619d36bebad5fd5cc2e20426e
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Fri Feb 24 06:23:49 2023 +0000
+
+    feat(tianmu): support load export unsigned [tinyint~int] #1329
+    
+    [summary]
+    1. add support in load/export module
+    2. fix format with clint
+
+commit a246e5068eb25d8d53e984a6dbc70d837756f6e7
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Mon Feb 27 07:40:35 2023 +0000
+
+    fix(tianmu): fix lint format check #1267
+
+commit 0d640a4e14af0e06b49ef50ed99dff43a2da4ff8
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Mon Feb 27 07:26:19 2023 +0000
+
+    fix(tianmu): add unsigned test cases with sql_mode='' & remove magic numbers #1267
+
+commit 42fe501a1fc44c0c7886e2c820dedbd9ce11ab93
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Mon Feb 13 09:35:26 2023 +0000
+
+    fix(core): revert uint64_t fixmax to int64_t, fix file formate temp_table.cpp from dos2unix #1267
+
+commit 2bc30d129ae87506587717f5a0276261835bb3e5
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Thu Feb 2 03:20:33 2023 +0000
+
+    feat(tianmu): support_unsigned_data [tinyint~int32] #1267
+    
+    [summary]
+    1. expand unsigned boundary from signed boundary to max valued.
+    2. code cover create/insert(delayed/no delayed mode)/update/delete/select.
+    3. functions and operators(agg and math calculation)
+    
+    refs: https://github.com/stoneatom/stonedb/issues/1266
+    related issue: #1151
+
+commit 4105e5884f198ac08f3df8a77b641cf72d627187
+Author: adofsauron <adofsauron@163.com>
+Date:   Fri Mar 3 17:33:57 2023 +0800
+
+        fix(tianmu): fix endless loop occurs during data_cache (#1352)
+        1. The CACHE_ITEM type does not recurse by making a direct comparison
+        2. When two referenced variables have the same address,
+            they are considered to be the same value
+
+commit 7e3d1cd62f8dbe35b5c5abf4c2def434aa8efc52
+Author: El-even-11 <zhao_ziqian@sjtu.edu.cn>
+Date:   Sat Mar 4 16:32:44 2023 +0800
+
+    fix(scripts): update 'fill_help_tables.sql' from MySQL Server 5.7.36
+    
+    Signed-off-by: El-even-11 <zhao_ziqian@sjtu.edu.cn>
+
+commit b91119278a22d3d8180ecc80d3bd18a98d0f8f52
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Tue Feb 28 08:26:22 2023 +0000
+
+    docs(Docs): rm meaningless file INFO_SRC #1335
+
+commit 2bb27b044bc74a02dce40e564fbeeb4eb8b4bb19
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Tue Feb 28 07:18:47 2023 +0000
+
+    docs(Docs/website): update description on data type content #1336
+
+commit 3e66e14325c209d7e38035f3e2c2933a0f9b50cc
+Author: El-even-11 <zhao_ziqian@sjtu.edu.cn>
+Date:   Tue Feb 28 16:54:01 2023 +0800
+
+    fix(website): fix typo in compiling guidance
+    
+    Signed-off-by: El-even-11 <zhao_ziqian@sjtu.edu.cn>
+
+commit f8df638c2297c2a54a6b4dd35c7d7c62f0abba42
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Mon Feb 27 19:36:39 2023 +0800
+
+    feat(tianmu):Optimize code with ternary expression(#1325)
+
+commit 2321f0ac0a4af95bf26aa136259c8dc0350a9e9b
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Thu Feb 23 20:36:59 2023 +0800
+
+    feat(tianmu):DDL function filtering optimization is not supported(#1325)
+    Modify points:
+    1. Fix the error of judgment logic
+    2. Fix the value problem of (sql_mode) in the slave thread
+
+commit 0f425058925d3496e927c724f0346db150906b91
+Author: zhanghongxing <15150573650@163.com>
+Date:   Tue Feb 21 06:09:37 2023 +0000
+
+    bug(tianmu):Server crashed, when execute select val, val >= '2010-02-22 18:35:23' from (select * from timetest) as A;
+
+commit 923c991772edcc81700b87b2b2187000604592d0
+Author: DandreChen <justchenxuedong@163.com>
+Date:   Tue Feb 21 11:27:39 2023 +0800
+
+    feat(mtr): add test cases for NO_KEY_ERROR of sql_mode.(#1318)
+    
+    Add test cases for NO_KEY_ERROR to test secondary index、unique index and trigger.
+
+commit ae42cbf296bf4bcf731faf66226516c225c07f1f
+Author: DandreChen <justchenxuedong@163.com>
+Date:   Tue Feb 21 11:16:56 2023 +0800
+
+    feat(sql):add NO_KEY_ERROR to sql_mode for ignoring unsupported error.(#1318)
+    
+    Add NO_KEY_ERROR to sql_mode.
+    Add judgement for secondary index、unique index、trigger、etc.
+
+commit dc2c64b078df1dc6bb2008f5b202edd5d422b092
+Author: zhanghongxing <15150573650@163.com>
+Date:   Thu Feb 16 15:59:19 2023 +0000
+
+    feat(tianmu):develop some auto_increment function for tianmu(#1201, #1072, #1059)
+
+commit a1d0ad2008934442bb4fc0b86e3d1d52a91be1b9
+Author: lujiashun <lujiashun@stoneatom.com>
+Date:   Fri Feb 3 19:49:36 2023 +0800
+
+    feat(tianmu): support in-completed column data during load data. (#1209)
+    
+    [summary]
+    1. support few column;
+    2. support too many column;
+    3. support the data of column is not completed,such as
+    3.1 such as start with the enclosed char, finished without enclosed char;
+    3.2 without line-termination string, but reach to the end of file;
+
+commit 6a211844503d7f36948fb31eb9d8b289716d7b41
+Author: DandreChen <justchenxuedong@163.com>
+Date:   Wed Feb 8 14:15:29 2023 +0800
+
+    fix(tianmu):the data is wrong when updating data after atlering table.(#1253)
+    
+    After altering table add column, the data of the added column is NULL. When handling the
+    NULL data, the updating operation is not correct.
+
+commit fb8d3beabaa9d367de17640025e2eaf90732fac3
+Author: RingsC <hom.lee@hotmail.com>
+Date:   Fri Feb 17 14:00:16 2023 +0800
+
+    workflow(git): Use the non strict ssh mode in PR (#1299)
+
+commit b5e24a84a6cf924af44f53d1c6818c912073d5b4
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Thu Feb 16 13:53:37 2023 +0800
+
+    fix(tianmu):issue1090.test occasionally fails to run(#1234)
+    
+    Cause of the problem:
+    There is a problem in the method of waiting for the master/slave synchronization to complete,
+    which leads to the data not being synchronized, and then proceed to the next step
+    
+    Modify scheme:
+    Use the correct method to determine whether the slave database is synchronized
+
+commit ef67d37c0a548cbd7b0ba5a6ff15470910e4f4a9
+Author: DandreChen <justchenxuedong@163.com>
+Date:   Fri Feb 3 15:49:13 2023 +0800
+
+    fix(tianmu):the data is wrong when altering table after deleting.(#1199)
+    
+    Because the records which was deleted is not filtered in fill_row().
+
+commit bdbf8d999db44ef61eb0a08346b8265f199f3f9c
+Author: zhanghongxing <15150573650@163.com>
+Date:   Tue Feb 7 11:53:03 2023 +0000
+
+    feat(tianmu):improve the code quality and refactoring derived table optimize for tianmu(#1277, #1276, #1258)
+
+commit fa5917a44f134460b92bfcec600e610dbce84f4f
+Author: shizhao <shizhao@stoneatom.com>
+Date:   Wed Feb 15 17:25:56 2023 +0800
+
+    feat(scripts): check version of the compilation tools before build(#1295)
+
+commit 36fbc225a63760b16b97413e047a11212aa49d48
+Author: DandreChen <justchenxuedong@163.com>
+Date:   Fri Jan 6 16:54:18 2023 +0800
+
+    fix(tianmu): fix alter table add column not null.(#1188)
+    
+    Convert alter table add column not null to use copy algorithm.
+
+commit fd5c85f690804fe7df04806139f720165d9e48ef
+Author: shizhao <shizhao@stoneatom.com>
+Date:   Tue Feb 14 11:02:21 2023 +0800
+
+    test(mtr): optimize func_sec_to_time.test and alter_table_v1.test(#1196)
+
+commit b7351509304c144b626436c66e44afbf508461dc
+Author: kevin <adofsauron@163.com>
+Date:   Mon Feb 13 13:37:16 2023 +0800
+
+        feat(tianmu): add multi-thread aggregation of group by (#422) (#1279)
+    
+    Documentation for mysql aggregation
+        https://dev.mysql.com/doc/refman/8.0/en/aggregate-functions-and-modifiers.html
+    
+        Functional Requirements:
+        Consistent with aggregation conditions handled by existing logic
+        The Aggregate function is used as the entry and ResultSender is used as the result output
+        Performance Requirements:
+        Table data limit:
+        The upper limit of a physical drive
+        The memory limit is exceeded. Procedure
+        Memory usage limit:
+        Add parameters to control the maximum amount of memory that can be used for aggregation
+        Otherwise temporary disk files if the limit is exceeded
+        Execution time limit:
+        Under the same conditions, it is in the same order of magnitude as InnoDB aggregate query at most
+        Aim to take less time than InnoDB for aggregated queries
+
+commit ad4e0fac0bef6a4a35d7537da08468231ad70c48
+Author: lujiashun <lujiashun@stoneatom.com>
+Date:   Thu Feb 2 11:05:54 2023 +0800
+
+    fix(load): fix mysqld crash when columns contains double enclosed char. (#1263)
+    
+    [summary]
+    1. crash reason is the loader column number each time is not 65535 but report 65535;
+       occurs when using limit clause or duplicate key;
+    2. support double enclosed char, ref:https://dev.mysql.com/doc/refman/5.7/en/load-data.html
+
+commit 07a3d720133cecfa7d2e534d1ada43e60026e1d2
+Author: lxd5866 <lxd5866@gmail.com>
+Date:   Sat Feb 11 14:45:43 2023 +0800
+
+    fix action ssl build error
+
+commit b8319f5501ca9c913cf7fab84138323c97f2ee12
+Author: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+Date:   Thu Feb 9 07:30:23 2023 +0000
+
+    build(deps): bump @sideway/formula from 3.0.0 to 3.0.1 in /website
+    
+    Bumps [@sideway/formula](https://github.com/sideway/formula) from 3.0.0 to 3.0.1.
+    - [Release notes](https://github.com/sideway/formula/releases)
+    - [Commits](https://github.com/sideway/formula/compare/v3.0.0...v3.0.1)
+    
+    ---
+    updated-dependencies:
+    - dependency-name: "@sideway/formula"
+      dependency-type: indirect
+    ...
+    
+    Signed-off-by: dependabot[bot] <support@github.com>
+
+commit 5d243bd3d7f65aa5cf4874c80a5ae4c4635a8d41
+Author: LiMK <slibre@qq.com>
+Date:   Thu Feb 9 11:09:36 2023 +0800
+
+    docs(quick-deployment): update the link of quick-deployment(#1282)
+
+commit 5dce241038b8431cfb467691fbd35cca371e6880
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Sat Jan 28 18:29:50 2023 +0800
+
+    feat(tianmu):bit type supported by conditional push.Remove redundant code(#1230)
+    
+    Modify points:
+    1. Push and add bit type support under conditions
+    2. Add unsupported types for later modification
+    3. Remove useless code logic
+
+commit fe2c9da74cd77cde426db15aee48bb07c2e79967
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Tue Jan 17 19:47:05 2023 +0800
+
+    feat(tianmu):Master-slave synchronization, bit type supported by conditional push (#1230)
+
+commit d91807075acf9e47d21d4700d039180d4e584ac2
+Author: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+Date:   Fri Feb 3 14:38:54 2023 +0800
+
+    build(deps): bump http-cache-semantics from 4.1.0 to 4.1.1 in /website (#1271)
+    
+    Bumps [http-cache-semantics](https://github.com/kornelski/http-cache-semantics) from 4.1.0 to 4.1.1.
+    - [Release notes](https://github.com/kornelski/http-cache-semantics/releases)
+    - [Commits](https://github.com/kornelski/http-cache-semantics/compare/v4.1.0...v4.1.1)
+    
+    ---
+    updated-dependencies:
+    - dependency-name: http-cache-semantics
+      dependency-type: indirect
+    ...
+    
+    Signed-off-by: dependabot[bot] <support@github.com>
+    Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+
+commit 4b2f0f77a53b122c8398873052fd84ca1e91c2d2
+Author: lujiashun <lujiashun@stoneatom.com>
+Date:   Thu Feb 2 11:46:38 2023 +0800
+
+    fix(stonedb): fix 'STONEDB_TAG_NAME' complier error. (#1262)
+
+commit bf5e98a40b079d19a7fd35adf382817a47ff2073
+Author: DandreChen <justchenxuedong@163.com>
+Date:   Tue Jan 31 10:21:54 2023 +0800
+
+    feat(binlog): unsupported DDL in binlog layer should be filtered.(#1186)
+    
+    Add test case for filtering errors.
+    Filter the errors of secondary index、unique index、fulltext index、trigger、 foreign key in binlog layer.
+
+commit 62b6b17a9bc381faf1408369d917fa6fafe6a7cc
+Author: lujiashun <lujiashun@stoneatom.com>
+Date:   Sun Jan 29 10:16:12 2023 +0800
+
+    feat(tianmu): unsupported DDL in SQL layer should report error. (#1185)
+    
+    [summary]
+    1 secondary/unique index report error;
+    2 full text/SPTIAL report error;
+    3 partition/foreign key report error;
+    4 GEOMETRY/SET/ENUM data type report error;
+    5 create trigger report error;
+
+commit 9c55eeeced8dc4c07e34b2add884a72606a009e5
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Wed Feb 1 17:26:36 2023 +0800
+
+    feat(scripts): change default binlog formate from statement to row in my.cnf.sample #1015 (#1261)
+
+commit 7d973b8045a3e0ae93a60b9247523e3cdd01b44a
+Author: Amber Moe <42762957+Amber1990Zhang@users.noreply.github.com>
+Date:   Tue Jan 31 20:20:53 2023 +0800
+
+    fix some minors error in README (#1259)
+
+commit e65c757670fa0ba12114ab7c60cb92915a220ffc
+Author: lujiashun <lujiashun@stoneatom.com>
+Date:   Tue Jan 31 14:31:51 2023 +0800
+
+    feat(stonedb): show stonedb tag version. (#1251)
+
+commit a486f2a3bfd61c6d64037e8a354f420818941a4b
+Author: shizhao <shizhao@stoneatom.com>
+Date:   Mon Jan 30 21:16:00 2023 +0800
+
+    test(mtr): add testcases for bit and unsigned(#1196)
+
+commit a5aa8f40cea820bb175e2b34426dcdb1a9f41fc8
+Author: LiMK <slibre@qq.com>
+Date:   Mon Jan 30 18:15:56 2023 +0800
+
+    fix(website): Fixed the Roadmap module(#1255)
+    
+    - Fixed the Roadmap style error on the home page
+    - Fixed Roadmap issue where the Chinese page could not locate the latest R&D block
+    - Other style optimization
+
+commit 848e33a1b770882b1c11073d0b680fd304e067b5
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Mon Jan 30 02:42:17 2023 +0000
+
+    fix: mirros pull failed in debian10_1.0.3 #1249
+
+commit ac1f6166cbc682e3a1c077ce7583d14ab70c58eb
+Author: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+Date:   Fri Jan 27 16:11:39 2023 +0000
+
+    build(deps): bump ua-parser-js from 0.7.31 to 0.7.33 in /website
+    
+    Bumps [ua-parser-js](https://github.com/faisalman/ua-parser-js) from 0.7.31 to 0.7.33.
+    - [Release notes](https://github.com/faisalman/ua-parser-js/releases)
+    - [Changelog](https://github.com/faisalman/ua-parser-js/blob/master/changelog.md)
+    - [Commits](https://github.com/faisalman/ua-parser-js/compare/0.7.31...0.7.33)
+    
+    ---
+    updated-dependencies:
+    - dependency-name: ua-parser-js
+      dependency-type: indirect
+    ...
+    
+    Signed-off-by: dependabot[bot] <support@github.com>
+
+commit b1350c790e703ffa8e75f988bafb9c0ae243c98c
+Author: LiMK <slibre@qq.com>
+Date:   Wed Jan 18 18:57:39 2023 +0800
+
+    docs: update the quick-deployment-secondary(#1241)
+    
+    add the doc of Quick Deployment of StoneDB as the Secondary Database
+
+commit 4b0339403a7b791f435df4357bbe04c43df913ae
+Author: LiMK <slibre@qq.com>
+Date:   Wed Jan 18 18:49:17 2023 +0800
+
+    docs: update the quick-deployment-rpm(#1241)
+    
+    add the doc of Use an RPM Package to Deploy StoneDB on CentOS 7
+
+commit 5f52a918afafee8fc5d9d6b80df90b637555dff2
+Author: LiMK <slibre@qq.com>
+Date:   Wed Jan 18 18:41:51 2023 +0800
+
+    docs: update the quick-deployment-deb(#1241)
+    
+    add the doc of Use a DEB Package to Deploy StoneDB on Ubuntu 20
+
+commit 369db8209f667a052770d8f746b950fbc2c5d122
+Author: LiMK <slibre@qq.com>
+Date:   Wed Jan 18 18:29:05 2023 +0800
+
+    docs: update the quick-deployment(#1241)
+    
+    add the doc of Use a TAR Package to Deploy StoneDB
+
+commit 84942a38efd0ced772f591b07ef9a659ea9ddcfd
+Author: LiMK <slibre@qq.com>
+Date:   Wed Jan 18 18:25:26 2023 +0800
+
+    website(homepage): update the content(#1231)
+
+commit aef9a1d58ae36b8ff100493b380411084210320e
+Author: LiMK <slibre@qq.com>
+Date:   Wed Jan 18 18:23:28 2023 +0800
+
+    docs(website): update the Roadmap(#1241)
+
+commit 4601b7a24d0cf4e28e2534cc3a764d92952ed1ba
+Author: LiMK <slibre@qq.com>
+Date:   Wed Jan 18 11:47:23 2023 +0800
+
+    fix(website): delete the error tags and update docs
+    
+    update the docs of compile-methods
+
+commit 0d96553a5612d41d035d4bc91c4b5e7b0ac5791d
+Author: LiMK <slibre@qq.com>
+Date:   Wed Jan 18 11:20:15 2023 +0800
+
+    fix(website): fix the compile error(#1238)
+
+commit aa6d3167a78dd99cd68005be542c30976666d2bf
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Tue Jan 17 13:16:29 2023 +0800
+
+    fix(tianmu) tianmu.primary_secondary_bit crashed or failed(#1212)
+    
+    There is a problem with the judgment condition for obtaining the unique constraint. The key should be determined in advance_ Whether the number of parts is greater than 0
+
+commit 5a71596de1a0121d61ee0a5b2fd75acd3fc1a62b
+Author: LiMK <slibre@qq.com>
+Date:   Tue Jan 17 18:37:09 2023 +0800
+
+    docs: update the download(#1231)
+
+commit 00f30de3e783345f9ff96e2c0c724c7d40ecba72
+Author: LiMK <slibre@qq.com>
+Date:   Tue Jan 17 16:13:30 2023 +0800
+
+    docs(release-notes): update the notes
+    
+    update the notes of 5.7-1.0.2(#1231)
+
+commit 6b1547523e0423b66daa9eb6dbb87568743591ac
+Author: LiMK <slibre@qq.com>
+Date:   Tue Jan 17 16:03:21 2023 +0800
+
+    docs(data-types): update some value range
+
+commit 29e3f7c8ad21e11e05803166418ab12298ec67c4
+Author: LiMK <slibre@qq.com>
+Date:   Thu Jan 12 17:58:24 2023 +0800
+
+    docs(DataTypes): update the docs of data types
+
+commit 11d8bdba56f4979007fe024529edea398bba8569
+Author: LiMK <slibre@qq.com>
+Date:   Thu Jan 12 17:48:19 2023 +0800
+
+    docs(Limits): update the Limits
+    
+    Some of the original limited features have been developed
+
+commit 35e42b9339a79698dc380d51d22d6ee152da26ab
+Author: LiMK <slibre@qq.com>
+Date:   Thu Jan 12 17:29:14 2023 +0800
+
+    docs(Readme): fix some links
+
+commit 71a27c4e349dc538700bfab96d497216de458677
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Fri Jan 13 15:20:44 2023 +0000
+
+    fix: insert with unsigned data return out of range, but still being queried #1218
+    
+    [summary]
+    1. Fix int signed & unsigned: -2147483648 and [2147483648, 4294967295] is not allowed.
+    2. Fix bigint signed & unsigned: -9223372036854775808 and [9223372036854775808, 18446744073709551615] is not allowed.
+    3. Like int&bigint, fix unsigned [tinyint, smallint, mediumint] unsupported values except negative data.
+
+commit 1fa9d334655f76dfcfb176abc89e7c6bf6d03c65
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Fri Jan 13 07:03:20 2023 +0000
+
+    fix: add TODO info and change db name be consistent with file name in mtr #1151
+
+commit e3cfea33b670e17f71950eea38c0db4be9db72aa
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Thu Jan 12 13:39:44 2023 +0000
+
+    fix: change auto_increment.testbak to backup test, the cases in this file test unsigned, this will be opened after we completely support unsigned types #1151
+
+commit 38d7eb461dcb141db8b4d0740253b00595754eff
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Thu Jan 12 10:23:34 2023 +0000
+
+    fix: limit unsigned integer range. #1151
+    
+    [summary]
+    
+    tinyint: signed range is -128 to 127, unsigned range is 0 to 127.
+    
+    smallint: signed range is -32768 to 32767, unsigned range is 0 to 32767.
+    
+    mediumint: signed range is -8388608 to 8388607, unsigned range is 0 to 8388607.
+    
+    int/integer: signed range is -2147483647 to 2147483647, unsigned range is 0 to 2147483647.
+    Note: -2147483648 is not allowed in tianmu engine currently.
+    
+    bigint: signed range is -9223372036854775806 to 9223372036854775807, unsigned range is 0 to 9223372036854775807.
+    Note: -9223372036854775807 will be set to null and -9223372036854775808 will ret out of range.
+
+commit 0d42347e28863ea396e7882cca2781b25d670bf2
+Author: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+Date:   Mon Jan 9 11:52:59 2023 +0000
+
+    build(deps): bump json5 from 2.2.1 to 2.2.3 in /website
+    
+    Bumps [json5](https://github.com/json5/json5) from 2.2.1 to 2.2.3.
+    - [Release notes](https://github.com/json5/json5/releases)
+    - [Changelog](https://github.com/json5/json5/blob/main/CHANGELOG.md)
+    - [Commits](https://github.com/json5/json5/compare/v2.2.1...v2.2.3)
+    
+    ---
+    updated-dependencies:
+    - dependency-name: json5
+      dependency-type: indirect
+    ...
+    
+    Signed-off-by: dependabot[bot] <support@github.com>
+
+commit 3fa2aab042e53a679b1045f98a646fc3a8bd05b9
+Author: zhanghongxing <15150573650@163.com>
+Date:   Tue Jan 10 02:57:51 2023 +0000
+
+    feat(tianmu):The tianmu storage engine does not support union query for fields whose data types are datetime and timestamp(#1114)
+
+commit af1508f89e803f6930c10993bb21ee353f8d8e37
+Author: zhanghongxing <15150573650@163.com>
+Date:   Tue Jan 3 07:31:47 2023 +0000
+
+    feat(tianmu):The tianmu storage engine does not support union query for fields whose data types are datetime and timestamp(#1114)
+
+commit 215161d0bad3a4f71d966aa1a425e29f14a1d6c0
+Author: zhanghongxing <15150573650@163.com>
+Date:   Fri Dec 30 09:22:31 2022 +0000
+
+    feat(tianmu):The tianmu storage engine does not support union query for fields whose data types are datetime and timestamp(#1114)
+
+commit 67b5c207349d534e51d993a85b9bb8fafb6d4e93
+Author: shizhao <shizhao@stoneatom.com>
+Date:   Fri Jan 6 15:40:19 2023 +0800
+
+    test(mtr): add some mtr test cases(#497)
+    
+    [summary]
+    add mtr test cases about unsigned/escape/replace into/zerofill
+
+commit 562afcb9561e3f93e3a6de30a82df9bc45c60856
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Mon Jan 9 07:11:42 2023 +0000
+
+    fix: incorrect result when executed insert into t select with ... #1182
+    
+    [summary]
+    The root cause:
+    before: we used "*reinterpret_cast<int64_t *>(field->ptr)" to store value from longlong, it will make "ptr" little-endian bytes order and will get wrong value when used Field_bit::val_int() to get bit value back. "val_int()" parse data according big-endian bytes order.
+    
+    after fix: we use "type_conversion_status Field_bit::store(longlong nr, bool unsigned_val)" to store longlong val. Stored in big-endian bytes order.
+    
+    When do insert ... select .../create ... select/update or delete in primary-secondary synchronization, the function next will be called:
+    ---
+     static void do_field_int(Copy_field *copy)
+     {
+       longlong value= copy->from_field()->val_int();---->here that make the data uncorrect when parsing data stored in little-endian in field->ptr
+       copy->to_field()->store(value,
+                               MY_TEST(copy->from_field()->flags & UNSIGNED_FLAG));
+     }
+    ---
+
+commit 74160c03754178ab0e33bd36ebc35f65a9d32794
+Author: lujiashun <lujiashun@stoneatom.com>
+Date:   Thu Jan 5 09:52:15 2023 +0800
+
+    feat(tianmu): tianmu exporter support NULL type. (#1169)
+    
+    [summary]
+    1 fix sql load when varchar column's char length(should be byte length) exceeds input-text byte length;
+    2 support user varialbe "TIANMU_LOAD_NULL" to customize the export file content;
+    3 fix the NULL value of exporter when enclosed char is not empty;
+
+commit 3f04748e083c1271bfbbdcc6ffe3119a753297f2
+Author: DandreChen <justchenxuedong@163.com>
+Date:   Tue Jan 3 11:12:34 2023 +0800
+
+    fix(tianmu): ALTER TABLE prompt information is incorrect.(#1142)
+    
+    Print the specific information of known exceptions to better understand the cause of the problem
+
+commit aa5fc11f94b803be2ef587f88339c2744cf024d2
+Author: DandreChen <justchenxuedong@163.com>
+Date:   Tue Jan 3 10:55:15 2023 +0800
+
+    fix(mtr): add mtr for ALTER TABLE prompt information is incorrect.(#1142)
+    
+    Add test cases for ALTER TABLE when exception occurs by inplace algorithm
+
+commit f88fde8dfb4d4d7e13703f98bccaf85a27404c52
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Wed Jan 4 12:21:27 2023 +0000
+
+    feat(tianmu): rm some useless comment, bit type judge and add select...where test case on bit types #919
+
+commit 3b2907dcf591cb392c0256c0caefae6c58deab5c
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Tue Dec 27 08:44:36 2022 +0000
+
+    feat(tianmu): revert and adjust codes on bit #919
+    
+    [summary]
+    1. revert some vars renaming code to keep old style.
+    2. fix type cast using reinterpret_cast to avoid c-style casting.
+    3. add more test cases and fix some errors.
+    4. format code.
+
+commit b74fe4135e41d975eed5600f54d8b44b49d668ee
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Fri Dec 23 01:47:43 2022 +0000
+
+    feat(tianmu): impl load bit type #919
+    
+    [summary]
+    impl load bit, including empty space and null value, to keep the src code integrity, we add
+    an bit parse function just like others numeric does.
+
+commit 52a5ad04c815145651ef9f9e1541c26e5f461edf
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Thu Dec 22 01:42:09 2022 +0000
+
+    feat(mtr): add bit test db during paralle executing #919
+
+commit 81ab1faf273b46d2196e7da2b4c64991dc0232b4
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Tue Dec 20 07:58:06 2022 +0000
+
+    style(tianmu): formatting code #919
+
+commit 78b8703a5bfa9b36889f7bf3a322d465c88b2a1f
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Tue Dec 20 07:39:51 2022 +0000
+
+    fix ComputeNaturalSize and StaticExtrnalSize on bit calculate, used by desc tables #919
+
+commit 9d209f26bcd58f358894673198ceee85ceca0768
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Tue Dec 20 04:06:11 2022 +0000
+
+    feat(tianmu): support agg on bit types #919
+
+commit 17cdb6ce841bcbc305073865afb21e46276c980b
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Fri Dec 16 09:07:04 2022 +0000
+
+    feat(tianmu): impl bit type on tianmu engine #919
+    
+    [summary]
+    1. impl insert with mode delayed=0/1
+    2. impl simple select bit data from table
+
+commit 41ca5e48c8e11c3b038c5ecefbc2a72647a2377c
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Thu Dec 15 15:14:15 2022 +0000
+
+    style(tianmu): renaming some variables based on google c++ style #11
+
+commit 406caf8e5298039ddbf9ff7ccf3c0d878fe2a1f5
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Thu Dec 15 09:10:43 2022 +0000
+
+    feat(tianmu): impl bit type, add support to create/desc table with bit type #919
+    
+    [summary]
+    1. add support to create table with bit type
+    2. add support to desc/show fields with bit type table
+    3. currently we design bit(M) with (1 <= M <= 63), in the future we'll expand prec to 64.
+
+commit 345618f86290a7b958ec1c324a2f183a97987f59
+Author: fuxiang <duanfuxiang0@gmail.com>
+Date:   Tue Jan 3 15:33:29 2023 +0800
+
+    fix(tianmu): fix replace into error on multi field pk, code format(#1152).
+
+commit e62a1421e623b9005d06d0e72afe8032a079b89a
+Author: fuxiang <duanfuxiang0@gmail.com>
+Date:   Tue Jan 3 15:09:01 2023 +0800
+
+    fix(tianmu): fix replace into error on multi field pk(#1152).
+
+commit 8fb97abefe6bbbf4315b65aeadf57cba050af5ea
+Author: lujiashun <lujiashun@stoneatom.com>
+Date:   Wed Dec 28 18:12:19 2022 +0800
+
+    fix(tianmu): fix DimensionGroupVirtual clone bug when shallow is truth. (#790)
+
+commit dac5538490823782e2de7de344145844bf0b3cf5
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Thu Dec 29 15:08:08 2022 +0800
+
+    fix(tianmu): When executing SELECT..WHERE NAME LIKE %_, it failed(#1157)
+    
+    1. Handle the result set error caused by character transfer(#1157)(#1162)
+    2. Handle the result set problem caused by ESCAPE keyword(#1162)
+
+commit 0bc2cbe6c25e95a7ea4b81255d9b6787b5163161
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Fri Dec 30 17:46:55 2022 +0800
+
+    fix(tianmu):Master slave synchronization, primary key scanning failed(#1174)
+    
+    There is a problem with the judgment condition. You cannot ignore the case where the primary key value is 0
+
+commit e5efa891bad46b9471b9bad008c55f4b3acaafe1
+Author: DandreChen <justchenxuedong@163.com>
+Date:   Wed Dec 28 18:32:53 2022 +0800
+
+    fix(mtr): add test case for add column.(#1140)
+    
+    Add test case: when alter table xxx add colmn operation is failed firstly, executing
+    alter table xxx add colmn by successful case again
+
+commit 71fd8e76b04ab9c3898d6c93d520540902122cdc
+Author: DandreChen <justchenxuedong@163.com>
+Date:   Wed Dec 28 17:41:27 2022 +0800
+
+    fix(tianmu):ALTER table xxx ADD numeric column return error.(#1140)
+    
+    Delete the temporary directory to solve the copy problem
+
+commit 26b011f5312a38f839b4ad60c3efdf5cb260eb69
+Author: DandreChen <justchenxuedong@163.com>
+Date:   Thu Dec 29 10:16:32 2022 +0800
+
+    fix(tianmu): Mathematical Functions of UNSIGNED data returns error.(#1123)
+    
+    Using ulonglong type to accpet unsigned data for mathematics
+
+commit f197ad89a6ebea9bda298eae817e5b9e1d8b47bc
+Author: DandreChen <justchenxuedong@163.com>
+Date:   Wed Dec 21 10:33:53 2022 +0800
+
+    fix(mtr): Add test case for Mathematical Functions of UNSIGNED data.(#1123)
+    
+    Add LN(),LOG(),LOG2() mathematical operation test cases to test unsigned type
+
+commit a137b3efef868728df83c945504606e276b759ee
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Tue Dec 13 23:14:24 2022 +0800
+
+    feat(tianmu):Master slave synchronization - Row format supports primary key scanning(#1111)
+    
+    1.Repair the (ha_tianmu:: index_read) interface
+    2.Repair the (ha_tianmu:: position) interface
+    3.Repair the (ha_tianmu::rnd_pos) interface
+    
+    The tianmu engine only supports primary keys,
+    and unique constraints and secondary indexes are not supported,
+    Therefore, only scanning with primary key scenarios is allowed here.
+
+commit 6d26a91e2dcf0a78134fb0ec53a5b7c594b3ec2f
+Author: zhanghongxing <15150573650@163.com>
+Date:   Wed Dec 28 06:55:33 2022 +0000
+
+    fix(tianmu): the sock file directory is inconsistent with the directory in my.cnf
+
+commit 5b1d9be93c6a94f2524eca9e85fb9aaf94d5bfb0
+Author: zhanghongxing <15150573650@163.com>
+Date:   Tue Dec 27 02:52:25 2022 +0000
+
+    fix(tianmu): the sock file directory is inconsistent with the directory in my.cnf
+
+commit 3ce4d33a65b8d908ffdd27a2a5fa634627dc7eb6
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Thu Dec 22 20:24:37 2022 +0800
+
+    feat(tianmu):sql_mode set MANDATORY_TIANMU do not work (#1131)
+    
+    Force the engine to be converted to tianmu in any scenario as long as this parameter is set.
+    Do not include temporary tables.
+
+commit b356de554bb02807a534b7eb4cc6077a50f78e18
+Author: lujiashun <lujiashun@stoneatom.com>
+Date:   Thu Dec 22 21:15:51 2022 +0800
+
+    feature(tianmu): SQL load support NULL value. (#1153)
+    
+    [summary]
+    1 decide which is NULL value and NULL string
+    2 warns when assign NULL value to not-null column;
+    3 refactor GetOneRow code;
+
+commit 4ed55a522eb77011bc669d69c06f047a3406502e
+Author: RingsC <hom.lee@hotmail.com>
+Date:   Tue Dec 20 17:12:05 2022 +0800
+
+    feat(tianmu): Refactor the for-loop statement in param filter(#11)
+    [summary]
+    To refactor the loop statement in param filter file. Too much loops, make the code hard to read friendly.
+
+commit d84321160dc8a369a08e56817e451c7b9246adc3
+Author: shizhao <shizhao@stoneatom.com>
+Date:   Wed Dec 21 20:52:09 2022 +0800
+
+    test(mtr): add some test cases(#497)
+    
+    [summary]
+    add tianmu_utf8.inc
+    add alter_table1.test
+    add procedure.test
+    add unsigned_least.test
+    add user_function.test
+
+commit 263104efeae5f473fac93aea30c03f37563a380b
+Author: zhanghongxing <15150573650@163.com>
+Date:   Tue Dec 20 02:06:35 2022 +0000
+
+    fix(tianmu): AUTO_INCREMENT of the Primary Key with tianmu occurs the problem of max value about data type(#1046)
+
+commit c12856c01513031459b10750c9625ac379c90fd8
+Author: zhanghongxing <15150573650@163.com>
+Date:   Sun Dec 18 13:52:54 2022 +0000
+
+    fix(tianmu): AUTO_INCREMENT of the Primary Key with tianmu occurs the problem of max value about data type(#1046)
+
+commit e108cad09d28b45e8e0a4047cd52b9c12aacfabb
+Author: zhanghongxing <15150573650@163.com>
+Date:   Sun Dec 18 12:45:23 2022 +0000
+
+    fix(tianmu): add test cases for the problem of auto_increment about the max value(#1046)
+
+commit 863cebc589e101200aacc0c2290f268eef9321f5
+Author: DandreChen <justchenxuedong@163.com>
+Date:   Wed Dec 7 14:16:34 2022 +0800
+
+    fix(mtr): add mtr for alter table add/drop primary key.(#1071)
+    
+    insert data for test
+    set tianmu_insert_delayed=OFF for test
+
+commit 8db902693f29e417a46419714ee535004e93fb63
+Author: DandreChen <justchenxuedong@163.com>
+Date:   Wed Dec 7 14:05:22 2022 +0800
+
+    fix(tianmu):fix alter table add/drop primary key.(#1071)
+    
+    fix bug:in some cases, can insert same values by primary key after atler table add
+    primary key.
+
+commit f98ab95c3bb65cd3400f505c68f8436588967d05
+Author: shangyanwen <18392868125@163.com>
+Date:   Fri Dec 16 10:23:33 2022 +0800
+
+    test(mtr):add double_float and func_sec_to_time(#497)
+
+commit e4b7a5ea4d79100484f5292d59032d0f44554f0e
+Author: adofsauron <adofsauron@163.com>
+Date:   Fri Dec 16 17:15:35 2022 +0800
+
+        fix(tianmu): mysqld server crash when large amount hash join (#1110)
+        Causes of the crash:
+            When the hash join is executed,
+            the cache data will be written to the disk.
+            If the cache data is written beyond the int type boundary,
+            overflow will occur and the service will crash
+        Test method:
+            When tested locally,
+            crashes occur only when the write disk cache exceeds 14GB or so.
+            This amount of data is not suitable for testing in MTR
+
+commit 9633ff019cc06142d4ec525fc1f74ec3999edfe5
+Author: lujiashun <lujiashun@stoneatom.com>
+Date:   Thu Dec 15 19:53:13 2022 +0800
+
+    feat(tianmu): improve SQL load performance after SQL load feature enhancement. (#1113)
+    
+    [summary]
+    1 One optimization direction is to reduce the frequency of the memory allocate, only allocate one or two times for one column;
+    2 use integer than string to fix the field;
+    3 use "restore_record" to reset the default value instead of to reset the field default one by one;
+    4 use vector to mark the buffer pointer and length instead of map structure;
+
+commit 68de651a56c101f0b5d9f06ac17bbf7d892575bf
+Author: LiMK <slibre@qq.com>
+Date:   Fri Dec 16 14:40:04 2022 +0800
+
+    docs(readme): fix the link of build(#1139)
+
+commit 45a050437371fec2d0b8fe4ae7165cb8807ea194
+Author: shizhao <shizhao@stoneatom.com>
+Date:   Thu Dec 15 21:09:04 2022 +0800
+
+    test(mtr): add and update some testcases(#497)
+    
+    [summary]
+    add    ctas1.test
+    add    different_charsets_b.test
+    update insert_select.test
+    update left_join.test
+
+commit ad960cbf787cfbfc0556a7492b86c97181c84079
+Author: lujiashun <lujiashun@stoneatom.com>
+Date:   Thu Dec 15 19:26:01 2022 +0800
+
+    feat(tianmu): support select into outfile with enclosed char. (#850,#1006)
+    
+    [summary]
+    1 support select into out-file can output enclose char(optionally or not);
+    2 support load with enclose char(optionally or not);
+
+commit 1a81c640fedceacf9732e08aae9bd996281b736b
+Author: lujiashun <lujiashun@stoneatom.com>
+Date:   Thu Dec 15 17:35:01 2022 +0800
+
+    feat(tianmu): update MTR test cases,different mtr use different database. (#497)
+
+commit ffa0c331857808a4d8faacdebd56ba99a74607f3
+Author: shizhao <shizhao@stoneatom.com>
+Date:   Thu Dec 15 12:59:50 2022 +0800
+
+    test(mtr): update pull_requests.yml and make the innodb testcase run(#1057)
+
+commit 5eff82163fcf4c03a2f5bfcf3c971693011af41f
+Author: adofsauron <adofsauron@163.com>
+Date:   Wed Dec 14 12:35:22 2022 +0800
+
+        fix(tianmu): fix group by lead to wrong result (#1107)
+
+commit 929d5a76f8469fecd21c7294221b55792953b3c3
+Author: RingsC <hom.lee@hotmail.com>
+Date:   Wed Dec 14 16:05:22 2022 +0800
+
+    feat(tianmu): Changes the RS to RoughSet makes it meaningful(#11)
+    [summary]
+    Changes `RS` to `RoughSet`, which makes the vairable meaningful.
+
+commit b482c5d7b9ba96578af115f4f00b487300fd6c1b
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Tue Dec 13 00:12:40 2022 +0800
+
+    fix(tianmu):tianmu_delete_or_update_threads,Parameter deletion by mistake(#1108)
+
+commit 9916e910e2b78a8f3a8268975bdd326d3da94695
+Author: RingsC <hom.lee@hotmail.com>
+Date:   Wed Dec 14 13:39:08 2022 +0800
+
+    fix(tianmu): Fix the dimension index is -1 leads server to crash(#962)
+    [summary]
+    The root cause is that if there is more than one table in virtual column, then
+    the `dim_` will be set to -1. Therefore, in `join_desc[0].right_dims.Get(descriptors[i].attr.vc->GetDim())`
+    the `descriptors[i].attr.vc->GetDim()` returns `-1` and  will lead the server crash.
+
+commit ec39dcb524019ca6c040fe286e4ac66d205657bb
+Author: shangyanwen <18392868125@163.com>
+Date:   Tue Dec 13 20:53:26 2022 +0800
+
+    test(mtr):update issue226.test(#497)
+
+commit 6c70bb9805777342825b917b025147f952a7486b
+Author: shangyanwen <18392868125@163.com>
+Date:   Tue Dec 13 20:25:13 2022 +0800
+
+    test(mtr):update insert_update(#497)
+
+commit 4924159d4b459be6a58d2c98ffdf098cacca6501
+Author: shangyanwen <18392868125@163.com>
+Date:   Tue Dec 13 19:42:12 2022 +0800
+
+    test(mtr):update issue880.test(#497)
+
+commit f60575a22b60d2901df403b5b14df3dbd58aaa14
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Fri Dec 9 23:10:12 2022 +0800
+
+    fix(tianmu):Master-slave replication, sql_mode MANDATORY_TIANMU has problems in some scenarios (#1090)
+    
+    Add a scenario where no engine is specified when creating a table in the master database.
+
+commit 3398895a57fb643559d96f2c95cb211bb1a81068
+Author: lujiashun <lujiashun@stoneatom.com>
+Date:   Fri Dec 9 14:06:41 2022 +0800
+
+    feat(tianmu): fix bug: The data type was not determined during load data. (#852)
+    
+    [summary]
+    function GetValue should not truncate string from delimiter character;
+    e.g,  string "HO,lDAVvCDTthJs3oYHW" enclosed by double-quote, be should stored as a whole;
+
+commit 40f2e1f8dc9618faf87eec322dc21ea3c78dbe67
+Author: lujiashun <lujiashun@stoneatom.com>
+Date:   Thu Dec 8 19:04:09 2022 +0800
+
+    fix(tianmu): fix bug: Garbled code occurs after the character set is converted. (#1070)
+
+commit 885959159dd1bfe3f3cda1bdcb0a45065f3565a6
+Author: LiMK <slibre@qq.com>
+Date:   Fri Dec 9 20:20:27 2022 +0800
+
+    docs(compiling): update some docs(#1089)
+    
+    - update the docs of quick-deployment
+    - update the docs of compiling-methods
+
+commit 1a415c51504de406e8577c0c65d9668ade201784
+Author: LiMK <slibre@qq.com>
+Date:   Fri Dec 9 20:17:27 2022 +0800
+
+    docs(Readme): update some new badges(#1089)
+    
+    - Adjust the image size of Wechat
+
+commit 6b11c232e5c58e8880da892ca0be3f71cbc5e8cb
+Author: TomeC <wangkun_mr@foxmail.com>
+Date:   Wed Dec 7 16:50:07 2022 +0800
+
+    The compilation script lacks the path parameters of marisa and rocksdb
+
+commit 844ef7e8ac2f0773ddfbbe67b41082e3987a82c6
+Author: adofsauron <adofsauron@163.com>
+Date:   Thu Dec 8 14:35:41 2022 +0800
+
+        fix(tianmu): fix Update multiple values does not work (#781)
+        Cause of error:
+            Update multiple values does not work with WHERE IN
+            clause Update multiple values does not work with where in clause.
+            Predicate push-down from TIANMU is used, and this process works fine.
+            But when you get the direct result,
+            it is not compatible with TIANMU's dimen_group concrete type.
+            In the execution of a predicate push-down,
+            must get the Filter so that the execution of the follow-up to value,
+            namely DimensionGroupFilter,
+            but the current statement USES the materialized DimensionGroupMaterialized operation
+    
+        Solution Strategy:
+            If the query is executed by a predicate pushdown, materialization is not enabled
+    
+        What remains:
+            When no materialization operation is used in predicate push-down,
+            the impact on query performance of predicate push-down
+            needs to be cross-checked against benchmarks
+
+commit 2bb8c6023586e2495e7e111ca8e76322719925da
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Mon Dec 5 22:16:35 2022 +0800
+
+    fix(tianmu): The predicade pushdown failed lead to the table full scan (#1054)
+    
+    1. Optimize scenarios with keywords in the table.
+    2. Scenarios with unique constraints in the optimization table,
+    If there is a unique constraint, only the unique constraint is used as the push down condition.
+    3. The optimization table contains a number or time type scenario. If there are two types, no word is used
+    String type as pushdown condition
+
+commit 2a03448e7f9d2b7a5da1aaead058e6babccb68a1
+Author: lujiashun <lujiashun@stoneatom.com>
+Date:   Tue Dec 6 10:35:03 2022 +0800
+
+    fix(tianmu): fix bug: Convert DATETIME to TIME type error. (#995)
+    
+    [summary]
+    1 treat zero data legal;
+
+commit c007a467cbd9bb8ef293fa4b3f83888c63054ce1
+Author: TomeC <wangkun_mr@foxmail.com>
+Date:   Wed Dec 7 15:03:50 2022 +0800
+
+    After compilation, program startup allows root user to log in remotely.
+
+commit d39d20290113ebe77e2a03500ac2e54a4de2f09e
+Author: TomeC <wangkun_mr@foxmail.com>
+Date:   Wed Dec 7 11:42:52 2022 +0800
+
+    The lib file compiled by google test is different in 32-bit operating system and 64 bit operating system.
+
+commit bd6ee07c42f7808f228593c5fd5adfa7c9173fa0
+Author: lujiashun <lujiashun@stoneatom.com>
+Date:   Tue Dec 6 20:24:02 2022 +0800
+
+    feat(tianmu): update MTR of load. (#656)
+
+commit e395f89e14d7eaeaea8defc99233bda583964992
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Tue Dec 6 01:04:24 2022 +0800
+
+    fix(tianmu):set sql_mode=MANDATORY_TIANMU,Cannot create stored routine xxx. Check warnings(#1065)
+    
+    NOTE: When adding new SQL_MODE types, make sure to also add them to
+          the scripts used for creating the MySQL system tables
+          in scripts/mysql_system_tables.sql and scripts/mysql_system_tables_fix.sql
+
+commit 3c8a5b53339ac60959f6fdd554d159f23973d36a
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Mon Dec 5 06:03:58 2022 +0000
+
+    feat(core): change default log level from INFO to DEBUG int commit phase #1066
+
+commit 4a3a207ebc3792ddfe013fac75971756b6974992
+Author: lujiashun <lujiashun@stoneatom.com>
+Date:   Thu Dec 1 19:15:19 2022 +0800
+
+    feat(tianmu): support tianmu load error: Data format error. Row: 1 Column: 1. (#1000)
+    
+    [summary]
+    1 support set syntax for load;
+    2 support specified field syntax for load;
+    3 support ignore lines syntax for load;
+    4 support auto increment for load;
+    5 support default column for load;
+
+commit c2c78d732a02d2134b7e07fa27fce62de19d2cd8
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Mon Dec 5 11:00:46 2022 +0000
+
+    fix(unittest): add mysqld_error.h used to avoid tianmu/unittest make failed. #429
+
+commit 30f599e0b4bc28cd5f93e9e088e76fed8e34bf2f
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Mon Dec 5 02:38:58 2022 +0000
+
+    fix(unittest): fix compile failed when compiling tianmmu/unittest #429
+    
+    [summary]
+        rm common_definitions.o in unittest CMakeList, as the unittest will be compiled first,
+        but the include/mysqld_error.h has not been generated yet, this will caused compile failed.
+
+commit b0a21ea34244c36a9296abddefb498b3d053fdb0
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Sun Dec 4 15:57:34 2022 +0000
+
+    feat(unittest): add common unittest #429
+    
+    [summary]
+    1. test common_definitions.h
+    2. this is the first easy unittest and tianmu engine mock is on the road.
+
+commit e58d6b42bfdf486f733ed29ee9ff77ce2caadb80
+Author: adofsauron <adofsauron@163.com>
+Date:   Mon Dec 5 15:33:57 2022 +0800
+
+        fix(tianmu): fix Trigger which assigns value selected (#581)
+
+commit b44a51ce8505bd4bf0f270d534d1f3b916340b5a
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Fri Dec 2 16:11:06 2022 +0000
+
+    feat(tianmu): support unsigned/zerofill #1013
+    
+    [summary]
+    1. if set zerofill, unsigned will be set too.
+    2. support numerical unsigned including decimal.
+    3. as the range of tianmu decimal(18,6), the behavior of "out of range of decimal" is different with innodb.
+    4. all expr result like "(signed) +/-/* (unsigned)" will all changed to BIGINT or DECIMAL.
+
+commit 99b5c353276a1c686be34de1df6ad9cb5a5e9c96
+Author: DandreChen <justchenxuedong@163.com>
+Date:   Wed Nov 30 16:52:53 2022 +0800
+
+    fix(tianmu): fix some warnings.(#11)
+    
+    use unsigned int define instead of int
+    use static_cast to convert type
+
+commit e87161fc4b4e11d5f29457c4ba375569bf554f04
+Author: DandreChen <justchenxuedong@163.com>
+Date:   Wed Nov 30 16:07:26 2022 +0800
+
+    feat(tainmu):ctas is not supported by tianmu engine.(#1038)
+    
+    support ctas operation
+
+commit 6daf241e5de78a37c1a9d765364e4ba6d982d836
+Author: zhx <15150573650@163.com>
+Date:   Sun Dec 4 14:33:48 2022 +0800
+
+    fix(mtr):issue226 case fail
+
+commit c25c4963971abb303f2f5cf49a84a64b16e61ee4
+Author: zhx <15150573650@163.com>
+Date:   Sun Dec 4 13:55:50 2022 +0800
+
+    fix(mtr):issue270 case fail
+
+commit ca5e208590ecda142859d00b8e80f8bfa1efb8c1
+Author: zhx <15150573650@163.com>
+Date:   Sun Dec 4 13:46:27 2022 +0800
+
+    feat(tianmu): add mtr case for
+
+commit c0e1029a8f3b10685c38dc8d200c7cba6c7b4f9c
+Author: zhx <15150573650@163.com>
+Date:   Sun Dec 4 13:43:33 2022 +0800
+
+    feat(tianmu): to support replace into values() SQL synax (#1011)
+
+commit 6ad4e20e5a4f25c6a6483dd130c8398a1b8a4a5f
+Author: lujiashun <lujiashun@stoneatom.com>
+Date:   Wed Nov 30 15:50:15 2022 +0800
+
+    fix(tianmu): fix tianmu_num constructor issue. (#11)
+
+commit 68d40d87a38f4180ca6999b701da582e4b528116
+Author: adofsauron <adofsauron@163.com>
+Date:   Fri Dec 2 15:11:55 2022 +0800
+
+        fix(tianmu): fix ALTER table DROP primary key is forbidden (#1034)
+
+commit 7f9654991eacd79cd404688a7fc5e1366cf78cf3
+Author: adofsauron <adofsauron@163.com>
+Date:   Thu Dec 1 22:37:05 2022 +0800
+
+        fix(tianmu): fix query exists with primary key (#971 #944)
+
+commit f5345576053d3fe2eb095f9fdf2d4c3fe7345745
+Author: zsp108 <echo996@foxmail.com>
+Date:   Thu Dec 1 03:11:45 2022 +0000
+
+    feat(CI/CD):add mtr test parallel=10
+
+commit d1239c7c3403c6e8a4c33ddecc64d69ea7f1271b
+Author: zsp108 <echo996@foxmail.com>
+Date:   Wed Nov 30 10:35:04 2022 +0000
+
+    fix(CI/CD):fix install lcov change gcc=4.8.5
+
+commit 132debc8eea051b1f569cbb5196edc64fdbf21be
+Author: zsp108 <echo996@foxmail.com>
+Date:   Wed Nov 30 08:40:18 2022 +0000
+
+    feat(CI/CD):add lcov and gcov test
+
+commit 2272c8b9fca1c66b573aed140196e095601f3bc3
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Thu Dec 1 22:55:01 2022 +0800
+
+    fix(mtr): mtr suite=tianmu delete timeout after 900 seconds (#1047)
+    
+    The problem is that the test took too long in slow I/O and triggered a test case timeout.
+    The number of operations needs to be reduced to shorten the test time.
+
+commit f782cb25652ed515b2f859f9d2b36365e5353ec4
+Author: happenlee <happenlee@hotmail.com>
+Date:   Thu Dec 1 15:06:34 2022 +0800
+
+    clang format the code
+
+commit 7d103997d5512d4d6813ad87117984f0466ec867
+Author: happenlee <happenlee@hotmail.com>
+Date:   Thu Dec 1 05:55:49 2022 +0800
+
+    feat(tianmu): make Unsupported data type more friendly
+
+commit c5e9ef2834b9a3d715a390734b7bb22a2817e9ff
+Author: lujiashun <lujiashun@stoneatom.com>
+Date:   Wed Nov 30 11:30:52 2022 +0800
+
+    fix(tianmu): fix bug: cmake .. -DENABLE_GCOV=1 faild. (#1031)
+    
+    [summary]
+    1 Centos7 can not deal the code correctly with thread_local keyword;
+    2 Just modify the code style to make the GCOV recognize the grammar;
+
+commit 3e0c96204539970c4625e7c947366755b6e2cb94
+Author: elijah <f1renze.142857@gmail.com>
+Date:   Wed Nov 30 15:20:41 2022 +0800
+
+    fix typo in quick deployment doc
+
+commit b5222cccde9f4bc2d18af411db5e8e0e289ab9c6
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Tue Nov 22 01:55:30 2022 +0800
+
+    feat(tianmu): To support Binlog in mandatory tianmu engine mode (#956)
+    
+    The function of forcing the replacement engine to be tianmu only takes effect in the slave library
+    Step 1: First, you need to determine whether it is a slave database. This can be determined by whether (thread ->slave_thread) is true
+    According to the configuration of forced replacement: (sql_mode='MANDATORY_TIANMU ') and (default_storage_engine=tianmu)
+    Step 2: Determine whether the (sql_mode) and default engine are tianmu, and add (MANDATORY_TIANMU) this (sql_mode)
+    The above conditions can be judged in (mysql_execute_command)
+
+commit aa56f57435d09985ee2a948f48042de74acfc314
+Author: shangyanwen <107781103+shangyanwen@users.noreply.github.com>
+Date:   Fri Nov 25 17:25:54 2022 +0800
+
+    update trigger.result
+
+commit aa4b5a520f8f3b1acef1526caec40fdda2e32dd4
+Author: shangyanwen <107781103+shangyanwen@users.noreply.github.com>
+Date:   Fri Nov 25 16:52:53 2022 +0800
+
+    update trigger.test
+
+commit 925f35093b38b1e8531941f0e7ef8a6a5e8af8db
+Author: adofsauron <adofsauron@163.com>
+Date:   Wed Nov 30 10:21:34 2022 +0800
+
+        fix(tianmu): Fixed implicit convert from number to varchar(#959)
+
+commit fe6869921834b3abd7ef7a86ba64771a1fea8697
+Author: SPZhang <31213457+zsp108@users.noreply.github.com>
+Date:   Wed Nov 30 10:23:43 2022 +0800
+
+    Delete integration-compile-mtryml
+
+commit 1058e3bd827f9bde89d7427595dcc886b39b4d0b
+Author: LiMK <slibre@qq.com>
+Date:   Tue Nov 29 19:36:30 2022 +0800
+
+    docs(Readme): update the Readme
+
+commit 1cf295e6030918b30e3edb3ab1c81089a4d26b21
+Author: lujiashun <lujiashun@stoneatom.com>
+Date:   Tue Nov 29 15:03:56 2022 +0800
+
+    fix(tianmu): revert suffix_tree.h constructor. (#11)
+
+commit 8e1f2efd43ce26515be5764523ba19a57f6bfcb5
+Author: RingsC <hom.lee@hotmail.com>
+Date:   Tue Nov 29 14:18:21 2022 +0800
+
+    fix (tianmu) : To fix up GROUP_CONCAT which refs to subselect (#938)
+    [summary]
+    To fix up the item which refs to subselect leads `GROUP_CONCAT` wrong result.
+    The type of item is `REF_ITEM` and therefore, we can not recoginize its type.
+
+commit af7b51abe9c2e69adce694990ab209ec0614c6f8
+Author: lujiashun <lujiashun@stoneatom.com>
+Date:   Wed Nov 23 11:00:14 2022 +0800
+
+    feat(tianmu): support "alter table t_test comment 'abc'" ddl. (#985)
+    
+    [summary]
+    1 turn on the HA_CREATE_USED_COMMENT switch;
+
+commit 36279d238ffb8a177f47997795896e92b1704280
+Author: lujiashun <lujiashun@stoneatom.com>
+Date:   Tue Nov 29 09:59:21 2022 +0800
+
+    fix(tianmu): fix STR_TO_DATE() Function does not work well. (#975)
+    
+    [summary]
+    1 add MicroSecond logic;
+    2 allow "00-00-00 11:11:11" datime format to follow innodb behavior;
+    3 refactor code,change CT to ColumnType;
+
+commit 915a142ba7d8a727aa9e1b88a14d6a45511be2ac
+Author: DandreChen <justchenxuedong@163.com>
+Date:   Wed Nov 23 12:41:28 2022 +0800
+
+    feat(mtr): add mtr for union.(#854)
+    
+    Add mtr cases between different types for union
+    rename some variables name
+
+commit 881f7139a175b1f3f2a2ef8d742a32844dd5a946
+Author: DandreChen <justchenxuedong@163.com>
+Date:   Tue Nov 22 14:40:49 2022 +0800
+
+    fix(tianmu): the EXTRACT() function error.(#845)
+    
+    Add item_name comparison for the diff operation of the same function,as
+    EXTRACT(DAY_HOUR FROM t) and EXTRACT(MINUTE_SECOND FROM t).
+    Convert static_cast to down_cast
+
+commit 0911d2e1a0289981cf138aa1c93299e24075b6b5
+Author: zhx <15150573650@163.com>
+Date:   Sun Nov 27 19:23:35 2022 +0800
+
+    fix(tianmu): modify code comment
+
+commit 2138bf25ca0ff458ccc1b4bab1618d05f8e4feae
+Author: zhx <15150573650@163.com>
+Date:   Sun Nov 27 19:20:50 2022 +0800
+
+    fix(tianmu): modify test cases
+
+commit 6ddac32ed71af6fc65f9c1fe855969d6f3ab711d
+Author: zhx <15150573650@163.com>
+Date:   Sun Nov 27 18:28:40 2022 +0800
+
+    fix the code format
+
+commit 93d555780360dc2933694cb7c9ed62842013da1d
+Author: zhx <15150573650@163.com>
+Date:   Sun Nov 27 18:27:20 2022 +0800
+
+    fix the code format
+
+commit 3875b3e353b0e429e3114de4b8301f205d813b50
+Author: zhx <15150573650@163.com>
+Date:   Sun Nov 27 18:17:43 2022 +0800
+
+    fix(tianmu):timestamp union timestamp
+
+commit ade9bee33f41e192b774509caa1c7099a10da07e
+Author: adofsauron <adofsauron@163.com>
+Date:   Fri Nov 25 17:29:17 2022 +0800
+
+        fix(tianmu): fix query result err when executing UNION Clause (#998)
+        Reasons: Null value is not checked
+
+commit 7dfd0c719582217501dffecd81226e5e1b733f3e
+Author: shizhao <shizhao@stoneatom.com>
+Date:   Fri Nov 25 10:47:00 2022 +0800
+
+    test(mtr): add mtr testcases(#497)
+    
+    [summary]
+    add between_and.test
+    add coalesce_ascii_func.test
+    add convert_conv_func.test
+    add different_charsets_a.test
+    add div_func.test
+    add func_define.test
+    add insert_all_data_types.test
+    add replace_func.test
+
+commit c307cf07572e9171b2e5bee962812198623f282a
+Author: adofsauron <adofsauron@163.com>
+Date:   Thu Nov 24 20:13:41 2022 +0800
+
+        fix(tianmu): fix query with ESCAPE (#271 #272)
+        Reasons: The escape character is not properly passed to the tianmu blur match handler
+
+commit cd9699fc7c102baa1f49898e0b791d38c3e59bb1
+Author: adofsauron <adofsauron@163.com>
+Date:   Wed Nov 23 19:37:06 2022 +0800
+
+        fix(tianmu): fix the WHERE NOT IN query where has NULL value (#947)
+        Reasons:
+            The reason is that for NOT_IN predicates,
+            the presence of NULL is checked and predicate conversion is done.
+            Currently only the collection of subqueries is checked,
+            not the collection of driven tables
+
+commit c6484464ad9f8e23754f9d2a6982f41c0bf8c6d1
+Author: lujiashun <lujiashun@stoneatom.com>
+Date:   Thu Nov 24 10:57:03 2022 +0800
+
+    feat(tianmu): revert compress refactor code. (#11)
+
+commit f5c02cd9d2b540108b9478d74ee26eda7b6f9066
+Author: LiMK <slibre@qq.com>
+Date:   Wed Nov 23 21:46:01 2022 +0800
+
+    docs: update the docs of Best Practices(#992)
+    - Read/Write Splitting of StoneDB
+    - Primary/Secondary Failover of StoneDB
+
+commit c8ed2627619fd619b2d1dec8c8d04ce625b38460
+Author: shizhao <shizhao@stoneatom.com>
+Date:   Wed Nov 23 18:01:21 2022 +0800
+
+    test(mtr): add some mtr testcases(#497)
+    
+    [summary]
+    add aggregate.test
+    add create_view.test
+    add date_formats_func.test
+    add insert_into_select.test
+    add in_subquery.test
+    add various_join.test
+
+commit 123f022f5f31f091d0ecd10c2cd3fecd7ad562b3
+Author: LiMK <slibre@qq.com>
+Date:   Wed Nov 23 15:00:57 2022 +0800
+
+    docs(Limits): update the docs
+    - Limits
+    - Timeline
+
+commit dff87f3dc273de6d47a6516cb75e23f31a64fb78
+Author: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+Date:   Thu Nov 17 02:25:54 2022 +0000
+
+    build(deps): bump minimatch, recursive-readdir and serve-handler
+    
+    Bumps [minimatch](https://github.com/isaacs/minimatch), [recursive-readdir](https://github.com/jergason/recursive-readdir) and [serve-handler](https://github.com/zeit/serve-handler). These dependencies needed to be updated together.
+    
+    Updates `minimatch` from 3.0.4 to 3.1.2
+    - [Release notes](https://github.com/isaacs/minimatch/releases)
+    - [Commits](https://github.com/isaacs/minimatch/compare/v3.0.4...v3.1.2)
+    
+    Updates `recursive-readdir` from 2.2.2 to 2.2.3
+    - [Release notes](https://github.com/jergason/recursive-readdir/releases)
+    - [Changelog](https://github.com/jergason/recursive-readdir/blob/master/CHANGELOG.md)
+    - [Commits](https://github.com/jergason/recursive-readdir/commits/v2.2.3)
+    
+    Updates `serve-handler` from 6.1.3 to 6.1.5
+    - [Release notes](https://github.com/zeit/serve-handler/releases)
+    - [Commits](https://github.com/zeit/serve-handler/compare/6.1.3...6.1.5)
+    
+    ---
+    updated-dependencies:
+    - dependency-name: minimatch
+      dependency-type: indirect
+    - dependency-name: recursive-readdir
+      dependency-type: indirect
+    - dependency-name: serve-handler
+      dependency-type: indirect
+    ...
+    
+    Signed-off-by: dependabot[bot] <support@github.com>
+
+commit 7f69d33668c0685c75489eac6f3f45714031273f
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Tue Nov 22 06:31:04 2022 +0000
+
+    style(handler): resolve conflicts during rebase #11
+
+commit 0d9376e2bc1f1f38c4a5529b2f21c94b3c479a4a
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Mon Nov 21 11:28:11 2022 +0000
+
+    style(tianmu): change rc-->tn, tianmu_bs-->tianmu_s #11
+
+commit 282574098d9604622ecf4f5561b52c2986ccbb17
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Fri Nov 18 02:03:28 2022 +0000
+
+    fix(sql): revert 'ItemSumNum' back to 'Item_sum_num' in sql/field.h #11
+
+commit d00086a5b9be18ce25fa649ffc54f86ef3a02623
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Thu Nov 17 08:16:30 2022 +0000
+
+    style(tianmu): formate code to resolve clint failed #11
+
+commit af9bed40e2694441237777f1487fd79b634ee637
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Wed Nov 16 06:16:59 2022 +0000
+
+    feat(tianmu): formate code #11
+
+commit 821e051f6990ba86e0118e2528f2a38ee63d203f
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Wed Nov 16 06:10:40 2022 +0000
+
+    feat(tianmu): changed all prefix rc_xxx to tianmu_xxx #11
+
+commit 10b47c7a28bae50a6bc570a105e6d00e513dc977
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Wed Nov 16 02:31:46 2022 +0000
+
+    fix(handler): change 'TIANMU' to 'Tianmu' & magic number & better place of maybe_used #11
+
+commit 72b1256c5a14c31f35683f1960610bfe000aa54d
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Tue Nov 15 03:15:30 2022 +0000
+
+    feat(tianmu): reorganize code in handler #11
+    
+    [summary]
+    1. rename file name in handler, just like innodb, myisam ... does.
+    2. reorganize code about tianmu_handler.cpp & tianmu_handler_com.cpp into one.
+
+commit 88f4fb74a4e72d460fb83268cd3aaaee618b3886
+Author: SPZhang <31213457+zsp108@users.noreply.github.com>
+Date:   Tue Nov 22 10:28:58 2022 +0800
+
+    workflow(mergify):add perf label and PR_perf rule (#955)
+    
+    * workflow(mergify):add perf label and PR_perf rule
+    
+    * workflow(PR-template): change Improvement to Perf
+    
+    * Update pull_request_template.md
+
+commit 48afa0e19d24cf8c1ac6fe1da516a8b53a187830
+Author: zsp108 <echo996@foxmail.com>
+Date:   Fri Nov 18 03:22:27 2022 +0000
+
+    workflow(CI/CD):delete integration-compile-mtryml
+
+commit 6de777fdeac1472ab9865940007f6f2330c623e0
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Thu Nov 10 11:22:01 2022 +0800
+
+    feat(tianmu) Improve the performance of master slave synchronization and the performance of the execution interface for modifying data(889)
+    1.
+    When synchronizing data, push down the conditions for delete and update.
+    Only qualified data will be scanned to avoid full table scanning.
+    When executing the push down condition, tianmu will use metadata to perform rough filtering to determine the qualified packages.
+    In addition, when executing the push down condition, we only need to make a materialization comparison on the qualified records,
+    instead of making a materialization comparison on the unqualified records.
+    2.
+    Improve the execution speed of (delete_row) and (update_row) functions. At present, it is considered to parallelize the modification of each column
+
+commit 85a200fcdd53297af007f9a541f61f219b964483
+Author: adofsauron <adofsauron@163.com>
+Date:   Fri Nov 18 13:35:38 2022 +0800
+
+        fix(tianmu): Load DPN when the table is empty (#964)
+
+commit 1b54618caa36fbefd8f3497b544f63e67fcf2608
+Author: zsp108 <echo996@foxmail.com>
+Date:   Mon Nov 21 05:48:19 2022 +0000
+
+    fix(CI/CD):change lint runs-on:ubuntu-20.04
+
+commit f6ad77f52897e89bd9315a0f15624fb78af11fe7
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Wed Nov 16 21:16:51 2022 +0800
+
+    fix(tiamu): select...in...An error was reported when the date was included(#829)
+    Cause:
+    There is a problem with the initialization function of datetime type. The object type is not assigned.
+    Solution:
+    Add assignment logic for types.
+
+commit 1249a14e34543c1dfa683929cd03e851a1023610
+Author: lujiashun <lujiashun@stoneatom.com>
+Date:   Thu Nov 17 14:16:09 2022 +0800
+
+    fix(tianmu): fix query syntax (WHERE NOT IN ) is not supported. (#767)
+
+commit 081b671aa2f08caaeb50684419541e45cc812a3f
+Author: zsp108 <echo996@foxmail.com>
+Date:   Wed Nov 16 09:40:42 2022 +0000
+
+    chore(my.cnf):change my.cnf log、undolog、redolog and socket dir
+
+commit 40bfcde63e7840ee15d2f5035ef0ca9c2e959e89
+Author: DandreChen <justchenxuedong@163.com>
+Date:   Tue Nov 15 05:14:54 2022 +0800
+
+    fix(tianmu):query with UNION ALL return result set error.(#854)
+    
+    Modify the query logic executed by the union to make the result: go through the prepare() process
+
+commit 5bbbed4e05c20006e4e3de6fd4ea9f6ecdf40057
+Author: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+Date:   Wed Nov 16 14:23:38 2022 +0000
+
+    build(deps): bump loader-utils from 2.0.2 to 2.0.4 in /website
+    
+    Bumps [loader-utils](https://github.com/webpack/loader-utils) from 2.0.2 to 2.0.4.
+    - [Release notes](https://github.com/webpack/loader-utils/releases)
+    - [Changelog](https://github.com/webpack/loader-utils/blob/v2.0.4/CHANGELOG.md)
+    - [Commits](https://github.com/webpack/loader-utils/compare/v2.0.2...v2.0.4)
+    
+    ---
+    updated-dependencies:
+    - dependency-name: loader-utils
+      dependency-type: indirect
+    ...
+    
+    Signed-off-by: dependabot[bot] <support@github.com>
+
+commit 6619c83718521f2cdd52819b532deb65fb90461b
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Tue Nov 8 15:46:45 2022 +0000
+
+    feat(core): uniform variable name #11
+    
+    [summary]
+    1.uniform class member name on transaction code.
+    2.uniform member name on pack code.
+    3.change tid to table_id.
+
+commit 0f2fe68c47b77fc328430c5cfb408b6c7f6dded0
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Tue Nov 15 05:55:00 2022 +0000
+
+    fix(workflow): rm duplicate libreadline-dev in lib preparaion #687
+
+commit 40625135cb199bac7dad88003d8103f151de131e
+Author: adofsauron <adofsauron@163.com>
+Date:   Wed Nov 16 11:02:11 2022 +0800
+
+        fix(tianmu): fix LEFT JOIN query result err with WHERE IS NULL clause (#887)
+        Cause of query error:
+            The tianmu engine execution layer does not distinguish
+            between ON and WHERE predicates,
+            and is null predicates are processed as ON predicates
+        The solution:
+            Distinguish the predicate of WHERE from the predicate of ON
+
+commit 00dac9644d194d8c30aee904130a8205f13f2d1f
+Author: lujiashun <lujiashun@stoneatom.com>
+Date:   Wed Nov 16 02:50:58 2022 +0000
+
+    feat(tianmu): fix 5.7 warnings. (#11)
+
+commit 1f86173a9b5c2bf0d49ecd043b453d794a0cb798
+Author: adofsauron <adofsauron@163.com>
+Date:   Mon Nov 14 20:41:27 2022 +0800
+
+        fix(tianmu): fix crashed when the subquery includes a SORT clause (#906)
+        the reason is The subquery generates a temp table,
+        but the count(*) column of the subquery is not a physical column,
+        so the interface is incompatible.
+        so if the virtual column does not point to the physical column,
+        the check is not performed
+
+commit 08ac72f40f70a34ae38abd71c526366763196aba
+Author: zhx <15150573650@163.com>
+Date:   Fri Nov 11 15:24:20 2022 +0800
+
+    Modify test case with issue763.test
+
+commit b3789e9aa3a3708b0e82f4e572d1857a3c274325
+Author: zhx <15150573650@163.com>
+Date:   Wed Nov 9 16:27:51 2022 +0800
+
+    Tianmu error ERROR 6 (HY000)，when execute select..where like NULL issue:#763
+
+commit 07c4869a12ec15f9aa42441aebde531533d6a71e
+Author: zhx <15150573650@163.com>
+Date:   Wed Nov 9 16:22:20 2022 +0800
+
+    Tianmu error ERROR 6 (HY000)，when execute select..where like NULL issue:#763
+
+commit 050a632d46c45d1ef074b45023399ba17abf7c47
+Author: zhx <15150573650@163.com>
+Date:   Wed Nov 9 15:45:31 2022 +0800
+
+    Tianmu error ERROR 6 (HY000)，when execute select..where like NULL issue:#763
+
+commit d75cbb5349ccd1eb3cd1f35030ff900a19d2bc85
+Author: zhx <15150573650@163.com>
+Date:   Wed Nov 9 14:43:56 2022 +0800
+
+    Tianmu error ERROR 6 (HY000)，when execute select..where like NULL #763
+
+commit fadc2f2a23a6ab7c4643d2a6178133939772d74e
+Author: zhx <15150573650@163.com>
+Date:   Wed Nov 9 14:43:11 2022 +0800
+
+    Tianmu error ERROR 6 (HY000)，when execute select..where like NULL #763
+
+commit cb1e7162d3fdfebe999d2cfa96270c96cd7eb75d
+Author: adofsauron <adofsauron@163.com>
+Date:   Mon Nov 14 18:33:05 2022 +0800
+
+        feat(tianmu): The Tianmu engine supports user defined function (#538)
+    
+    Supports user-defined functions and is compatible with mysql scalar data.
+    This version does not support composite data types such as json.
+    
+    The solution of generating derived tables without collections
+    for custom functions is currently quite radical,
+    and a more elegant solution will be completed in the next iteration.
+
+commit e10fa115cd0318462fd8ababa34aedc4662e0111
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Fri Nov 11 15:10:53 2022 +0000
+
+    fix(handler): rm suffix 'engine' on log path, change tianmu_engine.log to tianmu.log #609
+
+commit 3589996e2460aef9f9e290c3ba4fc1585be69a72
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Wed Nov 9 11:42:44 2022 +0000
+
+    feat(handler): change the default tianmu log path from $mysqlhome/log/ to $mysqlhome/data/ #609
+    
+    [summary]
+    1. "log/tianmu.log" --> "tianmu_engine.log"
+    2. "trace.log" --> "tianmu_trace.log"
+    3. "query.log" --> "tianmu_query.log"
+
+commit 06638375fa1fc2121dd8212dc7a9e28a455a8ced
+Author: shizhao <shizhao@stoneatom.com>
+Date:   Fri Nov 11 08:00:38 2022 +0000
+
+    test(mtr): add alter_table_v1.result(#497)
+
+commit 02cb94cbbae64f1bed1fdd355e164f123872f1c7
+Author: DandreChen <justchenxuedong@163.com>
+Date:   Tue Nov 8 17:18:52 2022 +0800
+
+    feat(tianmu):support the ALTER syntax, ALTER table t1 rename t2, add c char(10) (#760)
+    
+    fix some warnings
+    add/fix mtr for alter table
+    support alter table: mix add/drop column、order column and other syntaxs to use
+
+commit 51001396d1400236b62ff601e307a94ce7c384d5
+Author: LiMK <slibre@qq.com>
+Date:   Thu Nov 10 18:49:25 2022 +0800
+
+    docs(troubleshooting): Deleting Invalid Documents
+
+commit 907910d05357c78b24571fb50828589ae4998f7e
+Author: lujiashun <lujiashun@stoneatom.com>
+Date:   Tue Nov 8 20:12:46 2022 +0800
+
+    feat(tianmu): fix invalid write/read issue. (#817)
+
+commit 4df2c93e5892a8da662c18e07b9c642398b4f7c1
+Author: shizhao <shizhao@stoneatom.com>
+Date:   Tue Nov 8 12:03:48 2022 +0000
+
+    test(mtr): add some mtr testcases(#497)
+    
+    [summary]
+    add cast_json_func.test
+    add inner_join.test
+    add left_join.test
+    add period_diff.test
+    add select_from.test
+    add strings.test
+    add various_subquery.test
+
+commit 0af724eef25fbffbd4230d8b06504b7a4d0b308c
+Author: lujiashun <lujiashun@stoneatom.com>
+Date:   Mon Nov 7 16:10:54 2022 +0800
+
+    fix(tianmu): fix some refactor code issue. (#11)
+    
+    [summary]
+    1 fix some function has the same name with class member variable name;
+    2 some class member variable is not google style;
+
+commit 19b9e36724687b0af90174e83425e653eb201fd3
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Mon Nov 7 04:27:52 2022 +0000
+
+    feat(handler): refactor code in handler module #890
+    
+    [summary]
+    1. NULL-->nullptr
+    2. namespace "DBHandler"-->"handler"
+    3. class TianmuHandler-->ha_tianmu
+    4. sdb-->tianmu
+    5. functions in ha_my_tianmu.cpp all renamed with prefix "ha_my_tianmu_xxx"
+    6. add new enum 'QueryRouteTo' to replace magic number '0/1'
+    7. add new enum 'TableStatus' to replace magic number '0/1/-2'
+
+commit d0c2e01b6e5c0ccca6cc0f6aa1a5568d7b08c3a6
+Author: DandreChen <justchenxuedong@163.com>
+Date:   Wed Nov 2 19:58:00 2022 +0800
+
+    feat(tianmu): support alter table xxx modify xxx type NULL/NOT NULL(#860)
+    
+    support field properties from NULL to NOT NULL
+    support field properties from NOT NULL to NULL
+
+commit cf1c98c1b2349e6e39e67fa2440b6f826befb882
+Author: lujiashun <lujiashun@stoneatom.com>
+Date:   Thu Nov 3 10:38:44 2022 +0800
+
+    feat(tianmu): support 'ALTER TABLE t1 CHARACTER SET = ...' clause. (#848)
+    
+    [summary]
+    1 add implement in check_if_supported_inplace_alter of tianmu handler;
+    2 add implement in inplace_alter_table of tianmu handler;
+    3 add implement in commit_inplace_alter_table of tianmu handler;
+
+commit ca2d68ff857113c0244615f73b1a76bba82780fc
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Thu Nov 3 00:15:21 2022 +0800
+
+    fix(tianmu): fix problems related to master slave synchronization (#819)
+    
+    fix 1:#818 Master slave synchronization - There will be too many tuples problem
+    
+    Cause:
+    Tianmu::dbhandler::TianmuHandler::current_position This variable is not initialized. In some cases,
+    a large value may cause too many tuples problem.
+    Solution: Initialize the variable
+    
+    fix 2:#819 Master slave synchronization - Primary key conflict problem
+    
+    Solution: Modify the modification logic of master slave synchronization, so that the delete and update operations do not follow the primary key logic
+    
+    Supplement
+    
+    sql/sql_insert.cc
+    Fix the problem that the insert statement will not generate binlog in the delayed insert mode
+    storage/tianmu/handler/tianmu_handler.cpp
+    Fix the binlog error of the line format generated by the tianmu engine
+
+commit 805067113d21963e0832df1e0bbf0dbdbbfea99a
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Thu Nov 3 00:31:26 2022 +0800
+
+    feat(tianmu): Improve the readbility of stonedb. (#11)
+    
+    [summary]
+    1 class member variable refactor：exproter directory;
+    2 class member variable refactor：loader directory;
+
+commit 8a28e2841052f25e7f2707cd191617f8b198469f
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Tue Nov 1 09:27:55 2022 +0000
+
+    feat(tianmu): porting code from pr_758 to improve code #11
+    
+    [summary]
+    
+    NULL-->nullptr
+    namespace "DBHandler"-->"handler"
+    class TianmuHandler-->ha_tianmu
+    sdb-->tianmu
+    functions in ha_my_tianmu.cpp all renamed with prefix "ha_my_tianmu_xxx"
+
+commit 5e86e93311896776b6c7a17b56ddafce06cb3fb7
+Author: lujiashun <lujiashun@stoneatom.com>
+Date:   Tue Nov 1 18:23:10 2022 +0800
+
+    fix(tianmu): fix duplicate 'lc-messages-dir' config item in my.cnf.sample file. (#688)
+
+commit 59ad9ceed06886affe9bd991c9e1212499f7245f
+Author: shizhao <shizhao@stoneatom.com>
+Date:   Tue Nov 1 19:31:09 2022 +0800
+
+    test(mtr): add insert_select_from.test and show_db_table.test(#497)
+
+commit 79ffc6730745bd4bf687393c37b4a57dda62dab2
+Author: LiMK <slibre@qq.com>
+Date:   Tue Nov 1 19:35:00 2022 +0800
+
+    fix(docs): Fix the bugs in the document
+    
+    - Add Chinese directory configuration
+    - Remove unnecessary styles
+    - Update RodaMap
+
+commit e87f79104f2655360a17b666585d93c8118a7c7d
+Author: LiMK <slibre@qq.com>
+Date:   Tue Nov 1 19:33:01 2022 +0800
+
+    docs(migrate): update the pics
+
+commit 04a17cef3f59281f3ac9687298d97b214bc3daf6
+Author: LiMK <slibre@qq.com>
+Date:   Tue Nov 1 19:32:05 2022 +0800
+
+    docs(basic-ope): update basic-operations
+
+commit bfb33e19f4f034eb1903c5f3fa2191ed59c8d9de
+Author: LiMK <slibre@qq.com>
+Date:   Tue Nov 1 19:30:52 2022 +0800
+
+    docs(limits): update the docs of Limits
+
+commit a883e672b7d9cc648fb0ca9d50d8a6293e4c50dc
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Tue Nov 1 07:35:56 2022 +0000
+
+    feat(vc): uniform class/struct memeber name #11
+
+commit f696c18a79111548697bf2f4f22c54b21a902bdc
+Author: shizhao <shizhao@stoneatom.com>
+Date:   Tue Nov 1 05:59:26 2022 +0000
+
+    test(mtr): add derived_table.test and create_drop_users.test(#497)
+
+commit e43133903a4c83421e54f575e8618d2743d1a391
+Author: shizhao <shizhao@stoneatom.com>
+Date:   Mon Oct 31 11:40:44 2022 +0000
+
+    test(mtr): Add alter_table_negative.test and union.test(#497)
+
+commit e585b0e88884a01f428ad8e5abb0e9fe287a43b0
+Author: lylth <litaihong1@qq.com>
+Date:   Fri Oct 28 16:14:43 2022 +0800
+
+    feat(tianmu): Improve the readbility of stonedb. (#11)
+     [summary]
+     1.class member variable refactor：common directory;
+
+commit 5a05fda571f57d66f791a0af12363e4bf849e761
+Author: DandreChen <justchenxuedong@163.com>
+Date:   Fri Oct 28 02:55:26 2022 +0800
+
+    feat(tianmu):Improve the readbility of stonedb.(#11)
+    
+    class member variable refactor：handler directory
+
+commit c0c9973235716c16f2b5dc3c66e9aef1da53c6e9
+Author: shizhao <shizhao@stoneatom.com>
+Date:   Fri Oct 28 02:48:55 2022 +0000
+
+    test(mtr): add aliases.test type_timestamp.test modified issue415.test(#497)
+
+commit a7da00e86a4f4ed9cdbf438347d2df9ec5db1afe
+Author: lujiashun <lujiashun@stoneatom.com>
+Date:   Thu Oct 27 15:23:57 2022 +0800
+
+    feat(tianmu): Improve the readbility of stonedb. (#11)
+    
+    [summary]
+    1 class member variable refactor：compress directory;
+    2 class member variable refactor：types directory;
+
+commit 32a763cc7b0049d2bcad3ad4cecdaf12117b68b6
+Author: shangyanwen <18392868125@163.com>
+Date:   Thu Oct 27 16:21:25 2022 +0800
+
+    test(mtr):update create_table.test(#497)
+
+commit 87c8638aee3c4e0b090f19929575265c09ec91a5
+Author: shangyanwen <18392868125@163.com>
+Date:   Thu Oct 27 15:29:03 2022 +0800
+
+    test(mtr):add alter_column.test/having.test/update_join.test/where_conditions.test(#497)
+
+commit 8705db6a31d4d57f5cb5c908025c4bf50e9f08a6
+Author: shangyanwen <18392868125@163.com>
+Date:   Thu Oct 27 11:33:05 2022 +0800
+
+    test(mtr):add function testcase(#497)
+
+commit 782f249f704192e68364405500e31c3c88b85ecd
+Author: shangyanwen <18392868125@163.com>
+Date:   Wed Oct 26 21:01:18 2022 +0800
+
+    test(mtr):add cast_data_types.result and time_function.test(#497)
+
+commit bfb68a073607604d13f98e862571957efb96089e
+Author: shangyanwen <18392868125@163.com>
+Date:   Wed Oct 26 17:18:13 2022 +0800
+
+    test(mtr):add xx_function.test(#497)
+
+commit bf6f4e35c498654fdbd0b0a4f1b86c43d8e9e248
+Author: shangyanwen <18392868125@163.com>
+Date:   Wed Oct 26 16:34:18 2022 +0800
+
+    test(mtr):add x_function.test(#497)
+
+commit d74e182def070f76d11b622d751eb9b5087f819d
+Author: LiMK <slibre@qq.com>
+Date:   Wed Oct 26 18:59:55 2022 +0800
+
+    update the docs of quick-deployment
+
+commit fa1013143b640502d1e1a33b777a3546a9a96f43
+Author: LiMK <slibre@qq.com>
+Date:   Wed Oct 26 18:56:32 2022 +0800
+
+    docs(download): update docs of website
+    
+    update Release Notes and Installation Package
+
+commit ca7d0d085b5bd5e791d2528d576870537fd495f9
+Author: shangyanwen <18392868125@163.com>
+Date:   Wed Oct 26 15:21:19 2022 +0800
+
+    test(mtr):add select_joins.test(#497)
+
+commit e61f3da1f7a323e4a0f981664fdfee58c189efb3
+Author: DandreChen <justchenxuedong@163.com>
+Date:   Wed Oct 26 03:23:53 2022 +0800
+
+    fix(tianmu):EXPLAIN query Q4, MySQL server has gone away (#727)
+    
+    Eplain query Q4 lead to crash,because assert(join == NULL) in SELECT_LEX::optimize() function.
+    the root cause is that the new join is not released. we can use sl->cleanup(true) to release it
+
+commit 7a9dfb3b07a50b12a31639b55523cd8b740ea9b7
+Author: shangyanwen <18392868125@163.com>
+Date:   Wed Oct 26 10:05:20 2022 +0800
+
+    test(mtr):update select_group_by.result(#497)
+
+commit b71c0b1c1bb5b4d0fc9b0663fbbd5224c2a94d9e
+Author: shangyanwen <18392868125@163.com>
+Date:   Tue Oct 25 21:16:35 2022 +0800
+
+    test(mtr):update select_limit.test(#497)
+
+commit 1c3d49b6082963a63c38745478acfae4bc4a0b65
+Author: shangyanwen <18392868125@163.com>
+Date:   Tue Oct 25 20:02:18 2022 +0800
+
+    test(mtr):add select_limit.test(#497)
+
+commit 6f2eb40e82afcf2d4b76230809babc44d54dd821
+Author: shizhao <shizhao@stoneatom.com>
+Date:   Tue Oct 25 13:33:36 2022 +0000
+
+    test(mtr): Add select_precision.test and select_distinct.test(#497)
+
+commit 35e78005c0cb6bcb98f11f0f880a1191cf773cc7
+Author: shizhao <shizhao@stoneatom.com>
+Date:   Tue Oct 25 11:17:04 2022 +0000
+
+    test(mtr):add delete_join.test and modified issue515.test(#497)
+
+commit 30b7fc1f0e4eb9481df7839676a6f09bde84d19d
+Author: shizhao <shizhao@stoneatom.com>
+Date:   Tue Oct 25 07:48:54 2022 +0000
+
+    test(mtr): Add update_signed.test and delete_signed.test(#497)
+
+commit 27e07fd0c3beb95c0d0a1f0c84d4633aa52373d7
+Author: LiMK <slibre@qq.com>
+Date:   Tue Oct 25 16:46:16 2022 +0800
+
+    fix(website): Deleting an Incorrect Configuration
+    
+    Delete the incorrect configuration and modify the Chinese directory
+
+commit 1d77213dab8b13826e6174b8d74b47af338497f5
+Author: LiMK <slibre@qq.com>
+Date:   Tue Oct 25 15:26:54 2022 +0800
+
+    docs(community): update the docs of community
+
+commit 7534145bcc455fc06d65209d48e923e428ddc9c4
+Author: LiMK <slibre@qq.com>
+Date:   Tue Oct 25 15:26:13 2022 +0800
+
+    fix(webiste): fix the bug of website
+
+commit 0f42cb309dca6afaca9ead6bf97fca11ffa107c0
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Tue Oct 25 10:14:02 2022 +0800
+
+    fix(tianmu)Question with date format of NULL (#682)
+    Cause:
+    When the date in MySQL is 0, the value is considered to be null. MySQL handles this problem. If you query the statement of isull,
+    you will convert isnull to=0. This problem is that the value with the date of 0 is inserted into the table.
+    The query and deletion results of the tianmu engine are not consistent.
+    The reason for the inconsistency is that the syntax parsing logic of the query and deletion of tianmu is not the same
+    Solution:
+    Unified query logic and modification logic for date format processing.
+    Keep the phenomenon of tianmu consistent with innodb.
+
+commit eed8dbc3e2be2fbf3b63fbb59a1ec8ce23819776
+Author: LiMK <slibre@qq.com>
+Date:   Mon Oct 24 20:16:10 2022 +0800
+
+    docs(Limit): update the docs of Limits
+
+commit 240702e23b8c198c9137c19cd39ab32e06f3fd5f
+Author: LiMK <slibre@qq.com>
+Date:   Mon Oct 24 20:05:21 2022 +0800
+
+    fix(website): Delete invalid files
+
+commit 606baaa889a3194c78ae9307e15c1154d2b3b01f
+Author: Nliver <34496563+Nliver@users.noreply.github.com>
+Date:   Mon Oct 24 19:39:29 2022 +0800
+
+    fix(website): Delete the old configuration (#789)
+
+commit 0f2364ffe00d1e53c37eaaaade05600da7635bde
+Author: Nliver <34496563+Nliver@users.noreply.github.com>
+Date:   Mon Oct 24 18:35:43 2022 +0800
+
+    Update website-deploy.yml
+
+commit 249213d717a6d25b14ae9c48fe5710c8a2f6d47f
+Author: LiMK <slibre@qq.com>
+Date:   Mon Oct 24 18:11:54 2022 +0800
+
+    fix(website): Fix bugs in the official website
+
+commit c91a29e6f549c085931b5f2ca8c74e4c316e50c2
+Author: zsp108 <echo996@foxmail.com>
+Date:   Mon Oct 24 03:25:06 2022 +0000
+
+    fix(workflow):fix warning and add mtr test
+
+commit c96cb899cc0edc8e5ef719228643b97385cc0d8c
+Author: CodingSuen <xavier.suen@outlook.com>
+Date:   Mon Oct 24 14:34:34 2022 +0800
+
+    fix(tianmu): feature: The error display is too general, and the cause of the error cannot be clearly located #706
+
+commit 2da2e5dc390a7478bfabbb4eadc2f969742c7b1f
+Author: CodingSuen <xavier.suen@outlook.com>
+Date:   Mon Oct 24 10:41:49 2022 +0800
+
+    fix(tianmu): feature: The error display is too general, and the cause of the error cannot be clearly located #706
+
+commit 97c9fb4deca20743301fafa69290e59267b9ec70
+Author: adofsauron <adofsauron@163.com>
+Date:   Sat Oct 22 22:35:29 2022 +0800
+
+        fix(tianmu): Fixed tianmu syntax compatibility issue when continuous equivalent predicates are eliminated (#733)
+        The root cause is that the tianmu syntax tree conversion
+        cannot support continuous null-value elimination,
+        and the cleaned equal-value elimination items are retained to be compatible with the tianmu execution plan
+
+commit 86a7685dc64f8ae3ba92aed6118471cfdecb911d
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Sat Oct 22 03:38:32 2022 +0800
+
+    fix(tianmu)Exception: assert failed on i < m_idx.size() at rc_attr.h:332, msg:bad dpn index (#754)
+
+commit 10237d73e810a0c4442337fadc7942a17e72f3bc
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Sat Oct 22 03:31:19 2022 +0800
+
+    fix(tianmu)Exception: assert failed on i < m_idx.size() at rc_attr.h:332, msg:bad dpn index (#754)
+    Cause:
+    There is a problem with the corresponding table index when creating entity columns
+    Solution:
+    When creating an entity column, the table index you try to import corresponds to the position in the tables list one by one
+
+commit 275456ddcb9e1b7d24973404fd3fe2ac3b629e00
+Author: adofsauron <adofsauron@163.com>
+Date:   Wed Oct 19 14:41:25 2022 +0800
+
+        fix(tianmu): fix Query::Compile when happen exists subquery (#732)
+        The cause of an error is
+        that you need to identify the returned
+        result of the exists subquery for sl->join->zero_result_cause
+        Determines whether a return value exists.
+        and format query.cpp
+    :
+    The exists subquery determines whether a value exists during the query optimization phase
+    
+    result is not set to zero only when a matching value is found in the query optimization phase
+    
+    When a field has an index, the optimization phase scans the table through the index
+    
+    The primary key implementation of the current column storage engine has a problem with the primary key index to scan the table for data
+    
+    As a result, the primary key index is used to obtain the exists subquery result in the query optimization phase. Therefore, the exists subquery is not executed in the query execution phase
+    
+    scan the table for data Remove the following temporary practices after primary key indexing is complete
+
+commit 58bae93d459bfc097d98cac5030d98d22c9b9e53
+Author: adofsauron <adofsauron@163.com>
+Date:   Tue Oct 18 22:51:53 2022 +0800
+
+        fix(tianmu): Fixed when Boolean types appear in or predicates (#747)
+        replace always true
+        for examples:
+        select * from t1 where b>2 or 1=2;
+        select * from t1 where b>2 or 1<2;
+        select * from t1 where b>2 or 1>2;
+        select * from t1 where b>2 or 1=1;
+        select * from t1 where b>2 or 1;
+        select * from t1 where b>2 or 0;
+        select * from t1 where ((((1=1) or (3=3)) and (3=3)) or ((1=100) and (5=a)));
+        select * from t1 where ((((1=1) or (3=3)) and (3=4)) or ((1=100) and (5=a)));
+        select * from t1 where ((((1=2) or (3=3)) and (3=3)) or ((1=100) and (5=a)));
+        select * from t1 where ((((1>2) or (3=3)) and (3=3)) or ((1=1) and (5=a)));
+        select * from t1 where ((((1=2) or (3<3)) and (3=3)) or ((1=1) and (5=a)));
+        select * from t1 where ((((1=2) or (3<3)) and (3>1)) or ((1=1) and (5=a)));
+        select * from t1 where ((((1=2) or (3=3)) and (3=1)) or ((1>1) and (5=a)));
+
+commit c95aa8584c673c39a5f4951651238584bdf57893
+Author: lujiashun <lujiashun@stoneatom.com>
+Date:   Thu Oct 20 19:41:52 2022 +0800
+
+    fix(tianmu): fix bug:'on duplicate key update' scenario, incorrect result occurs. (#502)
+    
+    [summary]
+    1 the root reason is because of the variable ‘tianmu_insert_delayed’,set it off;
+    2 in debug version, it crashes, fix it;
+    3 add mtr case for this issue;
+
+commit 7cb517cfeafe8466736ff55eae4288454b334593
+Author: lylth <79444526+lylth@users.noreply.github.com>
+Date:   Fri Oct 21 14:09:08 2022 +0800
+
+    fix(core): fix the bug of incorrect result set of count function (#736) (#756)
+    
+    Replace the function FindCurrentRowByVMTable that gets the current row to FindCurrentRow.
+
+commit 83f5f4bbe268f4d4fb3583671741b8f880f31a88
+Author: shizhao <shizhao@stoneatom.com>
+Date:   Thu Oct 20 14:01:24 2022 +0000
+
+    shizhao test
+
+commit c25b5a91368b9f663269b4c61828aae707b74691
+Author: fuxiang <duanfuxiang0@gmail.com>
+Date:   Thu Oct 20 16:48:38 2022 +0800
+
+    fix(tianmu): the instance crashed while use derived table(#761)
+
+commit d981be978d09b676ed2c2c15cad787e263a42351
+Author: fuxiang <duanfuxiang0@gmail.com>
+Date:   Thu Oct 20 16:24:46 2022 +0800
+
+    fix(tianmu): the instance crashed while use derived table(#761)
+
+commit 68d1e52abeb3e07caa5909bb6a15772c35939deb
+Author: zsp108 <echo996@foxmail.com>
+Date:   Thu Oct 20 08:59:10 2022 +0000
+
+    feat(workflow):add nightly CI/CD workflows
+
+commit 24a27db6fdfdf9ae2225f4460a9b2eb9fc08e5b3
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Thu Oct 20 22:21:51 2022 +0800
+
+    fix(tianmu): Fix delete from Multiple-Table, Failed to delete the data (#663)
+
+commit ea99be984b8c883d507ec781ce46ba445799eb3b
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Wed Oct 19 03:27:37 2022 +0800
+
+    fix(tianmu)Fix delete from Multiple-Table, Failed to delete the data (#663)(#678)
+    Cause:
+    At present, the primary key of the tianmu engine does not fully support delete and update statements.
+    Temporary solution:
+    Modify the execution plan of the SQL layer so that the delete and update statements do not follow the primary key logic
+
+commit 454c9c48dff77fb86e0daab4141be0e544d4dd11
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Thu Oct 20 04:50:51 2022 +0800
+
+    feat(tianmu)The tianmu engine throws exception modification and specific exception information to the client
+
+commit 15e4b5ffebbe4fac86df7dc2f1b3937c6fe7c490
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Thu Oct 20 02:57:24 2022 +0800
+
+    fix(tianmu) ERROR 1105 (HY000): Tianmu other specific error (#754)
+    Cause:
+    no_dims is a destination number of dimensions.
+    It needs to be increased according to the number of executions.
+    But the logic here is that whether the table is involved in execution or not, it will lead to the increase of (no_dims),
+    This in turn causes the subsequent pack index to exceed the length of the index array.
+    Solution:
+    Optimize the logic of (no_dims) increasing to make it increase reasonably
+
+commit b43c48e93bfa7249538c266f71a5755974a37917
+Author: adofsauron <adofsauron@163.com>
+Date:   Tue Oct 18 11:01:22 2022 +0800
+
+    ond
+    
+        fix issuse 468 461 mtr result
+
+commit 5f1273c94fa42cff53e70ce0ae3e1cda8e14a1d9
+Author: adofsauron <adofsauron@163.com>
+Date:   Mon Oct 17 22:04:36 2022 +0800
+
+        fix(tianmu): fix query failure due to incorrect optimization of or statement(#301, #733)
+    
+        The reason for the error lies in that in Item_cond_or condition,
+        sub-conditions similar to a=a will be cleared after
+        elimination of equivalent conditions,
+        but the tianmu engine does not do additional scene
+        processing for the remaining conditions after elimination
+        of equivalent conditions of Item_cond_or.
+        Results in a scenario where
+        only the remaining predicates are processed
+        and the or predicates are not considered.
+    
+        The corresponding issuse:
+        https://github.com/stoneatom/stonedb/issues/301
+        https://github.com/stoneatom/stonedb/issues/733
+    
+        revert code style
+
+commit 1a743f8e55f217f670ff3345cf8fb6f32133622f
+Author: Nliver <34496563+Nliver@users.noreply.github.com>
+Date:   Tue Oct 18 09:32:56 2022 +0800
+
+    feat(website): Upgrade the official website(#735) (#737)
+    
+    * feat(website): Upgrade the official website
+    
+    Rebuild and upgrade the official website
+
+commit 9fcf0dc48ef13a08e55afc9fc6bc84cb4eca652d
+Author: CodingSuen <xavier.suen@outlook.com>
+Date:   Mon Oct 17 20:16:43 2022 +0800
+
+    style(clangformat): change the parameter of clangformat AllowShortIfStatementsOnASingleLine to Never
+
+commit 9e4f2af72ea975e4026645a42bfaecb758a51fe6
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Wed Sep 28 16:15:11 2022 +0800
+
+    fix(tianmu) Query results more data (#282)
+    
+    Cause:
+    Execution plan error when AND/OR sql logical operator in condition occurs at the same time
+    Resolvent:
+    Optimize multiple equal execution plan logic
+
+commit 5d996f9355b5241eaa54f3e4b652a60c9c229b0e
+Author: fuxiang <duanfuxiang0@gmail.com>
+Date:   Sat Oct 8 14:34:42 2022 +0800
+
+    fix(stonedb): fix problem caused by concatenated calls of multiple triggers.(#580)
+
+commit 0d0fcaf63dbfff734c7282cd9755e6aca87131a8
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Tue Oct 11 20:10:08 2022 +0800
+
+    fix(Tianmu) Fix assertion errors caused by syntax optimization of the tianmu engine (#669)
+    Cause of the problem:
+    The tianmu engine created join objects in syntax optimization, but did not explain them
+    Modify Scheme:
+    Release the join object after use
+
+commit 47e8843efc54aba94a8eedcbb06ee9a0a921e416
+Author: fuxiang <duanfuxiang0@gmail.com>
+Date:   Thu Oct 13 14:01:09 2022 +0800
+
+    update mtr, add 'include/have_tianmu.inc'
+
+commit 3e5f58a5674bb1fba4215c75af9c430f795067b5
+Author: fuxiang <duanfuxiang0@gmail.com>
+Date:   Thu Oct 13 11:16:33 2022 +0800
+
+    Adjust code style with ClangFormat
+
+commit 09f0368862e04317ad8b774475a775983fee58d0
+Author: fuxiang <duanfuxiang0@gmail.com>
+Date:   Tue Oct 11 19:45:56 2022 +0800
+
+    Update rc_datetime.cpp
+    
+    refine the return comment description
+
+commit 1da75d2e9fecba4ae5003959ae50c817caa383bd
+Author: fuxiang <duanfuxiang0@gmail.com>
+Date:   Wed Sep 28 17:03:46 2022 +0800
+
+    fix(tianmu): date functions are used in the where statement, query result is empty(#566).
+
+commit 30d45ddde1be11abe564f870219035e5de11b16d
+Author: LiMK <slibre@qq.com>
+Date:   Thu Oct 13 14:05:57 2022 +0800
+
+    doc(tianmu): Delete invalid docs
+
+commit 30024b99bbf8c85f19614c255d56fcda9bbd5a76
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Tue Oct 11 09:21:34 2022 +0800
+
+    fix(tianmu) explain select straight_join DISTINCT.The rows in the test result is incorrect (#270)
+    Cause of the problem:
+    In the mode where the type is ref, the line number returned by the tianmu engine is 10 by default.
+    Modify Scheme:
+    Delete the logic that returns 10 rows by default, and return the number of rows in the table instead.
+
+commit 627a8bbad28a7c58bcbfdc33e54c60aa4bb8b683
+Author: lujiashun <lujiashun@stoneatom.com>
+Date:   Wed Oct 12 20:34:34 2022 +0800
+
+    feature(tianmu): sql command "show status" support "tianmu status variables". (#711)
+    
+    [summary]
+    1 change tianmu status var scope from SHOW_SCOPE_UNDEF to SHOW_SCOPE_GLOBAL;
+
+commit 46d03652b2f2fb84617b7ffd2dce04254e839d93
+Author: adofsauron <adofsauron@163.com>
+Date:   Tue Oct 11 15:34:46 2022 +0800
+
+    fix delete mtr result
+
+commit 04ca8f76ef07d66353480608a4260ce53e930316
+Author: adofsauron <adofsauron@163.com>
+Date:   Tue Oct 11 15:09:28 2022 +0800
+
+    fix delete mtr result
+
+commit 246610b9b65caa97557f2b37d5d464dba77b586e
+Author: adofsauron <adofsauron@163.com>
+Date:   Mon Oct 10 22:55:15 2022 +0800
+
+        fix delete mtr
+
+commit 5b46eac4210d7bc9bac4b2aa6a9fb75c51bce43f
+Author: adofsauron <adofsauron@163.com>
+Date:   Mon Oct 10 22:36:08 2022 +0800
+
+        revert delete mtr
+
+commit 1b3f08989514e579adfe590e832e9e4021f463fb
+Author: adofsauron <adofsauron@163.com>
+Date:   Mon Oct 10 21:30:40 2022 +0800
+
+        Removing the delayed insert has reduced the impact on the test
+
+commit b7e1694949026216c7fa81473d50d42c1941445b
+Author: adofsauron <adofsauron@163.com>
+Date:   Mon Oct 10 21:13:04 2022 +0800
+
+        fix delete.result of
+        remote
+    
+            CREATE TABLE t1 (a int not null,b int not null)ENGINE=TIANMU;
+            CREATE TABLE t2 (a int not null, b int not null, primary key (a,b))ENGINE=TIANMU;
+            CREATE TABLE t3 (a int not null, b int not null, primary key (a,b))ENGINE=TIANMU;
+            insert into t1 values (1,1),(2,1),(1,3);
+            insert into t2 values (1,1),(2,2),(3,3);
+            insert into t3 values (1,1),(2,1),(1,3);
+            select * from t1,t2,t3 where t1.a=t2.a AND t2.b=t3.a and t1.b=t3.b;
+            delete t2.*,t3.* from t1,t2,t3 where t1.a=t2.a AND t2.b=t3.a and t1.b=t3.b;
+            # This should be empty
+            select * from t3;
+            drop table t1,t2,t3;
+    
+            delete t2.*,t3.* from t1,t2,t3 where t1.a=t2.a AND t2.b=t3.a and t1.b=t3.b;
+            select * from t3;
+            ab
+    
+            delete t2.*,t3.* from t1,t2,t3 where t1.a=t2.a AND t2.b=t3.a and t1.b=t3.b;
+            select * from t3;
+            ab
+            11
+            21
+            13
+    
+        because of https://github.com/stoneatom/stonedb/issues/678
+
+commit ae915363b0f07b993c5c5342483544ffc015484a
+Author: adofsauron <adofsauron@163.com>
+Date:   Mon Oct 10 20:30:15 2022 +0800
+
+        fix delete.result of
+        -- error ER_UPDATE_WITHOUT_KEY_IN_SAFE_MODE
+        DELETE t2 FROM t1 JOIN t2 WHERE t1.a = 10;
+
+commit 1d3ed7367789fe4353e562990208de2f6a9172b3
+Author: adofsauron <adofsauron@163.com>
+Date:   Mon Oct 10 20:14:18 2022 +0800
+
+        fix delete.result of
+        remove explain, Currently, the query plan is
+        in the process of change and modification,
+        and the consistency check of the query plan is not performed
+
+commit dcc00f54d268ff3559fd2bac989491c0310cdbab
+Author: adofsauron <adofsauron@163.com>
+Date:   Mon Oct 10 20:05:22 2022 +0800
+
+        fix delete.result of
+        remove explain, Currently, the query plan is
+        in the process of change and modification,
+        and the consistency check of the query plan is not performed
+
+commit 32892e51fdc02979fc9d36cb1d26ee1cc7bdbea1
+Author: adofsauron <adofsauron@163.com>
+Date:   Mon Oct 10 19:52:38 2022 +0800
+
+        fix delete.result of
+        remove explain, Currently, the query plan is
+        in the process of change and modification,
+        and the consistency check of the query plan is not performed
+
+commit fad7c67198f5966780c252b8ff42e74b696c2d18
+Author: adofsauron <adofsauron@163.com>
+Date:   Mon Oct 10 19:32:20 2022 +0800
+
+        fix delete.result of
+        remove explain, Currently, the query plan is
+        in the process of change and modification,
+        and the consistency check of the query plan is not performed
+
+commit 5cfe1f12cf242a7dd1ccb23179b8eaa02cd99fea
+Author: adofsauron <adofsauron@163.com>
+Date:   Mon Oct 10 18:33:34 2022 +0800
+
+        fix TPCH Q2/Q16/Q17/Q18/Q20/Q22
+        Test results for reference:
+        https://blog.csdn.net/adofsauron/article/details/127228984?spm=1001.2014.3001.5501
+    
+        TODO: Q4 and Q21
+        The case is an exists subquery
+        because the Tianmu engine converts
+        the syntax tree to an inner join
+        on an association surface.
+        For details, see
+        https://blog.csdn.net/adofsauron/article/details/127228984?spm=1001.2014.3001.5501
+
+commit 1691370d26fdad36c2565a07c6b8b243b07df51b
+Author: Nliver <34496563+Nliver@users.noreply.github.com>
+Date:   Wed Oct 12 16:42:11 2022 +0800
+
+    rename the name of deploy
+
+commit a017375ed4dfac5357b49c092c1c259079ebee65
+Author: LiMK <slibre@qq.com>
+Date:   Mon Oct 10 18:33:25 2022 +0800
+
+    ci(website): Restore CI/CD for website
+
+commit 0376ec5a50049148dd559b23a55bbfcc7f0fb1b5
+Author: zsp108 <echo996@foxmail.com>
+Date:   Mon Oct 10 06:11:15 2022 +0000
+
+    fix(CI/CD):fix make cant get commit_id
+
+commit 6ed2e56bb724863deff6bda72260bb2a437d47d0
+Author: zsp108 <echo996@foxmail.com>
+Date:   Mon Oct 10 05:58:12 2022 +0000
+
+    fix(CI/CD):remove old workflows
+
+commit 8860ad98f8e05835e6420938ee49eff60045433a
+Author: zsp108 <echo996@foxmail.com>
+Date:   Mon Oct 10 05:56:03 2022 +0000
+
+    fix(CI/CD):change stonedb-build runs-on self-hosted
+
+commit 6704a13b91593a21fc7b76b8fdb3e6fc9c55570a
+Author: zsp108 <echo996@foxmail.com>
+Date:   Mon Oct 10 05:46:06 2022 +0000
+
+    feat(CI/CD):change 5.7 branch CI/CD use self-hosted
+
+commit c6c8f9839074589b99a3cb2d747bb3fe1a221a0f
+Author: lylth <litaihong1@qq.com>
+Date:   Wed Sep 28 16:56:26 2022 +0800
+
+    fix(handler): fix the bug for create table #mysql50#q.q should return failure and actually return success (#487)
+            [summary]
+            1.When creating a table in the tianmu engine, add code to determine whether the table name is empty.
+            2.Add issue corresponding to mtr test case.
+
+commit 008cc77f826c83da2318c02360bdf5fb631f4976
+Author: LiMK <slibre@qq.com>
+Date:   Sat Oct 8 11:15:12 2022 +0800
+
+    fix(ISSUE_TEMPLATE): Fix formatting errors
+
+commit b90eb4be44be301434599d448e4da5fb3ee86d49
+Author: lujiashun <lujiashun@stoneatom.com>
+Date:   Wed Oct 5 09:43:42 2022 +0800
+
+    feat(Tianmu): set system variable "tianmu_large_prefix" default value from OFF to ON. (#631)
+    
+    [summary]
+    1 innodb(in 5.7) system variable "innodb_large_prefix" default value is ON, follow it;
+
+commit 797c44d721149ab40c5ee8e6628b050515b361ed
+Author: zsp108 <echo996@foxmail.com>
+Date:   Thu Sep 29 09:18:53 2022 +0000
+
+    fix(mergify):change mergify configure check-success
+
+commit 5fd824bc818bcda6abd00ae45c8fa22dc852ee84
+Author: shangyanwen <107781103+shangyanwen@users.noreply.github.com>
+Date:   Wed Sep 28 19:42:29 2022 +0800
+
+    Delete website-deploy.yml
+
+commit 6434f42cc1962fac67d7f0970b6cf39327af9976
+Author: shangyanwen <107781103+shangyanwen@users.noreply.github.com>
+Date:   Wed Sep 28 19:34:38 2022 +0800
+
+    test(mtr):update README.md，The existing Chinese language
+
+commit 6d0f3e1859a266cd23121848bf14047031eabe85
+Author: shangyanwen <18392868125@163.com>
+Date:   Wed Sep 28 17:08:11 2022 +0800
+
+    test(mtr):[modified]tianmu/t/trigger.test
+
+commit b9313a629f79de9f968439f8d5864bc1106cd7fa
+Author: shangyanwen <18392868125@163.com>
+Date:   Wed Sep 28 16:12:10 2022 +0800
+
+    test(mtr):[modified]tianmu/t/trigger.test
+
+commit e804f456add73af9748599b893b0588170dde4b0
+Author: shangyanwen <18392868125@163.com>
+Date:   Wed Sep 28 15:29:34 2022 +0800
+
+    test(mtr):[modified]tianmu/t/trigger.test and [Add]tianmu/README.md
+
+commit dd269fdbd0013b47160e376a19b7213be6da2110
+Author: shangyanwen <18392868125@163.com>
+Date:   Wed Sep 28 14:11:48 2022 +0800
+
+    mtr(test):Add Test Script is trigger.test
+
+commit c2be08d9bb5716beb76f8695278acbdcaac06c75
+Author: LiMK <slibre@qq.com>
+Date:   Tue Sep 27 18:46:11 2022 +0800
+
+    pref(issue_template): improve the issue_tempalte
+
+commit 47021ccb4ed32bc0be79b370989322f752af578c
+Author: LiMK <slibre@qq.com>
+Date:   Tue Sep 27 18:44:15 2022 +0800
+
+    docs(stonedb): Improve docs
+    - fix the wrong links
+    - update contributors
+
+commit beda1a3f147b236b0833c2605411a3d1cc1bca56
+Author: adofsauron <adofsauron@163.com>
+Date:   Tue Sep 27 19:55:57 2022 +0800
+
+        The nested loop now enforces multithreading.
+        Switches are added to support controlling whether multithreading is used to nested loops
+    
+        The reason for adding a parameter to control whether to enable multithreaded nested loop is that
+    
+        1. Provides parameters for fast execution of single-threaded versus multithreaded comparisons
+        2. At present, the physical layer is placed in the second stage because
+        the multi-threaded transformation of Nested loop has not been thoroughly carried out during the development period.
+        The argument that controls turning on multithreading is also needed for easy code rollback
+    
+        TODO: There is no time to continue to optimize this parameter,
+        later need to provide a configurable parameter to
+        control whether to enable multithreading
+
+commit 7789a52c059fee9b86f1ef205a910c854787a319
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Tue Sep 27 14:43:44 2022 +0800
+
+    fix(tianmu) Fix: The problem that the corresponding table is conditional but will still be executed (EvaluatePack_IsNoDelete)(#579)
+    
+     Cause of the problem
+        The reason for this problem is that when (ParameterizedFilter:: UpdateMultiIndex()) starts,
+        (desc. attr. vc ->GetVarMap()) There is a problem with the size judgment of size().
+        It should be>=1, but it is written as>1. Each filter logic will go to (FilterDeletedByTable).
+    
+     Solution
+        Modify the judgment condition to>=1
+
+commit 9b98a31054182f39d0f67c1671babaa6453cd01c
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Mon Sep 26 15:39:41 2022 +0800
+
+    fix(tianmu) Optimize code comments(#546)
+
+commit 0a176af5ce9820e56fa787a8f08f6427b459b224
+Author: adofsauron <adofsauron@163.com>
+Date:   Mon Sep 26 18:04:23 2022 +0800
+
+        fix(tianmu):
+        The current version does not enable multithreaded aggregation optimization,
+        Here's why:
+        Currently, for multi-thread parallel,
+        it is not completely carried out to the physical layer,
+        for DPN and PACK data structure,
+        because the underlying physical block processing for multi-thread from the data structure support is missing,
+        when a multi-thread switch occurs,
+        the data that has been read out is reset.
+        More time is needed to support parallel read IO across multiple threads from the underlying data structures,
+        which is not available in the current version,
+        so we plan to start the second phase of the multi-thread read IO process completely.
+
+commit 5e8af8591344cd46d2cee190454ca52105f08f90
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Sat Sep 24 03:33:42 2022 +0000
+
+    fix(mergify): fix A-bug ---> PR-bug
+    
+    [summary]
+    We should apply pr lable, not issue lable.
+    1. A-bug ---> PR-bug
+    2. PR-Docs ---> PR-docs
+
+commit dd264816f374cf2a2a7c0939f4ca95fcfeb5b8d6
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Sat Sep 24 02:59:29 2022 +0000
+
+    fix(mergify): fix incorrect lable name PR-Docs to PR-docs #564
+    
+    [summary]
+    1. fix typo on mergify `PR-Docs` ---> `PR-docs`
+
+commit e9270628d812af10db2d80f235d7d2c3e4f02145
+Author: Nliver <34496563+Nliver@users.noreply.github.com>
+Date:   Sat Sep 24 10:45:38 2022 +0800
+
+    docs(tianmu): Update docs and contributors (#561) (#563)
+    
+    * docs(tianmu): Update the docs of the intro and architecture
+    
+    * style(trouble&FAQ): Update the style
+    
+    * docs(Contributor): Update the Contributor list
+    
+    * fix(docs): fix the wrong link
+
+commit a49ea91ba2b51749f8e0ed03ac67ab0381f7754d
+Author: lihongjian <lihongjian@stoneatom.com>
+Date:   Thu Sep 22 23:47:03 2022 +0800
+
+    fix(tianmu) There will be a problem of too many tuples when querying multiple tables
+    
+    The logic of this modification is as follows:
+    
+    Descriptor object, MIUpdatingIterator object and DimensionVector are all newly defined objects this time. If you want iterators to work, you must have corresponding DimGroups. Because I didn't fully understand the usage of these classes, I used (dims. SetAll()) to set them, causing all DimGroups to converge.
+    
+    The modification method is to use the corresponding virtual column to set DimGroups, so that the data volume is at most the data volume of the current table
+
+commit ed83f2b5de90729a419ab286e662692c8ea37bee
+Author: shangyanwen <18392868125@163.com>
+Date:   Thu Sep 22 11:42:08 2022 +0000
+
+    test(mtr):update create_table.result,add insert.test,insert_select.test(#497)
+
+commit 9872d83f8608f6e418886e936dcf123fccbb5a6c
+Author: shangyanwen <18392868125@163.com>
+Date:   Thu Sep 22 09:07:17 2022 +0000
+
+    test(mtr):delete An error script:insert.test,insert_select.test(#497)
+
+commit 71a4906c3954f48c14917a062da3aefbe7841c9e
+Author: shangyanwen <18392868125@163.com>
+Date:   Thu Sep 22 06:09:08 2022 +0000
+
+    test(mtr):add insert_selet.test,insert_update.test..(#497)
+
+commit db45bef04c54c45b8af9407250a32e6b79ba3aaf
+Author: taofengliu <taofengliu@outlook.com>
+Date:   Thu Sep 22 14:09:24 2022 +0800
+
+    style(execution): improve code readability (#535)
+
+commit dc46b15bd4f0345cae33610f9a0408f657532a51
+Author: fuxiang <duanfuxiang0@gmail.com>
+Date:   Fri Sep 16 13:51:47 2022 +0800
+
+    fix(tianmu): fix the instance crashed while loading data (#462)
+
+commit 98ddfa2f69b31f96a87bc2aa2de1d5fb36ad3a7b
+Author: SPZhang <31213457+zsp108@users.noreply.github.com>
+Date:   Wed Sep 21 14:10:02 2022 +0800
+
+    fix(mergify):fix docs pr cant automerge and pr title check error (#518) (#519)
+    
+    * feat(mergify):add docs pr rule and change queue method rebase
+
+commit 5ecf786fb05c70c3f7ed0724f1e947f527298b23
+Author: error0 <30723804+error0g@users.noreply.github.com>
+Date:   Wed Sep 21 14:06:35 2022 +0800
+
+    docs(README): fix urls of README(#522) (#523)
+    
+    * docs(README): fix urls (#522)
+    
+    * docs(README): fix Chinese document urls (#522)
+
+commit 3d084c74bfbb47139c854430774a9b687c86f44c
+Author: shangyanwen <107781103+shangyanwen@users.noreply.github.com>
+Date:   Tue Sep 20 17:17:59 2022 +0800
+
+    test(mtr):add insert,create....The test script(#497) (#503)
+    
+    * syw test
+    
+    * syw commit mtr/create_index.test
+    
+    * syw commit dropdb mtr
+    
+    * add mtr create
+    
+    * add mtr create_table
+    
+    * commit mtr select
+    
+    * Submit the modified script
+    
+    * add mtr insert
+    
+    * delete select_tpch.test
+    
+    test
+    
+    * delete select_tpch.result
+    
+    * add tianmu_insert_delayed
+    
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+
+commit 4d47e72c11c45e2d66f7691c7582c80e9279a640
+Author: Nliver <34496563+Nliver@users.noreply.github.com>
+Date:   Tue Sep 20 16:33:57 2022 +0800
+
+    docs(tianmu): Correct some command and style errors(#515) (#516)
+    
+    1. fix the wrong command
+    2. Fix style display error of TCP-H Test Report
+
+commit 08f5ae57df40ce043fa5bf724e86c0df5b65fb9a
+Author: LiHongjian <106147765+konghaiya@users.noreply.github.com>
+Date:   Tue Sep 20 16:22:51 2022 +0800
+
+    feat(tianmu) Add upgrade directory (#510) (#511)
+    
+    * feat(tianmu) Add upgrade directory (#510)
+    
+    * Optimize the structure of DPN to support memory alignment
+
+commit 208f79d80bae1667d147e0713950317c9ca6c6b9
+Author: kevin <adofsauron@163.com>
+Date:   Sat Sep 17 16:19:42 2022 +0800
+
+    feat(tianmu) Refactor the aggregation and The IN operator to multithread #472 (#422 #465 #466) (#472)
+    
+    * Refactor the aggregation to multithread
+    
+    Co-authored-by: hustjieke <gaoriyao1@gmail.com>
+
+commit e3a9902948959fb329a1b1f3506fc10f9a26d430
+Author: SPZhang <31213457+zsp108@users.noreply.github.com>
+Date:   Thu Sep 15 14:06:47 2022 +0800
+
+    feat(cicd):add doc pr not use cicd and move .mergify.yml to .github（#486） (#494)
+
+commit 1c32d94b361836f53b3cde9fe487acc9190f6ad7
+Author: cxd <34465107+DandreChen@users.noreply.github.com>
+Date:   Thu Sep 15 13:40:38 2022 +0800
+
+    feat(tianmu): support alter column length and column type (#411) (#482)
+
+commit db81b9926dc741defa4f46ad58bec4eb33a9fd48
+Author: Nliver <34496563+Nliver@users.noreply.github.com>
+Date:   Wed Sep 14 21:25:38 2022 +0800
+
+    docs(tianmu): update the docs of stonedb-5.7 (#489) (#492)
+    
+    * git: update .gitignore
+    
+    * docs(tianmu): update the docs of  Quick Depolyment
+    
+    * docs(tianmu): update the docs of  Compile Methods
+    
+    * docs(tianmu): update the docs of  Performance Test
+    
+    * docs(tianmu): update the docs of Performance Tuning
+    
+    * docs(tianmu): update the docs of Troubleshooting
+    
+    * docs(tianmu): update the docs of FAQ
+    
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+
+commit ae8dc05afe12cf55af1de2d08ab13d06e7eb6104
+Author: lujiashun <lujiashun@stoneatom.com>
+Date:   Wed Sep 14 14:03:07 2022 +0800
+
+    fix(tianmu): fix specified key was too long; max key length is 255 bytes(#228) (#475)
+    
+    (1). implement tianmu's virtual function max_supported_key_part_length;
+    (2). enlarge max_supported_key_length's return value from 1024 to 16*1024;
+    
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+
+commit 45628577d4a2021bed38b260aab6c2498e4405ee
+Author: Nliver <34496563+Nliver@users.noreply.github.com>
+Date:   Tue Sep 13 20:14:14 2022 +0800
+
+    docs(tianmu): update the latest docs (#484) (#485)
+    
+    * fix(compile-method): fix the wrong configuration
+    
+    * docs(readme): update the docs
+    
+    * docs(about-stonedb): update the docs
+    
+    * docs(getting-started): update the docs
+    
+    * docs(Q&M): update the docs
+    
+    * docs(compile-methods): update the docs
+    
+    * docs(functions): update the docs
+    
+    * docs(database-tuning): update the docs
+
+commit fde56c8ac5ed127be9f885f22d302676ba6c57e2
+Author: Nliver <34496563+Nliver@users.noreply.github.com>
+Date:   Tue Sep 13 10:54:43 2022 +0800
+
+    docs(Compiling Methods): update the latest docs(#476) (#480)
+    
+    * docs(release-notes): update the docs
+    
+    * docs(Compiling Methods): update the docs
+    
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+
+commit 50865ef7cf0f96f821dfdc92e5a39fc76042b802
+Author: LiHongjian <106147765+konghaiya@users.noreply.github.com>
+Date:   Thu Sep 8 22:23:33 2022 +0800
+
+    feat(tianmu) Supports conditional deletion of single table and multiple tables (#345)(#348) (#458)
+    
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+
+commit 0be195aec7fb674d11a86e46cdf3e9fa2d4abf8d
+Author: LiHongjian <106147765+konghaiya@users.noreply.github.com>
+Date:   Thu Sep 8 20:24:10 2022 +0800
+
+    feat(tianmu): Support (Single-Table Syntax) DELETE FROM tb_name add test cases for delete (#344) (#457)
+    
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+
+commit 4e634eff05132b89b2659eeca5eae85d690f15aa
+Author: lujiashun <lujiashun@stoneatom.com>
+Date:   Thu Sep 8 16:05:07 2022 +0800
+
+    fix(tianmu): fix stonedb has two LZ4 versions (#471) (#473)
+    
+    (1). delete lz4-1.9.3;
+    (2). add lz4-1.9.4;
+    (3). delete tianmu’s lz4 files lz4.cpp，lz4.h;
+
+commit 7089585d0f311bef77c049acde9e31decf20aeec
+Author: lujiashun <lujiashun@stoneatom.com>
+Date:   Tue Sep 6 11:25:23 2022 +0800
+
+    docs: Update English version document (#468)
+
+commit a0fef15ca942094f4a34204bf4a331ff336ad84b
+Author: Yuting <34496563+Nliver@users.noreply.github.com>
+Date:   Fri Sep 2 10:36:39 2022 +0800
+
+    docs(ci/cd&content): Update the CI/CD of the document website and  download link (#463) (#464)
+    
+    * docs(CI): Update the CI/CD of the document website
+    
+    * docs(Download): Update the download link for the latest version
+
+commit 602d3b5d3bcf68326c47f492317efbab088a8d74
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Wed Aug 31 10:49:53 2022 +0800
+
+    feat(tianmu): add unittest module, impl gtestmock #430 (#437)
+    
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+
+commit 0a394625831d12d53e5f066c212d8d244c67137d
+Author: kevin <adofsauron@163.com>
+Date:   Tue Aug 30 22:21:37 2022 +0800
+
+    Update joiner.cpp (#452)
+    
+    make the sql of in to use nested loop
+
+commit 9de4578acc584282e2ab0b92c78fdb9036176286
+Author: SPZhang <31213457+zsp108@users.noreply.github.com>
+Date:   Tue Aug 30 10:37:15 2022 +0800
+
+    fix(LICENSE):fix LICENSE (#446)
+    
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+
+commit 64e8e80848ea7fd2ada252c636d247fad93fc617
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Mon Aug 29 22:04:01 2022 +0800
+
+    feat(scripts): remove hard code for abs path "/stonedb57/install" (#380)
+    
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+
+commit cd128991cc118ac7d92dc214c6d4f1b0b3771dd7
+Author: fuxiang <duanfuxiang0@gmail.com>
+Date:   Fri Aug 26 15:22:01 2022 +0800
+
+    fix(tianmu): fix temporary tables are not available (#444)
+    
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+
+commit a5b87e63e51d77fe857ef81396bdbb425defbc58
+Author: Yuting <34496563+Nliver@users.noreply.github.com>
+Date:   Thu Aug 25 20:22:05 2022 +0800
+
+    docs(README): add Chinese version (#443) (#445)
+    
+    * docs(README): Added the Chinese version
+    
+    Added the Chinese version and updated the architecture diagram
+    
+    * docs(requirements and Q&M): Add Chinese version
+    
+    * docs(README): Add language  page switching
+
+commit f3e18cf37e4d5443e532b590843a6508f2c451c0
+Author: lylth <79444526+lylth@users.noreply.github.com>
+Date:   Wed Aug 24 10:51:15 2022 +0800
+
+    fix(core): Fix the problem of inserting data with special character table name failure.(#222)(#362) (#427)
+    
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+
+commit 35d39da2e5176710ac12c558a64f37c7d86faa4d
+Author: fuxiang <duanfuxiang0@gmail.com>
+Date:   Mon Aug 22 23:17:44 2022 +0800
+
+    fix(core): fixed crash caused by using transaction statements(#417) (#418)
+    
+    * fix(core): fixed crash caused by using transaction statements
+    
+    * fix(core): fixed crash caused by using transaction statements, update mtr
+    
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+
+commit af5118b453b855ae301a65d0caf2ac3d1468b016
+Author: fuxiang <duanfuxiang0@gmail.com>
+Date:   Mon Aug 22 22:51:19 2022 +0800
+
+    issue 342 add mtr (#393)
+    
+    Co-authored-by: dfx <duanfuxiang>
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+
+commit 350526501eba9da47450a6b57942359311d2b0d7
+Author: Chris Su <68360471+slchris@users.noreply.github.com>
+Date:   Fri Aug 19 14:37:04 2022 +0800
+
+    website: Optimize domestic access speed #412 (#413)
+    
+    - modify website-deploy.yml
+          deploy to aliyun ecs
+    
+    Signed-off-by: slchris <chris@lesscrowds.org>
+    
+    Signed-off-by: slchris <chris@lesscrowds.org>
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+
+commit 6e8d64e50b1058006f75d8abee1a9887ad48efbe
+Author: Yuting <34496563+Nliver@users.noreply.github.com>
+Date:   Thu Aug 18 14:06:47 2022 +0800
+
+    docs(stonedb): fix the deploy problem and update the latest docs(#414) (#416)
+    
+    * fix(docs): fix the deploy problem
+    
+    * docs(SQL Tuning): update the latest docs
+    
+    * fix(docs): fix the deploy problem
+    
+    * docs(stonedb): update the docs of Backup and Recovery
+    
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+
+commit 50388b75dd9546ecb0941e2d7733931b3a1123fe
+Author: lylth <79444526+lylth@users.noreply.github.com>
+Date:   Thu Aug 18 11:52:58 2022 +0800
+
+    fix(handler):Fix Tianmu engine to support master-slave replication of binlog in row format (#381) (#406)
+    
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+
+commit b1a714127eddbb03dca549371a4e6c2feaf71e3d
+Author: RingsC <hom.lee@hotmail.com>
+Date:   Wed Aug 17 19:25:18 2022 +0800
+
+    react(tianmu): refactor some code about tianmu engine(#11) (#407)
+    
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+
+commit ad98bb30a47c68459d06bda9bef3d124e578e523
+Author: Yuting <34496563+Nliver@users.noreply.github.com>
+Date:   Wed Aug 17 11:21:39 2022 +0800
+
+    docs(stonedb): Update the latest documents(#409) (#410)
+    
+    * docs(stonedb): Update the latest documents(#409)
+    
+    * Update compile-using-centos7.md
+    
+    * Delete use-mydumper-full-backup.md
+    
+    The current topic is the latest.
+    
+    * Delete use-mysqldump-backup-and-restore.md
+    
+    The current topic online is the latest.
+    
+    * Update use-navicat.md
+    
+    changed the No. of steps.
+    
+    * Delete use-mydumper-full-backup.md
+    
+    The current topic online is the latest.
+    
+    * Delete regular-change-operations.md
+    
+    The current topic online is the latest.
+    
+    Co-authored-by: haitaoguan <105625912+haitaoguan@users.noreply.github.com>
+    Co-authored-by: xuejiao-joy <107540910+xuejiao-joy@users.noreply.github.com>
+
+commit 2330b073c90f0a3ba0ee0d662a919b86d633f134
+Author: SPZhang <31213457+zsp108@users.noreply.github.com>
+Date:   Mon Aug 15 15:09:30 2022 +0800
+
+    fix(doc):rm docker build and optimization steps (#390)
+    
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+
+commit 05eb397d794a41025eeb7aeed536ce35eeaa44bc
+Author: Yuting <34496563+Nliver@users.noreply.github.com>
+Date:   Mon Aug 15 14:05:47 2022 +0800
+
+    docs(stonedb): fix the errors on a batch of documents (#398) (#399)
+    
+    * fix(stonedb): fix the wrong display of the Chinese document
+    
+    * fix(issue templates): Fix the issue template of the document
+    
+    * docs(stonedb): fix the wrong Architecture diagram
+    
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+
+commit f52441b49bf65f2a573d6dc56e1a51b8e8bbd2a9
+Author: fuxiang <duanfuxiang0@gmail.com>
+Date:   Mon Aug 15 12:01:53 2022 +0800
+
+    fix(tianmu): Fix crashes caused by transaction errors when autocommit=ON (#400)
+    
+    Co-authored-by: dfx <duanfuxiang>
+
+commit c8fd9a537bafb99394f14c2e806c13ea6d259ced
+Author: RingsC <hom.lee@hotmail.com>
+Date:   Thu Aug 11 21:07:56 2022 +0800
+
+    refact(tianmu): To improve code qual of tianmu(#11) (#397)
+    
+    This is a series of #11, which is used to improve the tianmu code quality.
+    
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+
+commit a11644b1970889e66214428bbd321defbc49184b
+Author: Yuting <34496563+Nliver@users.noreply.github.com>
+Date:   Thu Aug 11 17:25:43 2022 +0800
+
+    docs(stonedb): update the latest docs(#391) (#392)
+    
+    * docs(stonedb): update the latest docs(#391)
+    
+    * docs(stonedb): update the docs of Architechure and Limits
+
+commit 8f60d0e5c44073d71c266d8ac0b0c36258475c80
+Author: xuejiao-joy <107540910+xuejiao-joy@users.noreply.github.com>
+Date:   Wed Aug 10 16:43:56 2022 +0800
+
+    Doc(stonedb): Added extensions deccriptions in topics related to backup and recovery for O&M Guide(#360) (#361)
+    
+    * updated some code snippets in Install RocksDB step
+    
+    Signed-off-by: xuejiao-joy <821682573@qq.com>
+    
+    * some description here
+    
+    Signed-off-by: xuejiao-joy <821682573@qq.com>
+    
+    Co-authored-by: Yuting <34496563+Nliver@users.noreply.github.com>
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+
+commit eefcfb3cd8644a11591a6041ab017aa6071b9755
+Author: fuxiang <duanfuxiang0@gmail.com>
+Date:   Wed Aug 10 16:19:14 2022 +0800
+
+    fix bug #342 (#346)
+    
+    Co-authored-by: dfx <duanfuxiang>
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+
+commit 43c95d0b31ffccdc1793fbac00de9214652a139d
+Author: xiaoguangye <109953524+xiaoguangye@users.noreply.github.com>
+Date:   Wed Aug 10 15:06:33 2022 +0800
+
+    fix(mtr): Add test cases for NULL value select on UNIQUE constraint(#281) (#379)
+    
+    * fix(core): Double prepare on lex unit for cts with union(#226)
+    
+    fix(core): MTR + Double prepare on lex unit for ctas with union(#226)
+    
+    * fix(mtr): Add test cases for NULL value select on UNIQUE constraint(#281)
+    
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+
+commit 2dffcab040f19f77ffdfc43a2e255a2696e08d87
+Author: RingsC <hom.lee@hotmail.com>
+Date:   Tue Aug 9 19:46:20 2022 +0800
+
+    feat(stonedb): To support gcc 9 and adds `WITH_ROCKSDB` and `WITH_MARISA` to specify where (#377)
+    
+    rocksdb and marisa installed, respectively.
+    
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+
+commit cd93ce186da22151ccfa0d4731c48780d3f5c6fe
+Author: kevin <adofsauron@163.com>
+Date:   Tue Aug 9 19:15:54 2022 +0800
+
+    fix stonedb for optimize exists subquery and deep memory copy #369 (#330, #329, #340, #332) (#369)
+    
+    * fix stonedb for optimize exists subquery and deep memcopy copy
+    
+    * Update parameterized_filter.cpp
+    
+    fix ParameterizedFilter deep copy mind memory leak
+    
+    * fix subquery when this is in sql
+    
+    * fix code readability and defensive
+    
+    * use shallow memory when paral hash join by class DimensionGroupMultiMaterialized
+    
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+
+commit b58a3773a06ba3334e603e92bf1e4781b2c4e5b3
+Author: RingsC <hom.lee@hotmail.com>
+Date:   Mon Aug 8 17:48:21 2022 +0800
+
+    feat(innodb): To support compiling innodb as C++ 17(#375) (#376)
+    
+    To support innodb is compiled as C++ 17. For now, tianmu is compiling as C++17,
+    and C++17 has became mainstream of C++ standard. Therefore, now, we star to support
+    to compile Innodb as C++17 in stonedb.
+    
+    This is backport from MySQL, which commit id is: 1a8a111d8f855a31d0aeffc8f02309b2b82dd410 and bug# is #32907274
+    
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+
+commit a3c85674dbd6f9f908382beb66b7cb5b26bd4e30
+Author: SPZhang <31213457+zsp108@users.noreply.github.com>
+Date:   Mon Aug 8 14:37:17 2022 +0800
+
+    feat(doc):doc add innodb backup to stonedb demonstrate（#353） (#355)
+    
+    * feat(doc):doc add innodb backup to stonedb demonstrate
+    
+    * fix(doc):fix mydumper and mysqldump doc
+    
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+
+commit 65cbffa2090cdf8cf5af41cf6dbd1cbd8e36ad8b
+Author: Yuting <34496563+Nliver@users.noreply.github.com>
+Date:   Mon Aug 8 11:45:28 2022 +0800
+
+    docs(stonedb): update docs and fix bugs (#373)
+    
+    * docs(Quick Deployment and Compiling Methods): update docs
+    
+    Make the document more user-friendly for new users
+    
+    #372
+    
+    * fix(docs): Let the official website pictures can be adaptive
+    #309
+    
+    * Update compile-using-ubuntu2004.md
+    
+    In the install make step, add the go to directory：cd make-3.82
+    
+    * Update compile-using-redhat7.md
+    
+    In the install make step, add the go to directory：cd make-3.82
+    
+    * Update compile-using-centos7.md
+    
+    In the install make step, add the go to directory：cd make-3.82
+    
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+    Co-authored-by: haitaoguan <105625912+haitaoguan@users.noreply.github.com>
+
+commit a4f8e80b31f26eed9bba3a244159a564a97d678e
+Author: cxd <34465107+DandreChen@users.noreply.github.com>
+Date:   Mon Aug 8 10:53:26 2022 +0800
+
+    fix(tianmu): fix group_concat_max_len warning (#338) (#363)
+    
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+
+commit 83acbcab6419b00ee988c478c14a522dc296e8fb
+Author: SPZhang <31213457+zsp108@users.noreply.github.com>
+Date:   Sun Aug 7 20:11:00 2022 +0800
+
+    fix(mtr):mtr result stonedb change to tianmu(#359) (#368)
+    
+    * fix(mtr):mysqlpump*.test sys_stoendb to sys_tianmu
+    
+    fix(mtr):fix main result stonedb to tianmu
+    
+    fix(mtr):mv innodb_fts.ngram_1 to test/innodb_fts
+    
+    fix(mtr):fix mtr funcs_1 stonedb to tianmu
+    
+    fix(mtr):fix innodb mtr result stonedb change to tianmu
+    
+    fix(mtr):fix perfschema mtr result stonedb change to tianmu
+    
+    * fix(mtr):fix mtr stoendb change to tianmu
+    
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+
+commit f755d2ed77050d8d7e55221c14947794934c8fd1
+Author: xiaoguangye <109953524+xiaoguangye@users.noreply.github.com>
+Date:   Sun Aug 7 19:44:39 2022 +0800
+
+    fix(core): Double prepare on lex unit for cts with union(#226) (#365)
+    
+    fix(core): MTR + Double prepare on lex unit for ctas with union(#226)
+
+commit 5e23c201303ab77f387e1ca2942539386d4fa191
+Author: Ma Jun <64419837+leizzboy@users.noreply.github.com>
+Date:   Wed Aug 3 17:58:49 2022 +0800
+
+    fix bugs of #309 and #310 (#313)
+    
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+
+commit eed32f66478d304cccd2886d713b4895500fde9c
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Wed Aug 3 11:19:48 2022 +0800
+
+    feat(tianmu): stonedb namespace to tianmu (#337)
+    
+    [summary]
+    1. Change all engine stonedb to tianmu
+    2. Change SDB to tianmu
+    3. Also include mysql-test
+    4. Change file magic number to TianmuTB
+
+commit c845005e8f075a71849808fdace285e1989f88af
+Author: SPZhang <31213457+zsp108@users.noreply.github.com>
+Date:   Mon Aug 1 14:48:29 2022 +0800
+
+    fix(mtr):move character_set to test.character_set, fix main mtr_test and innodb mtr_test(#277) (#335)
+    
+    * fix(mtr):fix innodb mtr and mv some test to test/innodb
+    
+    * fix(mtr):move character_set to test/main/
+    
+    fix(mtr):mv main mtr character_set test to test/main/cahracter_set
+    
+    fix(mtr):mv myisam error mtr-test to test/main/myisam
+    
+    fix(mtr):add optimizer_switch to include/default_mysqld.cnf
+    
+    * fix(mtr):fix main mtr optimizer_switch amd mv some test to test/main
+    
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+
+commit 6ddaa08c875348a276ea3e09ad67ed5500658f30
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Fri Jul 29 16:31:04 2022 +0800
+
+    feat(index): Unified class member variable name with google style (#311) (#312)
+    
+    [summary]
+    Class member name will be like:
+    
+    class TableInfo {
+      ...
+     private:
+      std::string table_name_;  // OK - underscore at end.
+      static Pool<TableInfo>* pool_;  // OK.
+    };
+    
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+
+commit 5491486df728a82ae4524d2fd1efcbdb5dbffd33
+Author: andyli <zhiangli029@gmail.com>
+Date:   Fri Jul 29 16:09:30 2022 +0800
+
+    fix(core): fix crash when executing sql. (#327) (#328)
+    
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+
+commit 1008ff0a89975e691bb857bc6866a4e9a30cf90c
+Author: cxd <34465107+DandreChen@users.noreply.github.com>
+Date:   Thu Jul 28 16:10:03 2022 +0800
+
+    feat(stonedb): update the copyright date time (#321) (#324)
+
+commit d72812fa74b39873188c8c6413a4a651aaa92047
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Thu Jul 28 11:22:58 2022 +0800
+
+    fix(mtr): make the mtr passed (#315) (#317)
+    
+    [summary]
+    How to run:
+    ./mysql-test-run.pl --suite=stonedb --nowarnings --force --nocheck-testcases
+    
+    1. test cases below are failed, we ignored them first:
+    issue410
+    issue415
+    issue433
+    issue446
+    issue515
+    load.test
+    2. Sys variables next are not set correctly, they should be added to `/mysql-test/include/default_mysqld.cnf`.
+    stonedb_insert_delayed = 0
+    stonedb_ini_allowmysqlquerypath=1
+    
+    3.check-testcases: A new MTR option to enforce strict cleanup:
+    https://dev.mysql.com/blog-archive/fail-check-testcases-a-new-mtr-option-to-enforce-strict-cleanup
+    
+    In `mtr` comment:
+    ```
+    Some options that control enabling a feature for normal test runs,
+    can be turned off by prepending 'no' to the option, e.g. --notimer.
+    This applies to reorder, timer, check-testcases and warnings.
+    ```
+    Currently we turn off it first to make mtr run success.
+    
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+
+commit 52c205925d1d9a26734d5ae65d7806918253211e
+Author: Shlpeng <21647415@qq.com>
+Date:   Tue Jul 26 21:56:00 2022 +0800
+
+    rich doc to fix  env dependence "not found" (#316)
+
+commit 5a2e7dfb699294d17cb21d112dce9a3d31145296
+Author: RingsC <hom.lee@hotmail.com>
+Date:   Sun Jul 24 21:26:39 2022 +0800
+
+    feat(stonedb): Makes stonedb clean code(#298) (#299)
+    
+    This is subtask of #11, makes the stonedb clean code. Using meaningful
+    function names that make all users can read it literally.
+    The changes found in directories:
+    1: core
+    2: handler
+    3: loader
+    4: mm
+    5: vc
+    
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+
+commit c057afe10b3f633a38f2909ca09dc83d1455fa91
+Author: Ma Jun <64419837+leizzboy@users.noreply.github.com>
+Date:   Sun Jul 24 13:52:49 2022 +0800
+
+    docs: fix(#287) deployment errors caused by some symbols (#303)
+    
+    * Fix deployment errors caused by some symbols
+    
+    * Fix deployment errors caused by some symbols
+    
+    * Fix deployment errors caused by some symbols
+
+commit d02f31e4cae82c3fb1d4801a65467ea44b05c9b7
+Author: Yuting <34496563+Nliver@users.noreply.github.com>
+Date:   Fri Jul 22 18:04:32 2022 +0800
+
+    docs(English Docs): Update the remaining English documents (#284)
+    
+    Performance Tuning,Data Migration to StoneDB,Troubleshooting,FAQ
+    
+    #276
+    
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+
+commit fb5fd260b46a73db5ec14954927a545437afe4f3
+Author: Ma Jun <64419837+leizzboy@users.noreply.github.com>
+Date:   Fri Jul 22 16:32:21 2022 +0800
+
+    docs(stonedb): fix issue (#291) and (#293), update a document (#295)
+    
+    * update Chinese column name
+    
+    * fix document ID (#291)
+    
+    * update documents of "Use Prometheus and Grafana to Monitor StoneDB or MySQL databases"
+    
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+
+commit 4b49a19db106a15924471926ab033833edcc4a6e
+Author: lylth <79444526+lylth@users.noreply.github.com>
+Date:   Fri Jul 22 15:52:32 2022 +0800
+
+    fix(sql): fix crash when executing sql statement (#212) (#267)
+    
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+
+commit 30fb299cecc2b072b75e6a938787e02a5399d4ab
+Author: Ma Jun <64419837+leizzboy@users.noreply.github.com>
+Date:   Thu Jul 21 18:03:17 2022 +0800
+
+    docs(Stonedb): fix docs deploy problem.(#287) (#288)
+    
+    * update Chinese docs and update more dependencies
+    
+    * Update Chinese docs of advanced-functions
+    
+    * Update Chinese docs of date-and-time-functions and string-functions
+    
+    * update picture of Architecture
+    
+    * update Chinese docs of sql-best-practices
+    
+    * update Chinese docs of oltp-performance-test-method
+    
+    * update Chinese docs of oltp-performance-test-method 2
+
+commit f86f804093bbb56bbd30b8d8bf1b386c9f602fa8
+Author: Ma Jun <64419837+leizzboy@users.noreply.github.com>
+Date:   Thu Jul 21 16:12:51 2022 +0800
+
+    update Chinese docs and dependencies version (#283)
+
+commit 6389e1a056ef1b095d05e2a2b3ccee106ebb32f4
+Author: RingsC <hom.lee@hotmail.com>
+Date:   Thu Jul 21 14:09:43 2022 +0800
+
+    feat(stonedb): Improve the readbility of stonedb(#259) (#260)
+    
+    This is one of serial subtask of #11, which is used to improve stonedb source code quality.
+    The changes in directories as following:
+    1: core
+    2: handler
+    3: vc
+    
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+
+commit 4b74bf210d98640dceb5930cc22c1551da79c9b4
+Author: Yuting <34496563+Nliver@users.noreply.github.com>
+Date:   Thu Jul 21 12:15:10 2022 +0800
+
+    docs(stonedb ): update some docs (#254)
+    
+    update doc of  Architecture and Limits and Statements for Queries
+    
+    #252
+    
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+
+commit b0088cbcfc8c99cfdcbaf003da750428a41ce8cb
+Author: Yuting <34496563+Nliver@users.noreply.github.com>
+Date:   Thu Jul 21 11:51:30 2022 +0800
+
+    docs(Functions): Update documentation for supported functions (#258)
+    
+    #257
+    
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+
+commit 816c25aaa7eb0094771f5a70dd1894ee195fef84
+Author: SPZhang <31213457+zsp108@users.noreply.github.com>
+Date:   Thu Jul 21 11:28:04 2022 +0800
+
+    fix(mtr):fix mtr funcs_1 test result content mismatch (#263)
+    
+    fix(mtr):fix mtr perfschema result content mismatch
+    
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+
+commit 8117198dc4b205f3beabef5c229a08e429e37439
+Author: Ma Jun <64419837+leizzboy@users.noreply.github.com>
+Date:   Thu Jul 21 10:42:30 2022 +0800
+
+    update Chinese docs (#266)
+    
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+
+commit 8d993b8cd375763a7afe0e15380f55a960910998
+Author: Yuting <34496563+Nliver@users.noreply.github.com>
+Date:   Wed Jul 20 20:27:35 2022 +0800
+
+    docs(stonedb): update the doc of compile-using-docker（#261） (#262)
+    
+    * docs(stonedb): update the doc of compile-using-docker
+    
+    #261
+    
+    * Update compile-using-docker.md
+    
+    Changing a File Path
+    
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+
+commit e58e757856e8f16e1c47dc152f7d535475f14166
+Author: Yuting <34496563+Nliver@users.noreply.github.com>
+Date:   Wed Jul 20 19:51:47 2022 +0800
+
+    feat(stonedb): add docs issue templates (#238)
+    
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+
+commit 7e0906735b755df48e05214886e8019a18dcb221
+Author: SPZhang <31213457+zsp108@users.noreply.github.com>
+Date:   Wed Jul 20 15:42:31 2022 +0800
+
+    fix(mtr):fix mtr to use non-innodb (#245)
+    
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+
+commit 670363bc1e19231a1e7801e699ed7c25bb1ffd36
+Author: cxd <34465107+DandreChen@users.noreply.github.com>
+Date:   Tue Jul 19 21:19:46 2022 +0800
+
+    set the default engine to stonedb (#255)
+
+commit 67f86f59789f5b9e33bbd94dbe12326f1ce9c89c
+Author: Yuting <34496563+Nliver@users.noreply.github.com>
+Date:   Tue Jul 19 17:45:11 2022 +0800
+
+    docs(Getting Started): deploy in a docker container (#249)
+    
+    quick deploy StoneDB in a docker contain  #248
+    
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+
+commit 9d5fef11f21855cbd339ecf6ddc85405689dc41d
+Author: RingsC <hom.lee@hotmail.com>
+Date:   Tue Jul 19 16:31:54 2022 +0800
+
+    fix(stonedb): error: NoAttrs was not declared in this scope(#146) (#241)
+    
+    This patch to fix up the compilation error: `NoAttrs` error. and also change `NoObj`, `NoDisplaybleAttrs`
+    We have changed
+    `NoAttrs` to `NumOfAttrs` and the files changed in directories as following:
+    1: stonedb/core
+    2: stonedb/handler
+    3: stonedb/loader
+    4: stonedb/vc
+    
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+
+commit 29495deec3cf9957a2ebbaa527c29d43784af95b
+Author: Yuting <34496563+Nliver@users.noreply.github.com>
+Date:   Tue Jul 19 11:21:49 2022 +0800
+
+    docs(About StoneDB): update Chinese docs (#240)
+    
+    #239
+    
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+
+commit eed32670d4d3dd3de83f5bbe8b0ca2fb51752ea4
+Author: lylth <79444526+lylth@users.noreply.github.com>
+Date:   Tue Jul 19 10:48:24 2022 +0800
+
+    fix(mtr): fix failed charset related test cases (#227) (#230)
+
+commit 3bdb611c539362e8691ee712f303b80d594712b2
+Author: jun-lihaijun <103155258+jun-lihaijun@users.noreply.github.com>
+Date:   Mon Jul 18 11:00:34 2022 +0800
+
+    Fix(docs): fix compile-using-ubuntu2004.md (#224) (#225)
+    
+    * Update compile-using-ubuntu2004.md
+
+commit ac49b4b30e94fbfb7b2793dc4cb39255dba69426
+Author: lylth <79444526+lylth@users.noreply.github.com>
+Date:   Thu Jul 14 11:29:31 2022 +0800
+
+    fix(mtr): fix the wrong result of the test case in the mysql-test/r. (#191) (#196)
+    
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+
+commit 75542870ad0e628b144824814281b7a6ee80e6fd
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Thu Jul 14 11:01:21 2022 +0800
+
+    feat(workflow): add pr title check in mergify (#207) (#210)
+
+commit d0896c376ca2bd825c497e88e7eb96e5e0a03972
+Author: Yuting <34496563+Nliver@users.noreply.github.com>
+Date:   Wed Jul 13 21:57:02 2022 +0800
+
+    docs(Compiling Methods): update docs (#216)
+    
+    #215
+    
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+
+commit 6f5f11dd53e55d3e034486d8a8834f986880a3f6
+Author: Yuting <34496563+Nliver@users.noreply.github.com>
+Date:   Wed Jul 13 21:21:03 2022 +0800
+
+    docs(stonedb): update Limits and Architecture(#202 #213) (#214)
+    
+    * 📃 docs(Limits): update content
+    
+    #202
+    
+    * 📃 docs(Architecture): init doc of Architecture
+    #213
+
+commit 12e1b3802ba5ebc7a43f75ba212bab24d533658d
+Author: Yuting <34496563+Nliver@users.noreply.github.com>
+Date:   Tue Jul 12 22:22:12 2022 +0800
+
+    docs(stonedb): update Community Standards (#204)
+    
+    update Code of conduct and Contributing
+
+commit 46acf10b471dab51d422778d37fa6a44380af72b
+Author: Yuting <34496563+Nliver@users.noreply.github.com>
+Date:   Tue Jul 12 20:16:39 2022 +0800
+
+    fix(CI/CD): fix the CI/CD configuration of the document and update introduction(#200) (#201)
+    
+    * fix(CI/CD): Fix the CI/CD of the document
+    
+    * docs(stonedb): update introduction
+
+commit 87d83a2e3d770013e6ed79af2000bc0090f72897
+Author: SPZhang <31213457+zsp108@users.noreply.github.com>
+Date:   Tue Jul 12 16:10:06 2022 +0800
+
+    fix(mtr):fix innodb-wl5980-linux result (#192)
+    
+    Co-authored-by: mergify[bot] <37929162+mergify[bot]@users.noreply.github.com>
+
+commit a5965a85fa668840868617b88aafce31af52d000
+Author: Yuting <34496563+Nliver@users.noreply.github.com>
+Date:   Tue Jul 12 14:02:10 2022 +0800
+
+    docs(stonedb): Update the document for stonedb-5.7(#180) (#195)
+    
+    * docs(stonedb): Update documents for stonedb 5.7
+
+commit 2106ef049eeacd92b859c8ef27d13974f718f2ec
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Tue Jul 12 04:29:24 2022 +0000
+
+    fix(mergify): rm specail characters that not allowed
+
+commit eed2e5f629080b3194553db5e595ca83bfba2bef
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Tue Jul 12 03:26:03 2022 +0000
+
+    feat(mergify): add squash for mergify (#197)
+
+commit a8d2279ac9fc0eaf7c0f631fa720941df0942650
+Author: HongXing <63028664+zhx8817@users.noreply.github.com>
+Date:   Sat Jul 9 17:10:31 2022 +0800
+
+    feat(stonedb):change default config file stonedb.cnf->my.cnf (#184)
+
+commit f3e5e9c4de77a151859b3cab85a502437a0b7beb
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Fri Jul 8 22:46:11 2022 +0800
+
+    fix(mergify): fix auto add pr-types by mergify (#178) (#179)
+
+commit c4e9c5d87dba04a19b187daac363a533837c19fa
+Author: HongXing <63028664+zhx8817@users.noreply.github.com>
+Date:   Fri Jul 8 21:14:32 2022 +0800
+
+    feat(stonedb):revise install.sh,stonedb.cnf->my.cnf,add WITH_BOOST config (#165)
+
+commit 5d7220c9809fc48f3d87d958a405747685f00479
+Author: LiHongjian <106147765+konghaiya@users.noreply.github.com>
+Date:   Fri Jul 8 21:13:50 2022 +0800
+
+    feat(mtr) Modify innodb_*/t(s-x) MTR test case(#170) (#181)
+
+commit 65db3217175d0d56ea82728c9f26ed89f5c67658
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Fri Jul 8 16:38:17 2022 +0800
+
+    feat(workflow): add auto merge bot for stonedb pull request (#130) (#176)
+
+commit 83ba7f4f0934624af7d44a7ab17ccf659ec459b2
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Fri Jul 8 08:14:31 2022 +0800
+
+    fix(stonedb): add some missing files ignored in .gitignore (#166) (#167)
+    
+    * fix(stonedb): add some missing files ignored in .gitignore (#166)
+    
+    * fix(github): rm .gitignorebak
+    
+    * fix(github): fix compile fail with release mode
+    
+    * feat(github): improve integration test
+    
+    * fix(github): fix unccorect path in mtr
+    
+    * fix(CMakeLists): fix flow control statements are not properly nested in line 461
+    
+    * fix(CMakelist): add sql/build_info.h.ini to fix build_info.h file missed
+    
+    * feat(github): rm mtr test
+    
+    * fix(github): fix no target to make libboost_system.a
+
+commit ce34f0ea492c7227a9ffb26fa7e36bfa91f6bf10
+Merge: c4edb29a3 e40519137
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Thu Jul 7 00:32:33 2022 +0800
+
+    Merge pull request #162 from hustjieke/stonedb-5.7
+    
+    Stonedb 5.7
+
+commit e405191378b130fc0cc3718ebe075053aebfda78
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Wed Jul 6 16:03:47 2022 +0000
+
+    feat(stonedb): upgrade stonedb to adapt mysql 5.7 #(141)
+
+commit 90583b2101207d36109d0e31a2398d8ad4538979
+Author: Yuting <34496563+Nliver@users.noreply.github.com>
+Date:   Wed Jul 6 23:31:30 2022 +0800
+
+    docs(stonedb): update compiling methods docs #157 (#158)
+    
+    * docs(stonedb): update compiling methods
+
+commit 2cb09944b5addd05a1cc1a7376c04639dea02abb
+Author: RingsC <hom.lee@hotmail.com>
+Date:   Wed Jul 6 19:16:54 2022 +0800
+
+    feat(stonedb): To improve the code readability #153 (#154)
+    
+    This is a subtask of #11, to improve the code readability.
+    The changes includeing(directories):
+    1: core
+    2: system
+    3: types
+    4: util
+    5: mm
+
+commit c4edb29a3a002f47e0e60d4865f558611df54375
+Author: LiMK <slibre@qq.com>
+Date:   Wed Jul 6 09:57:26 2022 +0800
+
+    docs(stonedb): update the latest documentation
+
+commit bfb209a5e7dd99abf652bc2c856cc4c5b848e09a
+Author: Yuting <34496563+Nliver@users.noreply.github.com>
+Date:   Tue Jul 5 20:51:57 2022 +0800
+
+    🐞 fix(docs): fix edit page link (#151) (#152)
+
+commit b99ecf326f2d4ac16ace6bc7f7260e045ce647aa
+Author: chris <68360471+slchris@users.noreply.github.com>
+Date:   Tue Jul 5 17:43:57 2022 +0800
+
+    website: merge stonedb-docs to stonedb repository #124 (#147)
+    
+    * add website
+            copy from https://github.com/stoneatom/stonedb-docs
+    Signed-off-by: slchris <chris@lesscrowds.org>
+
+commit 295f8bb06a9c5c1a9484306f8c8af29d61d9dfa0
+Author: LiHongjian <106147765+konghaiya@users.noreply.github.com>
+Date:   Sat Jul 2 23:40:50 2022 +0800
+
+    fix(stonedb) Valgrind problems(#142) (#140)
+    
+    * fix(stonedb) Valgrind:definitely lost(#60)(#66) and Invalid write、Invalid read(#110)(#108)(#81)(#80) and still reachable(#67)
+
+commit 0ce8e1d44bb847bf42fe61e853b177386c7e0668
+Merge: 905591a99 3a88f68da
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Fri Jul 1 17:54:24 2022 +0800
+
+    Merge pull request #145 from hustjieke/feat_update_bug_issue_template
+    
+    Feat update bug issue template
+
+commit 3a88f68da0af6bb296d2b49ad26e836ffdfb66dd
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Fri Jul 1 17:45:45 2022 +0800
+
+    feat(github): update bug report issue template (#144)
+
+commit 905591a9992647cde2e05149b936087289f55cfa
+Author: RingsC <hom.lee@hotmail.com>
+Date:   Fri Jul 1 16:51:11 2022 +0800
+
+    feat(stonedb): To improve the code readbility #133 (#136)
+    
+    * feat(stoned): To improve the code readbility, it's a subtask of (#11), #133
+    The changes in directories as following:
+    1: vc
+    2: core
+    3: handler
+    4: loader
+
+commit 798d6c5ebcccb67f8d64373865f7cd41e61bad47
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Fri Jul 1 14:42:50 2022 +0800
+
+    fix(github): ci/cd not can't trigger normally (#138) (#139)
+
+commit 04aaf922d1ef8e13381dcec29576248797873a81
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Thu Jun 30 23:12:08 2022 +0800
+
+    feat(README): add contents and fix typos (#134) (#135)
+
+commit 7b7609f52181561ea9fb899e1c37e333fb76c4c8
+Author: Yuting <34496563+Nliver@users.noreply.github.com>
+Date:   Wed Jun 29 23:38:15 2022 +0800
+
+    ✨ feat(update Readme docs): fixes #128 (#129)
+    
+    Update the picture of architecture
+
+commit 227287f2a2eabd74fd4455dcec177233bff864b7
+Author: andy <zhiangli029@gmail.com>
+Date:   Wed Jun 29 10:31:40 2022 +0800
+
+    fix(.github): fix link about docs in the general_question.md. #122
+
+commit 821b7b33a62b2533610f9f85bfd943c32ae614fc
+Author: Yuting <34496563+Nliver@users.noreply.github.com>
+Date:   Tue Jun 28 21:12:40 2022 +0800
+
+    feat(stonedb): add Readme docs (#115) (#121)
+    
+    feat(stonedb): add Readme docs (#115)
+
+commit 3ba8441426cbe8205daae43743d03c4b470bc23a
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Tue Jun 28 20:59:41 2022 +0800
+
+    feat(scripts): change stonedb cnf (#117) (#120)
+    
+    * feat(scripts): change stonedb.cnf to my.cnf (#117)
+
+commit 841a8c86aab72eb7b3f525afc2702d64cd525181
+Author: Yuting <34496563+Nliver@users.noreply.github.com>
+Date:   Tue Jun 28 20:45:25 2022 +0800
+
+    📃 docs(Update StoneDB docs): (#82) (#83)
+
+commit ee6139e9cefe1ca94d692ad314050beb2b1978c8
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Tue Jun 28 20:36:44 2022 +0800
+
+    typo(.*): fix typos (#118) (#119)
+    
+    * typo(.*): fix typos (#118)
+
+commit 3f6414fefac5880aec652af02fee35746d4c55b9
+Author: HongXing <63028664+zhx8817@users.noreply.github.com>
+Date:   Tue Jun 28 16:59:01 2022 +0800
+
+    fix:license PROPRIETARY->GPL (#116)
+    
+    Co-authored-by: zhx <zhx>
+
+commit 8e0ed744735343a2d94a1677db8001aa086086ec
+Author: cxd <34465107+DandreChen@users.noreply.github.com>
+Date:   Tue Jun 28 16:48:42 2022 +0800
+
+    feat(stonedb): add strict_all_tables for sql_mode(#112) (#114)
+
+commit e20db9f38b654c55dd14362a266653cc1dfa9712
+Author: LiHongjian <106147765+konghaiya@users.noreply.github.com>
+Date:   Mon Jun 27 14:39:04 2022 +0800
+
+    feat(stonedb): Header file format standardization (#36) (#105)
+    
+    * feat(stonedb): Header file format standardization (#36)
+
+commit 1ad95c32ae22f7b9e9f7344562643ae5d292d700
+Author: CodingSuen <69141572+CodingSuen@users.noreply.github.com>
+Date:   Fri Jun 24 19:06:37 2022 +0800
+
+    feat(github): add mtr test in cicd workflow (#19) (#85)
+    
+    * feat(github) Create integration-compile-mtr.yml #19
+
+commit 02d77ac0ea158be4ae91c4b63645056324cb7967
+Author: CodingSuen <69141572+CodingSuen@users.noreply.github.com>
+Date:   Thu Jun 23 16:43:20 2022 +0800
+
+    feat(github) Create integration-compile-mtr.yml #19 (#77)
+    
+    Signed-off-by: CodingSuen <xavier.suen@outlook.com>
+
+commit 411b19dcda2adb2e262413e78b6e89135d18dc4a
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Wed Jun 22 11:10:18 2022 +0800
+
+    fix(mtr): fix 2 test cases with subquery sql failed #78 (#79)
+    
+    The option maybe reduce the performance.
+
+commit 4ff00ea40e12f6f66c8fe417a571899f157fe423
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Tue Jun 21 19:06:22 2022 +0800
+
+    fix(mtr): backport bug for run mtr failed under low version perl (#73) (#74)
+    
+    [summary]
+    Change is needed in MySQL 5.6 and 5.7 as well.
+    
+    Signed-off-by: hustjieke <gaoriyao1@gmail.com>
+
+commit d3913129c08cef61dceafd5f161aad30554e3101
+Author: litaihong <79444526+lylth@users.noreply.github.com>
+Date:   Mon Jun 20 21:06:24 2022 +0800
+
+    upgrade(index): Add the code for upgrading rocksdb-4.13 to rocksdb-6.12.6.(#10) (#69)
+    
+    * Add the code for upgrading rocksdb-4.13 to rocksdb-6.12.6
+
+commit ca356ed2059ef85a41b34dd1b41a54886f11fe4a
+Author: RingsC <hom.lee@hotmail.com>
+Date:   Mon Jun 20 18:56:22 2022 +0800
+
+    fix(stonedb): fix build failed with c++1z. (#64)
+    
+    * fix(stonedb): fix build failed with c++1z.
+    including:
+          1:Removes the USE_CXX11 option from CMakeList, in fact, we use a lot of c++17 features in our code.
+            therefore, the USE_CXX11 is not used anymore.
+          2:Adds the missing header file.
+
+commit 48547ae08f98c08569eaa3c801a1f884ea0ce909
+Author: RingsC <hom.lee@hotmail.com>
+Date:   Sun Jun 19 09:30:55 2022 +0800
+
+    feat(stonedb): Improve the readability of stonedb(#11) (#27)
+    
+    * Improve the readility of Code, which is a part of (#11)
+    Including:
+    1: The variables naming, Using the meaningful name.
+    2: To make the functions be more readable.
+    3: Changes the way of getting rocksdb::Status
+
+commit 81e74e9bf9efc814780038d8c4b6b9f485c06af1
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Sat Jun 18 22:18:52 2022 +0800
+
+    feat(github): improve pull request template (#25) (#26)
+
+commit 4dc27fb480c7f07e88a354a3c7c4ed8f933fd39f
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Sat Jun 18 10:56:42 2022 +0800
+
+    fix(scripts): fix binlog.index not found when execute install.sh (#22)
+
+commit 238e36d6e5185ac26ee0e0d978abe4e6e7dbf395
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Wed Jun 15 12:14:24 2022 +0800
+
+    feat(stonedb): formate code with clang-format (#7)
+
+commit acbd7bde740045276398576889b46e4c6d3dc862
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Tue Jun 14 00:21:32 2022 +0800
+
+    feat(github): add pull request template (#5)
+
+commit 5e4156b60c9571e17ea403f9c8092694d450e834
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Fri Jun 10 19:18:37 2022 +0800
+
+    feat(github): add issue template (#3)
+
+commit b872b63dbc60615ebdbc0ea90d4985dcc4aedc17
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Fri Jun 10 15:11:27 2022 +0800
+
+    feat(stonedb): init code(#1)
+
+commit 6dd49da48d6329204abe2f8b72c220f828ec6ff7
+Author: hustjieke <gaoriyao1@gmail.com>
+Date:   Thu Jun 9 09:10:29 2022 +0800
+
+    Initial commit
